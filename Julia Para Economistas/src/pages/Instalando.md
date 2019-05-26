@@ -1,4 +1,4 @@
-@def title = "Primeiros Passos"
+@def title = "Instalando"
 
 # Instalação e IDEs
 
@@ -75,3 +75,4 @@ add Optim
 backspace #(isso não vai gerar nada além da mudança de package> para julia>)
 using Optim
 ```
+Tendo instalado o Julia, um IDE e sabendo instalar pacotes, podemos seguir adiante.

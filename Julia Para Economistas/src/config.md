@@ -3,6 +3,8 @@ Add here global page variables to use throughout your
 website.
 ------------------------------------------------------->
 @def author = "Daniel Coutinho"
+@def hasmath = true
+@def hascode = true
 
 <!-----------------------------------------------------
 Add here global latex commands to use throughout your

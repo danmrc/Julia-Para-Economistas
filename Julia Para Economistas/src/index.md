@@ -1,11 +1,12 @@
 @def title = "Julia para Economistas"
-@def hasmath = true
-@def hascode = true
+
 <!-- Note: by default hasmath == true and hascode == false. You can change this in
 the config file by setting hasmath = false for instance and just setting it to true
 where appropriate -->
 
-Esse é um pequeno manual sobre a linguagem de programação Julia, voltado em especial para os economistas - mas se você é de outra área e tem interesse em aprender a linguagem esse manual pode ser útil! Você pode acessar os capítulos deste manual clicando nas três linhas horizontais no canto superior esquerdo. Esse manual foi escrito e gerado usando o Julia.
+**Ainda em construção, muitas coisas serão adicionadas e mudadas!**
+
+Esse é um pequeno manual sobre a linguagem de programação Julia, voltado em especial para os economistas - mas se você é de outra área e tem interesse em aprender a linguagem esse manual pode ser útil! Você pode acessar os capítulos deste manual no menu ao lado. Esse manual foi escrito e gerado usando o Julia.
 
 Se você sabe ler em inglês eu sugiro fortemente checar o [quant.econ.net](https://lectures.quantecon.org/jl/), do Thomas Sargent, John Starchurski e Jesse Perla. Esse manual pode ser visto como uma versão piorada do quant.econ. Mas imitação é a maior forma de admiração (pelo que me falaram).
 
@@ -19,7 +20,7 @@ O resto dessa página é dedicado a explicar 1. porque você deveria investir em
 
 Economistas não são cientistas nem engenheiros da computação. Alguns economistas não são grandes fãs de programação. Entretanto, saber programar é realmente útil para os economistas - e um economista que sabe programar, mesmo mediocremente, tem uma vantagem comparativa.
 
-A necessidade de saber programar se deve ao fato de que _muitos_ problemas interessantes não tem solução analítica: eles só podem ser resolvidos com um computador. A matemática nos diz que o problema tem solução e às vezes é generosa o suficiente para dizer que a solução é única. Mas não é incomum problemas realmente interessantes não terem solução analítica. Isso não é restrito apenas a economia: na física, existe solução analítica para a interação de dois objetos no espaço usando as leis de Newton, [_mas não para mais do que dois_](https://en.wikipedia.org/wiki/Three-body_problem)^{1}
+A necessidade de saber programar se deve ao fato de que _muitos_ problemas interessantes não tem solução analítica: eles só podem ser resolvidos com um computador. A matemática nos diz que o problema tem solução e às vezes é generosa o suficiente para dizer que a solução é única. Mas não é incomum problemas realmente interessantes não terem solução analítica. Isso não é restrito apenas a economia: na física, existe solução analítica para a interação de dois objetos no espaço usando as leis de Newton, [_mas não para mais do que dois_](https://en.wikipedia.org/wiki/Three-body_problem)~~~<a href="#note1" id="note1ref"><sup>1</sup></a>~~~
 
 Isso é verdade também em economia. Um problema extremamente interessante e central em economia é o problema de um consumidor que tem que escolher, a cada período, o quanto poupar e o quanto consumir. Em geral ele recebe uma renda estocástica ou opera uma função de produção com uma tecnologia sujeita a choques e acumula um ativo livre de risco ou capital. O agente vive "infinito", o que pode ter várias interpretações. Esse é um problema de _programação dinâmica_. Tirando alguns casos particulares - preferências logaritmas, função de produção Cobb Douglas e depreciação 100% do capital - o problema não tem solução analítica. Mas devido as caracterísiticas do problema existem alguns algoritmos que dão uma resposta aproximada de qual é a decisão ótima do agente.
 
@@ -44,4 +45,6 @@ Obviamente, o Julia não é perfeito. Eis alguns problemas do Julia:
 
 Eu não posso deixar de observar que o ponto 2 pode ser uma _qualidade_. Não usar soluções "enlatadas" (implementadas por outras pessoas) e implementar você mesmo acaba te fazendo entender o que o algoritmo faz (talvez seja a _única_ maneira de _realmente entender_ um algoritmo). Entretanto, isso é uma questão de gosto: muitos economistas acham a parte numérica chata e não são piores economistas por isso.
 
-[^1]: Infelizmente a página em português do tema são 3 linhas
+~~~
+<a id="note1" href="#note1ref"><sup>1</sup></a>Infelizmente a página em português do tema são 3 linhas.
+~~~
