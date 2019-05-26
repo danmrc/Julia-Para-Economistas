@@ -2,7 +2,7 @@
 Add here global page variables to use throughout your
 website.
 ------------------------------------------------------->
-@def author = "Septimia Zenobia"
+@def author = "Daniel Coutinho"
 
 <!-----------------------------------------------------
 Add here global latex commands to use throughout your
