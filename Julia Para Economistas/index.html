@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+   <!-- Un-minified script so that can play a bit -->
+<link rel="stylesheet" href="/libs/katex/katex.min.css">
+   
+   <!-- Syntax highlighting via Prism, note: restricted langs -->
+<link rel="stylesheet" href="/libs/highlight/github.min.css">
+   
+
+  <link href="/css/judoc.css" rel="stylesheet">
+  <link href="/css/vela.css" rel="stylesheet">
+  <script src="/libs/vela/jquery.min.js"></script>
+
+  <link rel="icon" href="/assets/infra/favicon.png">
+
+  <title>JuDoc Example | Vela</title>
+</head>
+<body>
+  <div class="main-nav" id="menu">
+    <div class="flex-container">
+      <span class="sidebar-brand">
+        <h3 style='font-size: 25px'>Vela Template</h3>
+      </span>
+    </div> <!-- class="flex-container" -->
+
+    <nav class="sidebar-nav">
+      <ul class="metismenu"  id="metismenu" >
+        <li><a href="/index.html">Home</a></li>
+        <li><a href="/pub/menu1.html">Menu 1</a></li>
+        <li><a href="" class="has-arrow">Topic</a>
+          <ul>
+            <li><a href="/pub/menu2.html">Menu 2</a></li>
+          </ul>
+        </li>
+        <li><a href="/pub/menu3.html">Menu 3</a></li>
+      </ul>
+    </nav>
+  </div> <!-- main nav menu -->
+
+  <main id="panel">
+    <div class="toggle-button hamburger hamburger--spin">
+      <div class="hamburger-box">
+        <div class="hamburger-inner"></div>
+      </div>
+    </div>
+    <h1 class="page title">Julia para Economistas</h1>
+    <hr>
+
+
+<!-- Content appended here -->
+
+<div class="jd-content">
+<p>Esse é um pequeno manual sobre a linguagem de programação Julia, voltado em especial para os economistas - mas se você é de outra área e tem interesse em aprender a linguagem esse manual pode ser útil&#33; Você pode acessar os capítulos deste manual clicando nas três linhas horizontais no canto superior esquerdo. Esse manual foi escrito e gerado usando o Julia.</p>
+<p>Se você sabe ler em inglês eu sugiro fortemente checar o <a href="https://lectures.quantecon.org/jl/">quant.econ.net</a>, do Thomas Sargent, John Starchurski e Jesse Perla. Esse manual pode ser visto como uma versão piorada do quant.econ. Mas imitação é a maior forma de admiração &#40;pelo que me falaram&#41;.</p>
+<p>Os exemplos do manual são mais voltados para resolver problemas numéricos &#40;em economia&#41;. Eu não vou tocar em como fazer estatística usando o Julia por falta de experiência e porque a minha opinião é de que não é a vantagem comparativa do Julia. Em compensação, para a solução de problemas numéricos o Julia é &#40;quase&#41; imbatível. Mais sobre isso abaixo.</p>
+<p>Esse manual deve muito as seguintes pessoas: Pedro Cavalcante foi o primeiro a sugerir &#40;e insistir&#41; que eu deveria fazer um manual sobre como usar o Julia;</p>
+<p>O resto dessa página é dedicado a explicar 1. porque você deveria investir em uma linguagem de programação enquanto economista 2. porque ela deveria ser o Julia. Se você já está convencido dessas duas coisas, vá para a próxima página. Boa leitura&#33;</p>
+<h2>O imperativo dos métodos numéricos &#40;Ou por que economistas devem saber programar?&#41;</h2>
+<p>Economistas não são cientistas nem engenheiros da computação. Alguns economistas não são grandes fãs de programação. Entretanto, saber programar é realmente útil para os economistas - e um economista que sabe programar, mesmo mediocremente, tem uma vantagem comparativa.</p>
+<p>A necessidade de saber programar se deve ao fato de que <em>muitos</em> problemas interessantes não tem solução analítica: eles só podem ser resolvidos com um computador. A matemática nos diz que o problema tem solução e às vezes é generosa o suficiente para dizer que a solução é única. Mas não é incomum problemas realmente interessantes não terem solução analítica. Isso não é restrito apenas a economia: na física, existe solução analítica para a interação de dois objetos no espaço usando as leis de Newton, <a href="https://en.wikipedia.org/wiki/Three-body_problem"><em>mas não para mais do que dois</em></a>^&#91;Infelizmente a página em português do tema são 3 linhas&#93;.</p>
+<p>Isso é verdade também em economia. Um problema extremamente interessante e central em economia é o problema de um consumidor que tem que escolher, a cada período, o quanto poupar e o quanto consumir. Em geral ele recebe uma renda estocástica ou opera uma função de produção com uma tecnologia sujeita a choques e acumula um ativo livre de risco ou capital. O agente vive &quot;infinito&quot;, o que pode ter várias interpretações. Esse é um problema de <em>programação dinâmica</em>. Tirando alguns casos particulares - preferências logaritmas, função de produção Cobb Douglas e depreciação 100&#37; do capital - o problema não tem solução analítica. Mas devido as caracterísiticas do problema existem alguns algoritmos que dão uma resposta aproximada de qual é a decisão ótima do agente.</p>
+<p>O problema de programação dinâmica é extremamente geral e aparece em todo tipo de área em economia: finanças, macroeconomia são dois exemplo óbvios, mas problemas de uso ótimo de recursos &#40;naturais, por exemplo&#41; podem ser expressos como problemas de programação dinâmica. E esse é apenas um problema em que temos que usar o computador. Vários livros tratam sobre problemas numéricos em economia.</p>
+<h2>Por que aprender o Julia?</h2>
+<p>Existem uma centena de outras linguagens de programação. Por que gastar o seu tempo - um recurso escasso -  aprendendo o Julia e não outra linguagem?</p>
+<ol>
+<li><p>O Julia é de graça - ao contrário do Matlab, por exemplo. Essa vantagem não precisa de nenhuma explicação.</p>
+</li>
+<li><p>O Julia é livre - qualquer um pode abrir o código do Julia e inspecionar o que ele está fazendo exatamente &#40;ao contrário do Matlab&#41;.</p>
+</li>
+<li><p>O Julia é muito rápido - em alguns casos mais rápido do que o Matlab. Os criadores do Julia dizem que um código totalmente otimizado em Julia é tão rápido quanto em C. &#40;Mas veja aqui porque algumas vezes a sensação é de que o Julia é extremamente lento&#41;</p>
+</li>
+<li><p>É bem mais fácil de aprender Julia do que C ou Fortran.</p>
+</li>
+</ol>
+<p>Julia alia duas características importantes: velocidade de execução e facilidade de aprendizado. Durante muito tempo existiam linguagens rápida &#40;C,C&#43;&#43;,Fortran&#41; e linguagens fáceis de aprender &#40;R, Python&#41;.</p>
+<p>Obviamente, o Julia não é perfeito. Eis alguns problemas do Julia:</p>
+<ol>
+<li><p>Algumas vezes a velocidade de execução dele é menor que a dos concorrentes. Eu explico o motivo exato disso mais para frente no manual.</p>
+</li>
+<li><p>O Julia ainda é uma linguagem muito nova, então outras linguagens tem um ecosistema de pacotes, scripts e ambientes de desenvolvimento já bem estabelecidos. Não há nada próximo de um RStudio para Jula. Entretanto, com o tempo o Julia pode ganhar essas mesmas coisas.</p>
+</li>
+<li><p>O Julia não é tão geral quanto o Python &#40;que serve como pedaço essencial de sistemas operacionais até manter o facebook e computação científica&#41; ou Java</p>
+</li>
+</ol>
+<p>Eu não posso deixar de observar que o ponto 2 pode ser uma <em>qualidade</em>. Não usar soluções &quot;enlatadas&quot; &#40;implementadas por outras pessoas&#41; e implementar você mesmo acaba te fazendo entender o que o algoritmo faz &#40;talvez seja a <em>única</em> maneira de <em>realmente entender</em> um algoritmo&#41;. Entretanto, isso é uma questão de gosto: muitos economistas acham a parte numérica chata e não são piores economistas por isso. </p>
+
+<div class="page-foot">
+  <div class="copyright">
+    &copy; Septimia Zenobia. Last modified: May 26, 2019. Website built with <a href="https://github.com/tlienart/JuDoc.jl">JuDoc.jl</a>.
+  </div>
+</div>
+
+</div>
+<!-- CONTENT ENDS HERE -->
+  </main> <!-- end of id=main -->
+  <script src="/libs/vela/metisMenu.min.js"></script>
+  <script src="/libs/vela/slideout.min.js"></script>
+  
+    <script src="/libs/katex/katex.min.js"></script>
+<script src="/libs/katex/auto-render.min.js"></script>
+<script>renderMathInElement(document.body)</script>
+
+  
+  
+    <script src="/libs/highlight/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();hljs.configure({tabReplace: '    '});</script>
+
+  
+</body>
+</html>
