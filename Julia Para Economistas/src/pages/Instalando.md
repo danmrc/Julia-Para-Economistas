@@ -2,7 +2,7 @@
 
 # Instalação e IDEs
 
-Você pode usar o Julia online via o [JuliaBox](https://www.juliabox.com/) [ou baixar o Julia](https://julialang.org/downloads/). O Julia está disponível para basicamente qualquer sistema operacional (Windows, Mac e uma infinidade de distribuições de Linux). Eu recomendo baixar e instalar. Se você estiver utilizando uma distribuição de Linux você também pode ir no gerenciador de pacotes e baixar por lá. A instalação é sem surpresas.
+Você pode usar o Julia online via o [JuliaBox](https://www.juliabox.com/) ou [baixar o Julia](https://julialang.org/downloads/). O Julia está disponível para basicamente qualquer sistema operacional (Windows, Mac e uma infinidade de distribuições de Linux). Eu recomendo baixar e instalar. Se você estiver utilizando uma distribuição de Linux você também pode ir no gerenciador de pacotes e baixar por lá. A instalação é sem surpresas.
 
 Uma vez instalado você pode usar o Julia direto do console, mas essa opção é sempre restritiva (além de ser feio). Existem vários ambientes de desenvolvimento (IDEs, _Integrated Developmnet Enviroment_) para o Julia. Em particular:
 
@@ -65,7 +65,7 @@ Para instalar os pacotes:
 2. Digite `add nome-do-pacote`
 3. Quando terminar, para voltar para o modo normal do Julia, aperte backspace
 
-Para carregar um pcote instalado, digite `using nome-do-pacote`
+Para carregar um pacote instalado, digite `using nome-do-pacote`
 
 Por exemplo, para instalar o pacote _Optim_, fariamos:
 

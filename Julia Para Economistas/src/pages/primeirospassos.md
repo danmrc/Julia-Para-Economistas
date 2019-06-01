@@ -68,7 +68,7 @@ Fariamos:
 A = [1 2; 3 4]
 ```
 
-Se quisermos mudar um único elemento na matriz A, podemos usar a indexação usando colchete  e o igual. Por exemplo, vamos mudar o elemento 2 da matriz A (correspondente a posição [1,2]) para zero.
+Se quisermos mudar um único elemento na matriz A, podemos usar a indexação usando colchete e o igual. Por exemplo, vamos mudar o elemento 2 da matriz A (correspondente a posição [1,2]) para zero.
 
 ```julia
 
@@ -130,9 +130,33 @@ aa[2:3] .= 0 #Atenção para o ponto antes do igual
 
 Muitas vezes queremos usar sequências de números para uma variedade de coisas. Em muitos problemas, estabelecemos um grid de pontos que servem como "base" para resolver problemas interessantes. Temos várias maneiras de fazer isso no Julia.
 
-Para criar uma sequência de inteiros, podemos fazer `a:b`, e isso vai gerar uma sequência de todos os inteiros entre a e b. Veja que nós podemos usar números decimais(ex.: `1.5:3.5`) e nós vamos obter a sequência $(1.5, 2.5,3.5)$. Um problema com esse tipo de coisa é que se tentarmos fazer `0.5:0.7`, isso vai nos retornar um único elemento, $0.5$. O próximo elemento da lista seria $1.5$, mas estamos colocando o fim em 0.7
+Para criar uma sequência de inteiros, podemos fazer `a:b`, e isso vai gerar uma sequência de todos os inteiros entre a e b. Veja que nós podemos usar números decimais(ex.: `1.5:3.5`) e nós vamos obter a sequência $(1.5, 2.5,3.5)$. Um problema com esse tipo de coisa é que se tentarmos fazer `0.5:0.7`, isso vai nos retornar um único elemento, $0.5$. O próximo elemento da lista seria $1.5$, mas estamos colocando o fim em 0.7.
 
+Uma maneira de construir sequências com um "passo" de qualquert amanho é usando `a:passo:b`, onde a é o número de ínicio e b é o número final. Então, se quisermos construir uma sequência de 0.5 a 0.7 que cresce 0.1 a cada posição deo vetor, fariamos `0.5:0.1:0.7`. Podemos também fazer sequências que decrescente, por exemplo `1:-0.1:0`vai criar uma sequência decrescente de 0 a 1.
 
+A função `range` permite fazer as mesmas coisas. Segue uma série de exemplos:
+
+```julia
+
+range(0,1,step = 0.5)
+range(0,1,step = -0.1)
+range(1,10,step = 1)
+
+```
+
+Veja que isso vai imprimir exatamente um `a:passo:b`. O range é mais útil porque ele permite com que você crie uma sequência dando o valor de início e de fim e o tamanho da sequência. Por exemplo, para gerar uma sequência que vaide 0 a 1 com 100 elementos, basta digitar `range(0,1,length=100)`. Observe que isso vai gerar um `a:passo:b`, ou seja, no fim tudo se resume a mesma interface, mas com diferentes formas de acessar.
+
+Um comportamento curioso do Julia é que ele não gera um vetor quando criamos um objeto usando as funções acima, mas podemos acessar e trabalhar com ele como se fosse um vetor:
+
+```julia
+
+aa = 0:0.1:1
+aa[2]
+bb = aa[1:5]
+
+```
+
+O `aa[2]` deve te retornar 0.1, enquanto o vetor `bb` deve conter os números $(0,0.1,0.2,0.3,0.4)$. Apesar disso, veja que você pode passar números para um vetor já inicializado. 
 
 ## O quão rápido o Julia realmente é?
 
