@@ -27,7 +27,7 @@ E agora podemos acessar o `primeiro_obj` e ver que ele é simplesmente 5 colunas
 segundo_obj = randn(5,2,3)
 ```
 
-Vamos acessar o primeiro elemento de cada dimensão dos dois objetos. Para isso, usamos o colchetes (como no R):
+Vamos acessar o primeiro elemento de cada dimensão dos dois objetos. Para isso, usamos o colchetes (como no R) e o primeiro elemento é 1, não 0 (atenção usuários de Python!):
 
 ```julia
 
@@ -96,7 +96,7 @@ u(1,1,0.5)
 
 ## Operadores
 
-O Julia, como quase toda linguagem de programação, tem alguns operadores pré definidos que fazem exatamente o que esperamos que eles façam. Por exemplo, + soma dois objetos, se isso for possível (não podemos somar um número com uma matriz). Subtração (-), multiplicação (*), divisão (/) exponenciação (^) são outros operadores comuns. Além disso, podemos querer testar igualdade e relações de ordem - maior e menor, por exemplo. Igualdade é testada com `==`. Logo `1 == 1` retorna `true` e `1 == 2` retorna `false`. $>$ e $<$ testam relações de ordem.
+O Julia, como quase toda linguagem de programação, tem alguns operadores pré definidos que fazem exatamente o que esperamos que eles façam. Por exemplo, + soma dois objetos, se isso for possível (não podemos somar um número com uma matriz). Subtração (-), multiplicação (*), divisão (/) exponenciação (^) são outros operadores comuns. Além disso, podemos querer testar igualdade e relações de ordem - maior e menor, por exemplo. Igualdade é testada com `==`. Logo `1 == 1` retorna `true` e `1 == 2` retorna `false` (e agora você também sabe como é verdadeiro e falso no Julia). $>$ e $<$ testam relações de ordem.
 
 ## Vetorizando qualquer coisa
 
@@ -112,3 +112,22 @@ A beleza do Julia é que essa notação de ponto _funciona para qualquer coisa_.
 x = range(0.1,10,length=100)
 u.(x,1,0.5)
 ```
+Podemos usar isso para designação também. Crie um vetor `aa` contendo 1,2 e 3:
+
+```julia
+aa = [1 2 3]
+```
+
+Agora suponha que queremos mudar o 2 e o 3 (que convenientemente estão na posição 2 e 3) para 0. Basta fazer:
+
+```julia
+
+aa[2:3] .= 0 #Atenção para o ponto antes do igual
+
+```
+
+## O quão rápido o Julia realmente é?
+
+Uma coisa frustrante nas primeiras vezes que se usa o Julia é a sensação que ele é mais lento que linguagens como R ou Python. O primeiro exemplo pode não sair instantaneamente, apesar de ser uma conta trivial. Como o Julia é mais rápido se nem um 2+2 ele é rápido?
+
+Parte da resposta se deve a maneira como o Julia procede, que é diferente da maneira como o Python procede. Isso faz com que códigos pequenos (por exemplo, 2+2), seja relativamente lento, mas códigos grandes sejam mais rápido.
