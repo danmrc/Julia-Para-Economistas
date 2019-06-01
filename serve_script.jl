@@ -2,4 +2,4 @@ cd("C:\\Users\\User\\Documents\\GitHub\\Julia-Para-Economistas\\Julia Para Econo
 
 using JuDoc
 
-serve()
+serve(head = "head_local.html")

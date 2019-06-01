@@ -1,4 +1,4 @@
-@def title = "Primeiros passos"
+x@def title = "Primeiros passos"
 @def hascode = true
 @def hasmath = true
 
@@ -15,7 +15,7 @@ Isso deve te retornar 4. Obviamente essa não é a maior utilidade do Julia.
 
 ## Criando matrizes e arrays
 
-Vamos começar construindo e acessando matrizes e arrays. Isso vai nos mostrar várias coisas da linguagem. Arrays são matrizes com mais de duas dimensões - ou melhor dizendo, matrizes são arrays de 2 dimensões. O Julia não tem nenhum problema em gerar arrays com números arbitrários de dimensões. Vamos gerar uma matriz de zeros:
+Vamos começar construindo e acessando matrizes e arrays. Isso vai nos mostrar várias coisas da linguagem. Arrays (os matemáticos chamam de tensores, aparentemente) são matrizes com mais de duas dimensões - ou melhor dizendo, matrizes são arrays de 2 dimensões. O Julia não tem nenhum problema em gerar arrays com números arbitrários de dimensões. Vamos gerar uma matriz de zeros:
 
 ```julia
 primeiro_obj = zeros(5,5)
@@ -125,6 +125,14 @@ Agora suponha que queremos mudar o 2 e o 3 (que convenientemente estão na posi�
 aa[2:3] .= 0 #Atenção para o ponto antes do igual
 
 ```
+
+## Sequências
+
+Muitas vezes queremos usar sequências de números para uma variedade de coisas. Em muitos problemas, estabelecemos um grid de pontos que servem como "base" para resolver problemas interessantes. Temos várias maneiras de fazer isso no Julia.
+
+Para criar uma sequência de inteiros, podemos fazer `a:b`, e isso vai gerar uma sequência de todos os inteiros entre a e b. Veja que nós podemos usar números decimais(ex.: `1.5:3.5`) e nós vamos obter a sequência $(1.5, 2.5,3.5)$. Um problema com esse tipo de coisa é que se tentarmos fazer `0.5:0.7`, isso vai nos retornar um único elemento, $0.5$. O próximo elemento da lista seria $1.5$, mas estamos colocando o fim em 0.7
+
+
 
 ## O quão rápido o Julia realmente é?
 

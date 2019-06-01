@@ -34,7 +34,7 @@
           <li class="pure-menu-item "><a href="/Julia-Para-Economistas" class="pure-menu-link">Home</a></li>
           <li class="pure-menu-item "><a href="/Julia-Para-Economistas/Instalando.html" class="pure-menu-link">Instalando</a></li>
           <li class="pure-menu-item "><a href="/Julia-Para-Economistas/primeirospassos.html" class="pure-menu-link">Primeiros Passos</a></li>
-          <li class="pure-menu-item "><a href="/pub/menu3.html" class="pure-menu-link">Menu 3</a></li>
+          <li class="pure-menu-item "><a href="/Julia-Para-Economistas/Controledefluxo.html" class="pure-menu-link">Fors, Ifs, Whiles</a></li>
         </ul>
       </div>
     </div>
@@ -47,19 +47,19 @@
 <!-- Content appended here -->
 
 <div class="jd-content">
-<p>Tendo instalado o Julia e um IDE, vamos dar os primeiros passos para usar a linguagem.</p>
+<p>x Tendo instalado o Julia e um IDE, vamos dar os primeiros passos para usar a linguagem.</p>
 <p>A primeira coisa é que podemos usar o Julia como uma grande calculadora:</p>
 <pre><code class=julia>2+2
 </code></pre>
 <p>Isso deve te retornar 4. Obviamente essa não é a maior utilidade do Julia.</p>
 <h2>Criando matrizes e arrays</h2>
-<p>Vamos começar construindo e acessando matrizes e arrays. Isso vai nos mostrar várias coisas da linguagem. Arrays são matrizes com mais de duas dimensões - ou melhor dizendo, matrizes são arrays de 2 dimensões. O Julia não tem nenhum problema em gerar arrays com números arbitrários de dimensões. Vamos gerar uma matriz de zeros:</p>
+<p>Vamos começar construindo e acessando matrizes e arrays. Isso vai nos mostrar várias coisas da linguagem. Arrays &#40;os matemáticos chamam de tensores, aparentemente&#41; são matrizes com mais de duas dimensões - ou melhor dizendo, matrizes são arrays de 2 dimensões. O Julia não tem nenhum problema em gerar arrays com números arbitrários de dimensões. Vamos gerar uma matriz de zeros:</p>
 <pre><code class=julia>primeiro_obj = zeros(5,5)
 </code></pre>
 <p>E agora podemos acessar o <code>primeiro_obj</code> e ver que ele é simplesmente 5 colunas e 5 linhas de zero. Veja que para dar nome a um objeto no Julia usamos o sinal de igualdade. Vamos continuar brincando, mas dessa vez eu vou gerar um array de <em>três</em> dimensões com números sorteados da distribuição normal &#40;0,1&#41; &#40;números aleatórios&#41;:</p>
 <pre><code class=julia>segundo_obj = randn(5,2,3)
 </code></pre>
-<p>Vamos acessar o primeiro elemento de cada dimensão dos dois objetos. Para isso, usamos o colchetes &#40;como no R&#41;:</p>
+<p>Vamos acessar o primeiro elemento de cada dimensão dos dois objetos. Para isso, usamos o colchetes &#40;como no R&#41; e o primeiro elemento é 1, não 0 &#40;atenção usuários de Python&#33;&#41;:</p>
 <pre><code class=julia>primeiro_obj[1,1]
 segundo_obj[1,1,1]
 </code></pre>
@@ -95,7 +95,7 @@ segundo_obj[1,1,1]
 
 </code></pre>
 <h2>Operadores</h2>
-<p>O Julia, como quase toda linguagem de programação, tem alguns operadores pré definidos que fazem exatamente o que esperamos que eles façam. Por exemplo, &#43; soma dois objetos, se isso for possível &#40;não podemos somar um número com uma matriz&#41;. Subtração &#40;-&#41;, multiplicação &#40;*&#41;, divisão &#40;/&#41; exponenciação &#40;^&#41; são outros operadores comuns. Além disso, podemos querer testar igualdade e relações de ordem - maior e menor, por exemplo. Igualdade é testada com <code>&#61;&#61;</code>. Logo <code>1 &#61;&#61; 1</code> retorna <code>true</code> e <code>1 &#61;&#61; 2</code> retorna <code>false</code>. \(>\) e \(<\) testam relações de ordem.</p>
+<p>O Julia, como quase toda linguagem de programação, tem alguns operadores pré definidos que fazem exatamente o que esperamos que eles façam. Por exemplo, &#43; soma dois objetos, se isso for possível &#40;não podemos somar um número com uma matriz&#41;. Subtração &#40;-&#41;, multiplicação &#40;*&#41;, divisão &#40;/&#41; exponenciação &#40;^&#41; são outros operadores comuns. Além disso, podemos querer testar igualdade e relações de ordem - maior e menor, por exemplo. Igualdade é testada com <code>&#61;&#61;</code>. Logo <code>1 &#61;&#61; 1</code> retorna <code>true</code> e <code>1 &#61;&#61; 2</code> retorna <code>false</code> &#40;e agora você também sabe como é verdadeiro e falso no Julia&#41;. \(>\) e \(<\) testam relações de ordem.</p>
 <h2>Vetorizando qualquer coisa</h2>
 <p>Uma das melhores coisas do Julia é a vetorização. É melhor explicar isso com um exemplo: suponha que você tem um vetor qualquer <code>v</code>. Você quer somar 1 em todas as entradas do vetor. Uma maneira de fazer isso é criar um vetor de 1 da mesma dimensão de <code>v</code> e somar. A outra é simplesmente usar o <code>.&#43;</code>, literalmente um ponto e o sinal de adição:</p>
 <pre><code class=julia>1 .+ v
@@ -103,11 +103,23 @@ segundo_obj[1,1,1]
 <p>A beleza do Julia é que essa notação de ponto <em>funciona para qualquer coisa</em>. se você quer calcular a utilidade Cobb Douglas para cestas de consumo que variam em x e permanecem fixas em y &#40;por exemplo, x indo de 0.1 a 10 e y &#61; 1&#41; sempre, bastaria usar a função definida no tópico anterior e:</p>
 <pre><code class=julia>x = range(0.1,10,length=100)
 u.(x,1,0.5)
-</code></pre></p>
+</code></pre> Podemos usar isso para designação também. Crie um vetor <code>aa</code> contendo 1,2 e 3:</p>
+<pre><code class=julia>aa = [1 2 3]
+</code></pre>
+<p>Agora suponha que queremos mudar o 2 e o 3 &#40;que convenientemente estão na posição 2 e 3&#41; para 0. Basta fazer:</p>
+<pre><code class=julia>aa[2:3] .= 0 #Atenção para o ponto antes do igual
+
+</code></pre>
+<h2>Sequências</h2>
+<p>Muitas vezes queremos usar sequências de números para uma variedade de coisas. Em muitos problemas, estabelecemos um grid de pontos que servem como &quot;base&quot; para resolver problemas interessantes. Temos várias maneiras de fazer isso no Julia.</p>
+<p>Para criar uma sequência de inteiros, podemos fazer <code>a:b</code>, e isso vai gerar uma sequência de todos os inteiros entre a e b. Veja que nós podemos usar números decimais&#40;ex.: <code>1.5:3.5</code>&#41; e nós vamos obter a sequência \((1.5, 2.5,3.5)\). Um problema com esse tipo de coisa é que se tentarmos fazer <code>0.5:0.7</code>, isso vai nos retornar um único elemento, \(0.5\). O próximo elemento da lista seria \(1.5\), mas estamos colocando o fim em 0.7</p>
+<h2>O quão rápido o Julia realmente é?</h2>
+<p>Uma coisa frustrante nas primeiras vezes que se usa o Julia é a sensação que ele é mais lento que linguagens como R ou Python. O primeiro exemplo pode não sair instantaneamente, apesar de ser uma conta trivial. Como o Julia é mais rápido se nem um 2&#43;2 ele é rápido?</p>
+<p>Parte da resposta se deve a maneira como o Julia procede, que é diferente da maneira como o Python procede. Isso faz com que códigos pequenos &#40;por exemplo, 2&#43;2&#41;, seja relativamente lento, mas códigos grandes sejam mais rápido.</p>
 
 <div class="page-foot">
   <div class="copyright">
-    &copy; Daniel Coutinho. Last modified: May 26, 2019. Website built with <a href="https://github.com/tlienart/JuDoc.jl">JuDoc.jl</a>.
+    &copy; Daniel Coutinho. Last modified: June 01, 2019. Website built with <a href="https://github.com/tlienart/JuDoc.jl">JuDoc.jl</a>.
   </div>
 </div>
 
