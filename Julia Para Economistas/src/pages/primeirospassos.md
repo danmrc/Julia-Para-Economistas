@@ -156,7 +156,25 @@ bb = aa[1:5]
 
 ```
 
-O `aa[2]` deve te retornar 0.1, enquanto o vetor `bb` deve conter os números $(0,0.1,0.2,0.3,0.4)$. Apesar disso, veja que você pode passar números para um vetor já inicializado. 
+O `aa[2]` deve te retornar 0.1, enquanto o vetor `bb` deve conter os números $(0,0.1,0.2,0.3,0.4)$. Apesar disso, veja que você pode passar números para um array já inicializado, desde que ele tenha o tamanho adequado. Por exemplo:
+
+```julia
+
+teste = zeros(100,50,2)
+teste[:,1,2] = range(0,1,length=100)
+
+```
+
+E aqui sim o array será preenchido com os números conforme esperaríamos. Veja que esse comportamento de _não_ explicitar a sequência é feito por motivos de memória. Podemos forçar o Julia a explicitar o vetor usando a função `collect`. Isso pode ser necessário algumas vezes e nos permite testar o tamanho de duas sequências, uma no formato usual e uma explicitada através do `collect`:
+
+```julia
+
+@allocated 0:0.1:1
+@allocated collect(0:0.1:1)
+
+```
+
+Isso retorna (no meu PC) os tamanhos 0 e 176,respectivamente. 
 
 ## O quão rápido o Julia realmente é?
 
