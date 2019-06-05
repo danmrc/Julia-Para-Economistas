@@ -5,6 +5,7 @@ website.
 @def author = "Daniel Coutinho"
 @def hasmath = true
 @def hascode = true
+@def prepath = "Julia-Para-Economistas"
 
 <!-----------------------------------------------------
 Add here global latex commands to use throughout your

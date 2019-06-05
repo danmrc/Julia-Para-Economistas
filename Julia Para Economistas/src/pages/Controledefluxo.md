@@ -1,9 +1,5 @@
 @def title = "Fors, ifs, whiles"
 
-\newcommand{\ngrt}{%
-  \mathrel{\ooalign{$>$\cr\hidewidth$|$\hidewidth}}%
-}
-
 Nessa página nós vamos tratar de _controle de fluxo_. Esses são comandos essenciais para construir algoritmos númericos e centrais em qualquer código. Vamos tratar dos três mais comuns: _if_, _for_ e _while_
 
 ## Como ler essa seção
@@ -38,7 +34,7 @@ Veja que se você não definir antes a variável `numero`, o Julia vai dar um er
 
 Podemos estabelecer `numero = 3` e a rotina acima deve retornar um positivo.
 
-Obviamente, neste exato momento, como $0 \ngrt 0$, o comando vai testar como falso e vai retornar que zero é negativo! Nós temos duas soluções possíveis:
+Obviamente, neste exato momento, como $0 = 0$, o comando vai testar como falso e vai retornar que zero é negativo! Nós temos duas soluções possíveis:
 
 1. Trocar o $>$ por >=. Agora testamos se 0 é maior ou igual que zero; se sim, ele retorna "positivo". Caso contrário, negativo.
 2. Nós podemos querer que, quando o número for zero, ele retorne "zero"
@@ -91,3 +87,7 @@ O `for`permite repetir algum conjunto de operações um número de vezes - por i
 A cada etapa i, o Julia tira a raiz de i `sqrt(i)` e associado o valor a posição i do vetor `bb`. Veja que uma solução muito mais simples para o mesmo problema seria fazer `bb = sqrt.(1:10)`, usando a discussão anterior de vetorizar funções e gerar sequências.
 
 Nosso exemplo acima é extremamente simples para ser ilustrativo: o _for_ é realmente útil, especialmente em simulações.
+
+## While
+
+O While é, como o for, um _loop_. A diferença é que enquanto o while...
