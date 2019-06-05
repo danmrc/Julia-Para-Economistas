@@ -1,4 +1,4 @@
-x@def title = "Primeiros passos"
+@def title = "Primeiros passos"
 @def hascode = true
 @def hasmath = true
 
@@ -174,7 +174,7 @@ E aqui sim o array será preenchido com os números conforme esperaríamos. Veja
 
 ```
 
-Isso retorna (no meu PC) os tamanhos 0 e 176,respectivamente. 
+Isso retorna (no meu PC) os tamanhos 0 e 176,respectivamente.
 
 ## O quão rápido o Julia realmente é?
 

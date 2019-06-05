@@ -12,7 +12,7 @@ Se você sabe ler em inglês eu sugiro fortemente checar o [quant.econ.net](http
 
 Os exemplos do manual são mais voltados para resolver problemas numéricos (em economia). Eu não vou tocar em como fazer estatística usando o Julia por falta de experiência e porque a minha opinião é de que não é a vantagem comparativa do Julia. Em compensação, para a solução de problemas numéricos o Julia é (quase) imbatível. Mais sobre isso abaixo.
 
-Esse manual deve muito as seguintes pessoas: Pedro Cavalcante foi o primeiro a sugerir (e insistir) que eu deveria fazer um manual sobre como usar o Julia;
+Esse manual deve muito as seguintes pessoas: Pedro Cavalcante foi o primeiro a sugerir (e insistir) que eu deveria fazer um manual sobre como usar o Julia; Thibaut Lienart, que mantém o pacote JuDoc, que foi usado para criar este site e foi extremamente solicito com a solução de bugs e extensões que este site precisou;  
 
 O resto dessa página é dedicado a explicar 1. porque você deveria investir em uma linguagem de programação enquanto economista 2. porque ela deveria ser o Julia. Se você já está convencido dessas duas coisas, vá para a próxima página. Boa leitura!
 
@@ -31,7 +31,7 @@ O problema de programação dinâmica é extremamente geral e aparece em todo ti
 Existem uma centena de outras linguagens de programação. Por que gastar o seu tempo - um recurso escasso -  aprendendo o Julia e não outra linguagem?
 
 1. O Julia é de graça - ao contrário do Matlab, por exemplo. Essa vantagem não precisa de nenhuma explicação.
-2. O Julia é livre - qualquer um pode abrir o código do Julia e inspecionar o que ele está fazendo exatamente (ao contrário do Matlab). Isso pode não parecer uma vantagem a primeira vista, mas ajuda a pessoas encontrarem bugs e eles serem corrigidos mais rapidamente. 
+2. O Julia é livre - qualquer um pode abrir o código do Julia e inspecionar o que ele está fazendo exatamente (ao contrário do Matlab). Isso pode não parecer uma vantagem a primeira vista, mas ajuda a pessoas encontrarem bugs e eles serem corrigidos mais rapidamente.
 3. O Julia é muito rápido - em alguns casos mais rápido do que o Matlab. Os criadores do Julia dizem que um código totalmente otimizado em Julia é tão rápido quanto em C. (Mas veja aqui porque algumas vezes a sensação é de que o Julia é extremamente lento)
 4. É bem mais fácil de aprender Julia do que C ou Fortran.
 
