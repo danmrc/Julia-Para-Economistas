@@ -176,6 +176,12 @@ E aqui sim o array será preenchido com os números conforme esperaríamos. Veja
 
 Isso retorna (no meu PC) os tamanhos 0 e 176,respectivamente.
 
+## Ponto flutuante, erro e a pedra no sapato da computação
+
+Computadores não podem armazenar todos os números possíveis. Isso esbarra em um fato matemático não trivial, mas tem uma razão intuitiva: suponha que quisessemos guardar um número enorme em número de dígitos - pi é um exemplo clássico. Um computador com memória finita seria incapaz de fazer isso - imagine quantas folhas de papel seriam necessárias para escrever um número que é de 1 a um milhão concatenados (então os primeiros 3 digitos são 123).
+
+Isso pode gerar um pesadelo na hora de usar o computador: nós nunca vamos acertar um número "na mosca". Por exemplo, o pacote **optim** permite você encontrar o mínimo (ou máximo) de uma função.  
+
 ## O quão rápido o Julia realmente é?
 
 Uma coisa frustrante nas primeiras vezes que se usa o Julia é a sensação que ele é mais lento que linguagens como R ou Python. O primeiro exemplo pode não sair instantaneamente, apesar de ser uma conta trivial. Como o Julia é mais rápido se nem um 2+2 ele é rápido?

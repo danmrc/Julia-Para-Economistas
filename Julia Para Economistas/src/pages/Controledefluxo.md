@@ -90,4 +90,52 @@ Nosso exemplo acima é extremamente simples para ser ilustrativo: o _for_ é rea
 
 ## While
 
-O While é, como o for, um _loop_. A diferença é que enquanto o while...
+(O While exige o uso da _keyword_ global, então leia a seção mesmo que _en passant_)
+
+O While é, como o for, um _loop_. A diferença é que enquanto o for repete a mesma operação $n$ vezes, o while repete uma operação até uma certa condição passar a ser falsa. Poderíamos repetir o mesmo exemplo acima usando o while:
+
+```julia
+
+i = 1
+
+bb = zeros(10)
+
+while i <= 10
+  bb[i] = sqrt(i)
+  global i = i + 1
+end
+```
+Veja que isso involve várias linhas de código a mais que o for. A utilidade do While vai ficar clara mais abaixo. Vamos focar primeiro na estrutura do problema.
+
+Primeiro, temos que declarar o valor da variável que indexa o _loop_ antes do _while_. Na declaração do _while_, colocamos a condição que deve ser atentida para o programa se repetir - nesse caso, i deve ser menor ou igual a 10.
+
+No final do loop, precisamos acrescentar + 1 na variável i, coisa que o for faz "automaticamente" sem a gente ver. Esquecer esse passo é uma ótima maneira de fazer um programa que nunca para de rodar (teste rodar o while sem essa linha). Veja que antes do i eu usei um `global`. Isso se deve a maneira como o Julia interpreta as coisas: variáveis dentro de um loop são "locais" (pertencem ao loop) exceto se denotadas como `global` OU se foram previamente declaradas. Por exemplo, fazer:
+
+```julia
+for i in 1:10
+   a = i
+ end
+
+ a
+```
+Deve retornar um erro dizendo que a variável a não existe. Entretanto,
+
+```julia
+for i in 1:10
+   global a = i
+ end
+
+ a
+```
+Deve retornar 10. Algumas linguagens, como o R, não fazem essa diferenciação, o que pode ser positivo (reduz a quantidade de coisas que entram no código) ou negativo (um loop na dentro de outro loop dentro de um terceiro loop muda uma variável que você deu o mesmo nome duas vezes)~~~<a href="#note1" id="note1ref"><sup>1</sup></a>~~~. O que acontece quando nós definimos variáveis dentro de loops que por sua vez são passados para loops dentro deste loop? A próxima seção trata disso.
+
+Não parece óbivo porque usar o `while` quando isso requer pelo menos duas linhas de código a mais (além das altas chances de você esquecer a etapa da soma 1). A justificativa é muito simples: em muitos algoritmos queremos repetir a operação até uma certa condição ser satisfeita. Por exemplo, poderíamos buscar o equilíbrio de um mercado da seguinte maneira: chute um preço inicial e compute a demanda e a oferta. Se a oferta for maior que a demanda, reduza o preço em x. Caso contrário, aumente em x. Faça isso até a diferença entre oferta e demanda ser pequena. Este passo final é facilmente implementável em um loop: `while diff > 0.000000001` faria o truque. 
+
+
+## Loops dentro de Loops e variáveis globais
+
+Uma pergunta honesta é como o Julia
+
+~~~
+<a id="note1" href="#note1ref"><sup>1</sup></a>O R tem uma maneira própria de lidar com esse tipo de coisa, via ambientes. Isso impede que dois objetos com o mesmo nome dentro de dois pacotes diferentes entrem em colisão.
+~~~
