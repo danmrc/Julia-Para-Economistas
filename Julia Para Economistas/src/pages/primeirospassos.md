@@ -176,11 +176,25 @@ E aqui sim o array será preenchido com os números conforme esperaríamos. Veja
 
 Isso retorna (no meu PC) os tamanhos 0 e 176,respectivamente.
 
-## Ponto flutuante, erro e a pedra no sapato da computação
+## Ponto flutuante e erro: a pedra no sapato da computação
 
 Computadores não podem armazenar todos os números possíveis. Isso esbarra em um fato matemático não trivial, mas tem uma razão intuitiva: suponha que quisessemos guardar um número enorme em número de dígitos - pi é um exemplo clássico. Um computador com memória finita seria incapaz de fazer isso - imagine quantas folhas de papel seriam necessárias para escrever um número que é de 1 a um milhão concatenados (então os primeiros 3 digitos são 123).
 
-Isso pode gerar um pesadelo na hora de usar o computador: nós nunca vamos acertar um número "na mosca". Por exemplo, o pacote **optim** permite você encontrar o mínimo (ou máximo) de uma função.  
+Isso pode gerar um pesadelo na hora de usar o computador: nós nunca vamos acertar um número "na mosca". Por exemplo, o pacote **optim** permite você encontrar o mínimo (ou máximo) de uma função. Vamos encontrar o mínimo de $f(x)=x^2$ - que sabemos ter mínimo em 0:
+
+```julia
+
+using Optim
+
+f(x) = x^2
+
+optimize(f,-1,1)
+
+```
+
+Veja que a função `optimize()` recebe 3 parâmetros: a função, f; o menor valor possível na busca, -1; e o maior possível,1. No meu computador, ele retorna $-2.77*10^{17}$. Veja que isso não é zero - mas é próximo o bastante.
+
+As implicações disso não são óbvias agora, mas um exemplo pode ajudar: suponha que queremos encontrar o equilíbrio de um mercado, onde demanda = oferta. Isso é achar um zero na função excesso de demanda (demanda - oferta = 0). Veja que o computador dificilmente vai encontrar um zero: ele vai encontrar algo próximo a zero, como um número que é $10^{-17}$. Nesse caso, teremos que estabelcer uma tolerancia - o quão próximo de zero queremos ficar. Mais próximo significa mais custo computacional, em geral. 
 
 ## O quão rápido o Julia realmente é?
 
