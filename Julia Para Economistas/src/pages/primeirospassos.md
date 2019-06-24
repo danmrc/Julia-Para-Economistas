@@ -194,7 +194,7 @@ optimize(f,-1,1)
 
 Veja que a função `optimize()` recebe 3 parâmetros: a função, f; o menor valor possível na busca, -1; e o maior possível,1. No meu computador, ele retorna $-2.77*10^{17}$. Veja que isso não é zero - mas é próximo o bastante.
 
-As implicações disso não são óbvias agora, mas um exemplo pode ajudar: suponha que queremos encontrar o equilíbrio de um mercado, onde demanda = oferta. Isso é achar um zero na função excesso de demanda (demanda - oferta = 0). Veja que o computador dificilmente vai encontrar um zero: ele vai encontrar algo próximo a zero, como um número que é $10^{-17}$. Nesse caso, teremos que estabelcer uma tolerancia - o quão próximo de zero queremos ficar. Mais próximo significa mais custo computacional, em geral. 
+As implicações disso não são óbvias agora, mas um exemplo pode ajudar: suponha que queremos encontrar o equilíbrio de um mercado, onde demanda = oferta. Isso é achar um zero na função excesso de demanda (demanda - oferta = 0). Veja que o computador dificilmente vai encontrar um zero: ele vai encontrar algo próximo a zero, como um número que é $10^{-17}$. Nesse caso, teremos que estabelcer uma tolerância - o quão próximo de zero queremos ficar. Mais próximo significa mais custo computacional, em geral. 
 
 ## O quão rápido o Julia realmente é?
 

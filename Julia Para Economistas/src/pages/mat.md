@@ -1,6 +1,6 @@
-@def title = "Matemática no Julia"
+@def title = "Matemática no Julia I"
 
-Nessa seção vamos focar nas ferramentas matemáticas que serão úteis para a gente no Julia. Elas em geral vem em forma de pacotes. Nós vamos focar em : otimização, achar a raiz e . Os pacotes que vamos usar são o **Optim**, o **Roots** e o . Eu também vou tratar de fazer gráficos no Julia - que são sempre de grande valia para
+Nessa seção vamos focar nas ferramentas matemáticas que serão úteis para a gente no Julia. Elas em geral vem em forma de pacotes. Nós vamos focar em : otimização, achar a raiz e . Os pacotes que vamos usar são o **Optim**, o **Roots** e o . Eu também vou tratar sumariamente de fazer gráficos no Julia - que são sempre de grande valia para analisar problemas. Para saber mais sobre gráficos, visite a parte de gráficos
 
 ## Plots
 
@@ -39,7 +39,7 @@ Veja a página sobre gráficos para saber mais sobre como fazer gráficos no Jul
 
 ## Optim
 
-Nós já tivemos um primeiro encontro com o Optim em um momento anterior. O Optim faz otimização tanto em funções uma variável quanto em funções de várias variáveis. Vamos começar com o exemplo que eu já dei:
+Nós já tivemos um primeiro encontro com o Optim em um momento anterior. O Optim faz otimização tanto em funções de uma variável quanto em funções de várias variáveis. Vamos começar com o exemplo que eu já dei:
 
 ```julia
 
@@ -64,9 +64,52 @@ optimize(l,-2,2)
 
 Veja que dessa vez eu deixei o intervalo maior, mas o optimize não deve ter problemas em conseguir achar o mínimo - que no nosso caso é o máximo.
 
-Veja que podemos querer encontrar o ótimo de uma função de várias variáveis. O Optim também nos dá essa possibilidade.
+Veja que podemos querer encontrar o ótimo de uma função de várias variáveis. O Optim também nos dá essa possibilidade. Por exemplo, podemos querer achar o mínimo da função $z=x^2+y^2$ - que tem o mínimo em (0,0). Veja que precisamos passar o x e o y como um único elemento em formato de vetor então a função vai ser escrita de maneira um pouco esquisita da segunte forma:
 
+```julia
+
+f(x)=x[1]^2+x[2]^2
+
+```
+
+(Em um pequeno aparte, vale a pena notar que esse mesmo formato de escrever a função para otimizar é utilizado no R)
+
+A função `optimize` agora recebe a função e um chute inicial, na forma de uma array com o mesmo número de argumentos que a função recebe - nesse caso, 2:
+
+```julia
+
+sol = optimize(f,[1,1])
+
+```
+
+Obviamente um bom chute implica em uma solução melhor. Se dermos um chute em (0,0), o algoritmo não deve fazer nada:
+
+```julia
+
+sol = optimize(f,[0,0])
+
+```
+
+Veja que podemos mudar o algoritmo de otimização. Em geral se usa o Nelder-Mead, que funciona bem para funções não diferenciáveis. Como no nosso caso a função é diferenciável, podemos usar algum outro algoritmo, como o BFGS:
+
+```julia
+
+sol = optimize(f,[0,0],BFGS())
+
+```
+
+Veja que o nome do algoritmo é chamado como se fosse uma função sem argumentos.
 
 ## Roots
 
-O pacote roots permite achar raízes de funções. 
+O pacote **roots** permite achar raízes de funções univariadas. Existem quatro maneiras de chamar o comando, mas todos recebem as mesma opções. Vamos tentar achar o zero da função $x+1$ (que convenientemente tem zero em $x=-1$). Vamos usar a função `fzero` para encontrar o zero dessa função. Ele recebe a função e o limite inferior e o superior para buscar o zero:
+
+```julia
+
+g(x) = x-1
+zer = fzero(g,-2,0)
+
+```
+A outra opção é usar a função `find_zero`, que tem sintaxe igual; as funções `fzeros` e `find_zeros`, no plural, buscam _todos_ os zeros. Elas são significativamente mais lentas na minha experiência e se voce sabe que o problema só tem um zero - pelo menos dentro da região em que ele está buscando - voce ganha em usar o `fzero` ou o `find_zero`.
+
+Veja que o fato da sintaxe ser parecida com a otimização em uma variável não é mera coinciência: quando otimizamos na mão usando os métodos de cálculo, buscamos o zero da derivada da função $f$. Logo, as semelhanças vão bem além da superfíce do problema.
