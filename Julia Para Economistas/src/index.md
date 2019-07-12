@@ -12,9 +12,9 @@ Se você sabe ler em inglês eu sugiro fortemente checar o [quant.econ.net](http
 
 Os exemplos do manual são mais voltados para resolver problemas numéricos (em economia). Eu não vou tocar em como fazer estatística usando o Julia por falta de experiência e porque a minha opinião é de que não é a vantagem comparativa do Julia. Em compensação, para a solução de problemas numéricos o Julia é (quase) imbatível. Mais sobre isso abaixo.
 
-Esse manual deve muito as seguintes pessoas: Pedro Cavalcante foi o primeiro a sugerir (e insistir) que eu deveria fazer um manual sobre como usar o Julia; Thibaut Lienart, que mantém o pacote JuDoc, que foi usado para criar este site e foi extremamente solicito com a solução de bugs e extensões que este site precisou;  
+Esse manual deve muito as seguintes pessoas: Pedro Cavalcante foi o primeiro a sugerir (e insistir) que eu deveria fazer um manual sobre como usar o Julia; Thibaut Lienart, que mantém o pacote JuDoc, que foi usado para criar este site e foi extremamente solicito com a solução de bugs e extensões que este site precisou;
 
-O resto dessa página é dedicado a explicar 1. porque você deveria investir em uma linguagem de programação enquanto economista 2. porque ela deveria ser o Julia. Se você já está convencido dessas duas coisas, vá para a próxima página. Boa leitura!
+O resto dessa página é dedicado a explicar 1. porque você deveria investir em uma linguagem de programação enquanto economista 2. porque ela deveria ser o Julia. Se você já está convencido dessas duas coisas, vá para a próxima página. As seções marcadas com um asterisco são provavelmente indigesta para a primeira leitura - e (provavelmente) não muito úteis para recém chegados. Boa leitura!
 
 ## O imperativo dos métodos numéricos (Ou por que economistas devem saber programar?)
 

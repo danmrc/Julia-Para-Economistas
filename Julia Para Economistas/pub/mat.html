@@ -19,7 +19,7 @@
     }
   </style>
   <link rel="icon" href="/assets/infra/favicon.png">
-   <title>Matemática no Julia</title>  
+   <title>Matemática no Julia I</title>  
 </head>
 <body>
   <div id="layout">
@@ -34,43 +34,42 @@
           <li class="pure-menu-item "><a href="/pub/primeirospassos.html" class="pure-menu-link">Primeiros Passos</a></li>
           <li class="pure-menu-item "><a href="/pub/Controledefluxo.html" class="pure-menu-link">Controle de Fluxo</a></li>
           <li class="pure-menu-item "><a href="/pub/mat.html" class="pure-menu-link">Matemática no Julia</a></li>
+          <li class="pure-menu-item "><a href="/pub/misc.html" class="pure-menu-link">Miscelânea</a></li>
         </ul>
       </div>
     </div>
     <div id="main"> <!-- Closed in foot -->
       <div class="header">
-        <h1>Matemática no Julia</h1>
+        <h1>Matemática no Julia I</h1>
         <h2>Using the Pure/Side-Menu template</h2>
       </div>
 
 <!-- Content appended here -->
 
 <div class="jd-content">
-<p>Nessa seção vamos focar nas ferramentas matemáticas que serão úteis para a gente no Julia. Elas em geral vem em forma de pacotes. Nós vamos focar em : otimização, achar a raiz e . Os pacotes que vamos usar são o <strong>Optim</strong>, o <strong>Roots</strong> e o . Eu também vou tratar de fazer gráficos no Julia - que são sempre de grande valia para</p>
-<h2>Plots</h2>
-<p>O pacote <strong>Plots</strong> amarra vários outros pacotes que fazem gráfico em uma interface comum. Um exemplo bem simples é fazer o gráfico da função \(2x^3+3x^2\). Primeiro de tudo, vou carregar o pacote. Depois, vamos definir a função para depois fazer o gráfico:</p>
-<pre><code class=julia>using Plots
+<p>Nessa seção vamos focar nas ferramentas matemáticas que serão úteis para a gente no Julia. Elas em geral vem em forma de pacotes. Nós vamos focar em : otimização, achar a raiz e . Os pacotes que vamos usar são o <strong>Optim</strong>, o <strong>Roots</strong> e o . Eu também vou tratar sumariamente de fazer gráficos no Julia - que são sempre de grande valia para analisar problemas. Para saber mais sobre gráficos, visite a parte de gráficos</p>
+<h2><a id="plots" href="#plots">Plots</a></h2> O pacote <strong>Plots</strong> amarra vários outros pacotes que fazem gráfico em uma interface comum. Um exemplo bem simples é fazer o gráfico da função \(2x^3+3x^2\). Primeiro de tudo, vou carregar o pacote. Depois, vamos definir a função para depois fazer o gráfico:</p>
+<pre><code class="language-julia">using Plots
 
 g(x) = 2x^3+3x^2
 plot(g)
 
 </code></pre>
 <p>Veja que podemos querer ver a função em um intervalo diferente, por exemplo, -5 e -4. Fariamos:</p>
-<pre><code class=julia>x = -5:0.01:-4
+<pre><code class="language-julia">x = -5:0.01:-4
 
 plot(x,g.(x))
 
 </code></pre>
 <p>Basicamente estamos gerando um grid de valores, espaçados em \(0.01\) e avaliando a função em todos os pontos. Veja que a primeira vez que chamamos o plot ele é um pouco lento em gerar a imagem. Isso é só na primeira vez em cada vez que rodamos o Julia - chamadas subsequentes são mais agéis.</p>
 <p>Podemos querer fazer o gráfico de outra função por cima. Para isso, basta usar o plot com uma exclamação depois &#40;<code>plot&#33;</code>&#41;. Vou fazer o gráfico da função que já definimos e da função \(2x^3-3x^2\):</p>
-<pre><code class=julia>h(x)=2x^3-3x^2
+<pre><code class="language-julia">h(x)=2x^3-3x^2
 plot(g)
 plot!(h)
 
 </code></pre> Veja a página sobre gráficos para saber mais sobre como fazer gráficos no Julia.</p>
-<h2>Optim</h2>
-<p>Nós já tivemos um primeiro encontro com o Optim em um momento anterior. O Optim faz otimização tanto em funções uma variável quanto em funções de várias variáveis. Vamos começar com o exemplo que eu já dei:</p>
-<pre><code class=julia>using Optim
+<h2><a id="optim" href="#optim">Optim</a></h2> Nós já tivemos um primeiro encontro com o Optim em um momento anterior. O Optim faz otimização tanto em funções de uma variável quanto em funções de várias variáveis. Vamos começar com o exemplo que eu já dei:</p>
+<pre><code class="language-julia">using Optim
 
 f(x) = x^2
 
@@ -79,16 +78,39 @@ optimize(f,-1,1)
 <p>O comando <code>optimize</code> recebe tres argumentos quando buscamos o ótimo de uma função de uma variável: a função, o menor valor do intervalo a ser buscado e o maior valor. Nesse caso, buscamos o mínimo da função f entre -1 e 1. Veja que o comando sempre busca o mínimo: para encontrar o máximo de uma função, basta multiplicar a função por -1. Vamos procurar o máximo da função \(\frac{1}{1+x^2}\), que tem a seguinte cara:</p>
 <p><img src="/src/imagens/logistica.png" alt="" /></p>
 <p>Veja que como queremos o máximo, vamos ter que multiplicar a função por -1. Eu vou definir ela direto com um menos na frente:</p>
-<pre><code class=julia>l(x) = -1/(1+x^2)
+<pre><code class="language-julia">l(x) = -1/(1+x^2)
 optimize(l,-2,2)
 
 </code></pre>
 <p>Veja que dessa vez eu deixei o intervalo maior, mas o optimize não deve ter problemas em conseguir achar o mínimo - que no nosso caso é o máximo.</p>
-<p>Veja que podemos querer encontrar o ótimo de uma função de várias variáveis. O Optim também nos dá essa possibilidade. </p>
+<p>Veja que podemos querer encontrar o ótimo de uma função de várias variáveis. O Optim também nos dá essa possibilidade. Por exemplo, podemos querer achar o mínimo da função \(z=x^2+y^2\) - que tem o mínimo em &#40;0,0&#41;. Veja que precisamos passar o x e o y como um único elemento em formato de vetor então a função vai ser escrita de maneira um pouco esquisita da segunte forma:</p>
+<pre><code class="language-julia">f(x)=x[1]^2+x[2]^2
+
+</code></pre>
+<p>&#40;Em um pequeno aparte, vale a pena notar que esse mesmo formato de escrever a função para otimizar é utilizado no R&#41;</p>
+<p>A função <code>optimize</code> agora recebe a função e um chute inicial, na forma de uma array com o mesmo número de argumentos que a função recebe - nesse caso, 2:</p>
+<pre><code class="language-julia">sol = optimize(f,[1,1])
+
+</code></pre>
+<p>Obviamente um bom chute implica em uma solução melhor. Se dermos um chute em &#40;0,0&#41;, o algoritmo não deve fazer nada:</p>
+<pre><code class="language-julia">sol = optimize(f,[0,0])
+
+</code></pre>
+<p>Veja que podemos mudar o algoritmo de otimização. Em geral se usa o Nelder-Mead, que funciona bem para funções não diferenciáveis. Como no nosso caso a função é diferenciável, podemos usar algum outro algoritmo, como o BFGS:</p>
+<pre><code class="language-julia">sol = optimize(f,[0,0],BFGS())
+
+</code></pre>
+<p>Veja que o nome do algoritmo é chamado como se fosse uma função sem argumentos.</p>
+<h2><a id="roots" href="#roots">Roots</a></h2> O pacote <strong>roots</strong> permite achar raízes de funções univariadas. Existem quatro maneiras de chamar o comando, mas todos recebem as mesma opções. Vamos tentar achar o zero da função \(x+1\) &#40;que convenientemente tem zero em \(x=-1\)&#41;. Vamos usar a função <code>fzero</code> para encontrar o zero dessa função. Ele recebe a função e o limite inferior e o superior para buscar o zero:</p>
+<pre><code class="language-julia">g(x) = x-1
+zer = fzero(g,-2,0)
+
+</code></pre> A outra opção é usar a função <code>find_zero</code>, que tem sintaxe igual; as funções <code>fzeros</code> e <code>find_zeros</code>, no plural, buscam <em>todos</em> os zeros. Elas são significativamente mais lentas na minha experiência e se voce sabe que o problema só tem um zero - pelo menos dentro da região em que ele está buscando - voce ganha em usar o <code>fzero</code> ou o <code>find_zero</code>.</p>
+<p>Veja que o fato da sintaxe ser parecida com a otimização em uma variável não é mera coinciência: quando otimizamos na mão usando os métodos de cálculo, buscamos o zero da derivada da função \(f\). Logo, as semelhanças vão bem além da superfíce do problema.</p>
 
 <div class="page-foot">
   <div class="copyright">
-    &copy; Daniel Coutinho. Last modified: June 15, 2019. Website built with <a href="https://github.com/tlienart/JuDoc.jl">JuDoc.jl</a>.
+    &copy; Daniel Coutinho. Last modified: July 12, 2019. Website built with <a href="https://github.com/tlienart/JuDoc.jl">JuDoc.jl</a>.
   </div>
 </div>
 

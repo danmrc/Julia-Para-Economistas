@@ -2,11 +2,11 @@
 
 Nessa página nós vamos tratar de _controle de fluxo_. Esses são comandos essenciais para construir algoritmos númericos e centrais em qualquer código. Vamos tratar dos três mais comuns: _if_, _for_ e _while_
 
-## Como ler essa seção
+# Como ler essa seção
 
 Esse capítulo segue a seguinte estrutura: eu apresento os comandos secamente no começo de cada seção: o objetivo é que aqueles que já sabem o que _if_s, _for_s e _while_s fazem possam entender a sintaxe do Julia. Ainda assim, eu sugiro uma leitura, ainda que  Depois, eu discuto o que cada comando faz com detalhes. A última seção apresenta alguns exemplos, e são de interesse geral.
 
-## If
+# If
 
 A sintaxe para o _If_ é:
 
@@ -20,7 +20,7 @@ end
 
 ```
 
-_If_s são blocos que permitem que você teste uma condição e execute um comando condicional àaquele condição ser atendida. Caso contrário (_else_) outro comando pode ser executado. Um exemplo simples é testar se um número é positivo:
+_If_ s são blocos que permitem que você teste uma condição e execute um comando condicional àaquele condição ser atendida. Caso contrário (_else_) outro comando pode ser executado. Um exemplo simples é testar se um número é positivo:
 
 ```julia
   if numero > 0
@@ -44,7 +44,7 @@ No segundo caso nós teríamos que adicionar mais um teste. Para adicionar um el
 ```julia
   if numero > 0
     println("Positivo")
-  elseif numerro == 0
+  elseif numero == 0
     println("Zero")
   else
     println("Negativo")
@@ -53,7 +53,7 @@ No segundo caso nós teríamos que adicionar mais um teste. Para adicionar um el
 
 Nós poderíamos amarrar isso em uma função para permitir o teste ser realziado para qualquer número repetidas vezes. Faremos isso mais para frente.
 
-## For
+# For
 
 A sintaxe para o for é:
 
@@ -88,7 +88,7 @@ A cada etapa i, o Julia tira a raiz de i `sqrt(i)` e associado o valor a posiç�
 
 Nosso exemplo acima é extremamente simples para ser ilustrativo: o _for_ é realmente útil, especialmente em simulações.
 
-## While
+# While
 
 (O While exige o uso da _keyword_ global, então leia a seção mesmo que _en passant_)
 
@@ -127,14 +127,33 @@ for i in 1:10
 
  a
 ```
-Deve retornar 10. Algumas linguagens, como o R, não fazem essa diferenciação, o que pode ser positivo (reduz a quantidade de coisas que entram no código) ou negativo (um loop na dentro de outro loop dentro de um terceiro loop muda uma variável que você deu o mesmo nome duas vezes)~~~<a href="#note1" id="note1ref"><sup>1</sup></a>~~~. O que acontece quando nós definimos variáveis dentro de loops que por sua vez são passados para loops dentro deste loop? A próxima seção trata disso.
+Deve retornar 10. Algumas linguagens, como o R, não fazem essa diferenciação, o que pode ser positivo (reduz a quantidade de coisas que entram no código) ou negativo (um loop dentro de outro loop dentro de um terceiro loop muda uma variável que você deu o mesmo nome duas vezes)~~~<a href="#note1" id="note1ref"><sup>1</sup></a>~~~. O que acontece quando nós definimos variáveis dentro de loops que por sua vez são passados para loops dentro deste loop? A próxima seção trata disso.
 
-Não parece óbivo porque usar o `while` quando isso requer pelo menos duas linhas de código a mais (além das altas chances de você esquecer a etapa da soma 1). A justificativa é muito simples: em muitos algoritmos queremos repetir a operação até uma certa condição ser satisfeita. Por exemplo, poderíamos buscar o equilíbrio de um mercado da seguinte maneira: chute um preço inicial e compute a demanda e a oferta. Se a oferta for maior que a demanda, reduza o preço em x. Caso contrário, aumente em x. Faça isso até a diferença entre oferta e demanda ser pequena. Este passo final é facilmente implementável em um loop: `while diff > 0.000000001` faria o truque. 
+Não parece óbivo porque usar o `while` quando isso requer pelo menos duas linhas de código a mais (além das altas chances de você esquecer a etapa da soma 1). A justificativa é muito simples: em muitos algoritmos queremos repetir a operação até uma certa condição ser satisfeita. Por exemplo, poderíamos buscar o equilíbrio de um mercado da seguinte maneira: chute um preço inicial e compute a demanda e a oferta. Se a oferta for maior que a demanda, reduza o preço em x. Caso contrário, aumente em x. Faça isso até a diferença entre oferta e demanda ser pequena. Este passo final é facilmente implementável em um loop: `while diff > 0.000000001` faria o truque.
 
 
-## Loops dentro de Loops e variáveis globais
+# Loops dentro de Loops e variáveis globais*
 
-Uma pergunta honesta é como o Julia
+Uma pergunta honesta é como o Julia lida com loops que tem outros loops dentro - especialmente se for um while dentro de outro. Nós temos que declarar os dois índices como globais?
+
+Não. O loop de dentro não precisa ser declarado como uma variável global. O seguinte exemplo funciona:
+
+```julia
+
+j = 1
+
+while j <= 100
+  i = 1
+  while i <= 100
+    operações
+    i = i + 1
+  end
+  global j = j + 1
+end
+
+```
+
+Veja que, na linha `i= i+1`, se tivessemos usado `global`, o Julia nos devolveria um erro acusando que `i` não é uma variável global. De fato, ela está definida dentro do `while`, e por isso não é global.
 
 ~~~
 <a id="note1" href="#note1ref"><sup>1</sup></a>O R tem uma maneira própria de lidar com esse tipo de coisa, via ambientes. Isso impede que dois objetos com o mesmo nome dentro de dois pacotes diferentes entrem em colisão.

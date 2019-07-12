@@ -34,6 +34,7 @@
           <li class="pure-menu-item "><a href="/pub/primeirospassos.html" class="pure-menu-link">Primeiros Passos</a></li>
           <li class="pure-menu-item "><a href="/pub/Controledefluxo.html" class="pure-menu-link">Controle de Fluxo</a></li>
           <li class="pure-menu-item "><a href="/pub/mat.html" class="pure-menu-link">Matemática no Julia</a></li>
+          <li class="pure-menu-item "><a href="/pub/misc.html" class="pure-menu-link">Miscelânea</a></li>
         </ul>
       </div>
     </div>
@@ -47,19 +48,17 @@
 
 <div class="jd-content">
 <p>Nessa página nós vamos tratar de <em>controle de fluxo</em>. Esses são comandos essenciais para construir algoritmos númericos e centrais em qualquer código. Vamos tratar dos três mais comuns: <em>if</em>, <em>for</em> e <em>while</em></p>
-<h2>Como ler essa seção</h2>
-<p>Esse capítulo segue a seguinte estrutura: eu apresento os comandos secamente no começo de cada seção: o objetivo é que aqueles que já sabem o que <em>if</em>s, <em>for</em>s e <em>while</em>s fazem possam entender a sintaxe do Julia. Ainda assim, eu sugiro uma leitura, ainda que  Depois, eu discuto o que cada comando faz com detalhes. A última seção apresenta alguns exemplos, e são de interesse geral.</p>
-<h2>If</h2>
-<p>A sintaxe para o <em>If</em> é:</p>
-<pre><code class=julia>if condition
+<h1><a id="como_ler_essa_seo" href="#como_ler_essa_seo">Como ler essa seção</a></h1> Esse capítulo segue a seguinte estrutura: eu apresento os comandos secamente no começo de cada seção: o objetivo é que aqueles que já sabem o que <em>if</em>s, <em>for</em>s e <em>while</em>s fazem possam entender a sintaxe do Julia. Ainda assim, eu sugiro uma leitura, ainda que  Depois, eu discuto o que cada comando faz com detalhes. A última seção apresenta alguns exemplos, e são de interesse geral.</p>
+<h1><a id="if" href="#if">If</a></h1> A sintaxe para o <em>If</em> é:</p>
+<pre><code class="language-julia">if condition
   alguma coisa
 else
   outra coisa
 end
 
 </code></pre>
-<p><em>If</em>s são blocos que permitem que você teste uma condição e execute um comando condicional àaquele condição ser atendida. Caso contrário &#40;<em>else</em>&#41; outro comando pode ser executado. Um exemplo simples é testar se um número é positivo:</p>
-<pre><code class=julia>if numero > 0
+<p><em>If</em> s são blocos que permitem que você teste uma condição e execute um comando condicional àaquele condição ser atendida. Caso contrário &#40;<em>else</em>&#41; outro comando pode ser executado. Um exemplo simples é testar se um número é positivo:</p>
+<pre><code class="language-julia">if numero > 0
     println("Positivo")
   else
     println("Negativo")
@@ -75,40 +74,38 @@ end
 </li>
 </ol>
 <p>No segundo caso nós teríamos que adicionar mais um teste. Para adicionar um else seguido de um novo teste lógico, nós usamos o <code>elseif</code>, tudo junto. Modificando o exemplo, nós teríamos:</p>
-<pre><code class=julia>if numero > 0
+<pre><code class="language-julia">if numero > 0
     println("Positivo")
-  elseif numerro == 0
+  elseif numero == 0
     println("Zero")
   else
     println("Negativo")
   end
 </code></pre>
 <p>Nós poderíamos amarrar isso em uma função para permitir o teste ser realziado para qualquer número repetidas vezes. Faremos isso mais para frente.</p>
-<h2>For</h2>
-<p>A sintaxe para o for é:</p>
-<pre><code class=julia>for i in 1:numero
+<h1><a id="for" href="#for">For</a></h1> A sintaxe para o for é:</p>
+<pre><code class="language-julia">for i in 1:numero
   operações
 end
 
 </code></pre>
 <p>Ou:</p>
-<pre><code class=julia>for i in vetor
+<pre><code class="language-julia">for i in vetor
   operações
 end
 
 </code></pre>
 <p>O <code>for</code>permite repetir algum conjunto de operações um número de vezes - por isso ele é conhecido como um loop. Um exemplo bobo e simples é tirar o quadrado de todos os número de um vetor de 1 a 10:</p>
-<pre><code class=julia>bb = zeros(10)
+<pre><code class="language-julia">bb = zeros(10)
   for i in 1:10
     bb[i] = sqrt(i)
   end
 </code></pre>
 <p>A cada etapa i, o Julia tira a raiz de i <code>sqrt&#40;i&#41;</code> e associado o valor a posição i do vetor <code>bb</code>. Veja que uma solução muito mais simples para o mesmo problema seria fazer <code>bb &#61; sqrt.&#40;1:10&#41;</code>, usando a discussão anterior de vetorizar funções e gerar sequências.</p>
 <p>Nosso exemplo acima é extremamente simples para ser ilustrativo: o <em>for</em> é realmente útil, especialmente em simulações.</p>
-<h2>While</h2>
-<p>&#40;O While exige o uso da <em>keyword</em> global, então leia a seção mesmo que <em>en passant</em>&#41;</p>
+<h1><a id="while" href="#while">While</a></h1> &#40;O While exige o uso da <em>keyword</em> global, então leia a seção mesmo que <em>en passant</em>&#41;</p>
 <p>O While é, como o for, um <em>loop</em>. A diferença é que enquanto o for repete a mesma operação \(n\) vezes, o while repete uma operação até uma certa condição passar a ser falsa. Poderíamos repetir o mesmo exemplo acima usando o while:</p>
-<pre><code class=julia>i = 1
+<pre><code class="language-julia">i = 1
 
 bb = zeros(10)
 
@@ -119,28 +116,41 @@ end
 </code></pre> Veja que isso involve várias linhas de código a mais que o for. A utilidade do While vai ficar clara mais abaixo. Vamos focar primeiro na estrutura do problema.</p>
 <p>Primeiro, temos que declarar o valor da variável que indexa o <em>loop</em> antes do <em>while</em>. Na declaração do <em>while</em>, colocamos a condição que deve ser atentida para o programa se repetir - nesse caso, i deve ser menor ou igual a 10.</p>
 <p>No final do loop, precisamos acrescentar &#43; 1 na variável i, coisa que o for faz &quot;automaticamente&quot; sem a gente ver. Esquecer esse passo é uma ótima maneira de fazer um programa que nunca para de rodar &#40;teste rodar o while sem essa linha&#41;. Veja que antes do i eu usei um <code>global</code>. Isso se deve a maneira como o Julia interpreta as coisas: variáveis dentro de um loop são &quot;locais&quot; &#40;pertencem ao loop&#41; exceto se denotadas como <code>global</code> OU se foram previamente declaradas. Por exemplo, fazer:</p>
-<pre><code class=julia>for i in 1:10
+<pre><code class="language-julia">for i in 1:10
    a = i
  end
 
  a
 </code></pre> Deve retornar um erro dizendo que a variável a não existe. Entretanto,</p>
-<pre><code class=julia>for i in 1:10
+<pre><code class="language-julia">for i in 1:10
    global a = i
  end
 
  a
-</code></pre> Deve retornar 10. Algumas linguagens, como o R, não fazem essa diferenciação, o que pode ser positivo &#40;reduz a quantidade de coisas que entram no código&#41; ou negativo &#40;um loop na dentro de outro loop dentro de um terceiro loop muda uma variável que você deu o mesmo nome duas vezes&#41;<a href="#note1" id="note1ref"><sup>1</sup></a>. O que acontece quando nós definimos variáveis dentro de loops que por sua vez são passados para loops dentro deste loop? A próxima seção trata disso.</p>
-<p>Não parece óbivo porque usar o <code>while</code> quando isso requer pelo menos duas linhas de código a mais &#40;além das altas chances de você esquecer a etapa da soma 1&#41;. A justificativa é muito simples: em muitos algoritmos queremos repetir a operação até uma certa condição ser satisfeita. Por exemplo, poderíamos buscar o equilíbrio de um mercado da seguinte maneira: chute um preço inicial e compute a demanda e a oferta. Se a oferta for maior que a demanda, reduza o preço em x. Caso contrário, aumente em x. Faça isso até a diferença entre oferta e demanda ser pequena. Este passo final é facilmente implementável em um loop: <code>while diff &gt; 0.000000001</code> faria o truque. </p>
-<h2>Loops dentro de Loops e variáveis globais</h2>
-<p>Uma pergunta honesta é como o Julia</p>
+</code></pre> Deve retornar 10. Algumas linguagens, como o R, não fazem essa diferenciação, o que pode ser positivo &#40;reduz a quantidade de coisas que entram no código&#41; ou negativo &#40;um loop dentro de outro loop dentro de um terceiro loop muda uma variável que você deu o mesmo nome duas vezes&#41;<a href="#note1" id="note1ref"><sup>1</sup></a>. O que acontece quando nós definimos variáveis dentro de loops que por sua vez são passados para loops dentro deste loop? A próxima seção trata disso.</p>
+<p>Não parece óbivo porque usar o <code>while</code> quando isso requer pelo menos duas linhas de código a mais &#40;além das altas chances de você esquecer a etapa da soma 1&#41;. A justificativa é muito simples: em muitos algoritmos queremos repetir a operação até uma certa condição ser satisfeita. Por exemplo, poderíamos buscar o equilíbrio de um mercado da seguinte maneira: chute um preço inicial e compute a demanda e a oferta. Se a oferta for maior que a demanda, reduza o preço em x. Caso contrário, aumente em x. Faça isso até a diferença entre oferta e demanda ser pequena. Este passo final é facilmente implementável em um loop: <code>while diff &gt; 0.000000001</code> faria o truque.</p>
+<h1><a id="loops_dentro_de_loops_e_variveis_globais" href="#loops_dentro_de_loops_e_variveis_globais">Loops dentro de Loops e variáveis globais*</a></h1> Uma pergunta honesta é como o Julia lida com loops que tem outros loops dentro - especialmente se for um while dentro de outro. Nós temos que declarar os dois índices como globais?</p>
+<p>Não. O loop de dentro não precisa ser declarado como uma variável global. O seguinte exemplo funciona:</p>
+<pre><code class="language-julia">j = 1
+
+while j <= 100
+  i = 1
+  while i <= 100
+    operações
+    i = i + 1
+  end
+  global j = j + 1
+end
+
+</code></pre>
+<p>Veja que, na linha <code>i&#61; i&#43;1</code>, se tivessemos usado <code>global</code>, o Julia nos devolveria um erro acusando que <code>i</code> não é uma variável global. De fato, ela está definida dentro do <code>while</code>, e por isso não é global.</p>
 
 <a id="note1" href="#note1ref"><sup>1</sup></a>O R tem uma maneira própria de lidar com esse tipo de coisa, via ambientes. Isso impede que dois objetos com o mesmo nome dentro de dois pacotes diferentes entrem em colisão.
 </p>
 
 <div class="page-foot">
   <div class="copyright">
-    &copy; Daniel Coutinho. Last modified: June 06, 2019. Website built with <a href="https://github.com/tlienart/JuDoc.jl">JuDoc.jl</a>.
+    &copy; Daniel Coutinho. Last modified: July 12, 2019. Website built with <a href="https://github.com/tlienart/JuDoc.jl">JuDoc.jl</a>.
   </div>
 </div>
 
