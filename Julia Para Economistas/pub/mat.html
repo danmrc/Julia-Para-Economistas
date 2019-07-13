@@ -47,8 +47,9 @@
 <!-- Content appended here -->
 
 <div class="jd-content">
-<p>Nessa seção vamos focar nas ferramentas matemáticas que serão úteis para a gente no Julia. Elas em geral vem em forma de pacotes. Nós vamos focar em : otimização, achar a raiz e . Os pacotes que vamos usar são o <strong>Optim</strong>, o <strong>Roots</strong> e o . Eu também vou tratar sumariamente de fazer gráficos no Julia - que são sempre de grande valia para analisar problemas. Para saber mais sobre gráficos, visite a parte de gráficos</p>
-<h2><a id="plots" href="#plots">Plots</a></h2> O pacote <strong>Plots</strong> amarra vários outros pacotes que fazem gráfico em uma interface comum. Um exemplo bem simples é fazer o gráfico da função \(2x^3+3x^2\). Primeiro de tudo, vou carregar o pacote. Depois, vamos definir a função para depois fazer o gráfico:</p>
+<p>Nessa seção vamos focar nas ferramentas matemáticas que serão úteis para a gente no Julia. Elas em geral vem em forma de pacotes. Nós vamos focar em : otimização, achar a raiz e . Os pacotes que vamos usar são o <strong>Optim</strong>, o <strong>Roots</strong> e o <strong>Interpolations</strong>. Eu também vou tratar sumariamente de fazer gráficos no Julia - que são sempre de grande valia para analisar problemas. Para saber mais sobre gráficos, visite a parte de gráficos</p>
+<h1><a id="plots" href="#plots">Plots</a></h1> &#40;Existe uma página dedicada a gráficos. Esta é uma breve introdução apenas para permitir que vizualizemos alguns dos problemas matemáticos&#41;</p>
+<p>O pacote <strong>Plots</strong> amarra vários outros pacotes que fazem gráfico em uma interface comum. Um exemplo bem simples é fazer o gráfico da função \(2x^3+3x^2\). Primeiro de tudo, vou carregar o pacote. Depois, vamos definir a função para depois fazer o gráfico:</p>
 <pre><code class="language-julia">using Plots
 
 g(x) = 2x^3+3x^2
@@ -68,7 +69,7 @@ plot(g)
 plot!(h)
 
 </code></pre> Veja a página sobre gráficos para saber mais sobre como fazer gráficos no Julia.</p>
-<h2><a id="optim" href="#optim">Optim</a></h2> Nós já tivemos um primeiro encontro com o Optim em um momento anterior. O Optim faz otimização tanto em funções de uma variável quanto em funções de várias variáveis. Vamos começar com o exemplo que eu já dei:</p>
+<h1><a id="optim" href="#optim">Optim</a></h1> Nós já tivemos um primeiro encontro com o Optim em um momento anterior. O Optim faz otimização tanto em funções de uma variável quanto em funções de várias variáveis. Vamos começar com o exemplo que eu já dei:</p>
 <pre><code class="language-julia">using Optim
 
 f(x) = x^2
@@ -101,16 +102,61 @@ optimize(l,-2,2)
 
 </code></pre>
 <p>Veja que o nome do algoritmo é chamado como se fosse uma função sem argumentos.</p>
-<h2><a id="roots" href="#roots">Roots</a></h2> O pacote <strong>roots</strong> permite achar raízes de funções univariadas. Existem quatro maneiras de chamar o comando, mas todos recebem as mesma opções. Vamos tentar achar o zero da função \(x+1\) &#40;que convenientemente tem zero em \(x=-1\)&#41;. Vamos usar a função <code>fzero</code> para encontrar o zero dessa função. Ele recebe a função e o limite inferior e o superior para buscar o zero:</p>
+<h1><a id="roots" href="#roots">Roots</a></h1> O pacote <strong>roots</strong> permite achar raízes de funções univariadas. Existem quatro maneiras de chamar o comando, mas todos recebem as mesma opções. Vamos tentar achar o zero da função \(x+1\) &#40;que convenientemente tem zero em \(x=-1\)&#41;. Vamos usar a função <code>fzero</code> para encontrar o zero dessa função. Ele recebe a função e o limite inferior e o superior para buscar o zero:</p>
 <pre><code class="language-julia">g(x) = x-1
 zer = fzero(g,-2,0)
 
 </code></pre> A outra opção é usar a função <code>find_zero</code>, que tem sintaxe igual; as funções <code>fzeros</code> e <code>find_zeros</code>, no plural, buscam <em>todos</em> os zeros. Elas são significativamente mais lentas na minha experiência e se voce sabe que o problema só tem um zero - pelo menos dentro da região em que ele está buscando - voce ganha em usar o <code>fzero</code> ou o <code>find_zero</code>.</p>
 <p>Veja que o fato da sintaxe ser parecida com a otimização em uma variável não é mera coinciência: quando otimizamos na mão usando os métodos de cálculo, buscamos o zero da derivada da função \(f\). Logo, as semelhanças vão bem além da superfíce do problema.</p>
+<h1><a id="interpolations" href="#interpolations">Interpolations</a></h1> O pacote <strong>Interpolations</strong> permite fazer interpolação. A ideia de interpolação é ligar os pontos de alguma maneira. Os Mínimos Quadrados Ordinários &#40;MQO&#41; de econometria são, de certa maneira, um algoritmo de interpolação. Nós também poderíamos querer ligar os pontos de maneira que a nossa função fosse exatamente o valor do ponto - lembre-se que no MQO a reta de regressão em geral não passa exatamente em cima do ponto.</p>
+<p>Uma maneira possível de fazer interpolação é, se temos \(n\) pontos, podemos construir um polinômio de grau \(n-1\) que passe por todos os pontos. Essa não é uma <a href="https://azul.netlify.com/2018/08/27/interpolacao/">estratégia muito boa</a>: funções simples podem ter aproximações horrorosas por polinômios.</p>
+<p>Uma maneira extremamente simples - e fantasticamente útil - de fazer interpolação é &quot;ligar os pontos&quot;, como em um livro infátil. Ligue os pontos usando retas. Fazer isso com o <strong>Interpolations</strong> é bastante simples. Podemos querer aproximar a função \(\frac{1}{1+x^2}\) por retas. O comando <code>LinearInterpolation</code> faz isso para gente. Eu vou gerar 10 pontos equidistantes entre -5 e 5 em um vetor <code>xx</code> e avaliar a função e salvar isso no vetor <code>yy</code>. Depois, eu vou usar o <code>LinearInterpolation</code> para gerar uma função que é a interpolação linear:</p>
+<pre><code class="language-julia">f(x) = 1/(1+x^2)
+
+xx = range(-5,5, length = 10)
+
+lin = LinearInterpolation(xx,yy)
+
+</code></pre>
+<p>Veja que <code>lin</code> é uma função: podemos fazer <code>lin&#40;0.5&#41;</code>,por exemplo. Vamos avaliar a qualidade dessa interpolação. Para isso vamos definir uma grade mais fina e avaliar a função e a interpolação:</p>
+<pre><code class="language-julia">x = -5:0.01:5
+plot(x,f.(x), label = "Função")
+plot!(x,lin.(x), line = :dash, label = "Aproximação")
+
+</code></pre>
+<p><img src="/src/imagens/lin_interpol1.png" alt="" /></p>
+<p>Veja que a aproximação é bastante pouca precisa. Aumentar o número de pontos para 50 melhora bastante a situação:</p>
+<pre><code class="language-julia">xx = range(-5,5,length = 50)
+
+yy = f.(xx)
+
+lin = LinearInterpolation(xx,yy)
+
+plot(x,f.(x), label = "Função")
+plot!(x,lin.(x), line = :dash, label = "Aproximação")
+
+</code></pre> <img src="/src/imagens/lin_interpol2.png" alt="" /></p>
+<p>Agora a aproximação é bem melhor - apesar de ser apenas um conjunto de retas.</p>
+<p>Às vezes queremos permitir que a função extrapole, i.e., avalie fora da grade que estabelecemos. Para isso, podemos usar a opção <code>extrapolation_bc</code> dentro do <code>LinearInterpolation</code>. Ele aceita várias opções: <code>Flat&#40;&#41;</code> repete o último valor; <code>Line&#40;&#41;</code> extrapola linearmente, entre outras opções. Eu vou continuar usando a mesma função e focar no que acontece na ponta esquerda quando usamos <code>Flat&#40;&#41;</code> e quando usamos <code>Line&#40;&#41;</code>. Na ponta direita a figura é idêntica:</p>
+<pre><code class="language-julia">x = -7:0.01:-4
+
+lin1 = LinearInterpolation(xx,yy, extrapolation_bc = Flat())
+lin2 = LinearInterpolation(xx,yy,extrapolation_bc = Line())
+
+plot(x,f.(x), label = "Função", legend =:topleft)
+plot!(x,lin1.(x), line = :dash,w=2, label = "Flat()")
+plot!(x,lin2.(x), line = :dash,w=2, label = "Line()")
+
+</code></pre> <img src="/src/imagens/lin_interpol3.png" alt="" /></p>
+<p>Nós também podemos querer gerar interpolações de funções que estão definidas não em \(\mathbb{R}\), mas em \(\mathbb{R}^2\) ou \(\mathbb{R}^3\). Nesse caso, o comando passa a ser:</p>
+<pre><code class="language-julia">LinearInterpolation((x,y),z)
+
+</code></pre>
+<p>Onde \((x,y)\) são vetores de tamanho \(n_1\) e \(n_2\), respectivamente, e z é uma matriz \(n_1 \times n_2\).</p>
 
 <div class="page-foot">
   <div class="copyright">
-    &copy; Daniel Coutinho. Last modified: July 12, 2019. Website built with <a href="https://github.com/tlienart/JuDoc.jl">JuDoc.jl</a>.
+    &copy; Daniel Coutinho. Last modified: July 13, 2019. Website built with <a href="https://github.com/tlienart/JuDoc.jl">JuDoc.jl</a>.
   </div>
 </div>
 
