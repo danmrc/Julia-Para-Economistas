@@ -17,7 +17,6 @@ if condition
 else
   outra coisa
 end
-
 ```
 
 _If_ s são blocos que permitem que você teste uma condição e execute um comando condicional àaquele condição ser atendida. Caso contrário (_else_) outro comando pode ser executado. Um exemplo simples é testar se um número é positivo:
@@ -62,7 +61,6 @@ A sintaxe para o for é:
 for i in 1:numero
   operações
 end
-
 ```
 
 Ou:
@@ -72,7 +70,6 @@ Ou:
 for i in vetor
   operações
 end
-
 ```
 
 O `for`permite repetir algum conjunto de operações um número de vezes - por isso ele é conhecido como um loop. Um exemplo bobo e simples é tirar o quadrado de todos os número de um vetor de 1 a 10:
@@ -150,7 +147,6 @@ while j <= 100
   end
   global j = j + 1
 end
-
 ```
 
 Veja que, na linha `i= i+1`, se tivessemos usado `global`, o Julia nos devolveria um erro acusando que `i` não é uma variável global. De fato, ela está definida dentro do `while`, e por isso não é global.

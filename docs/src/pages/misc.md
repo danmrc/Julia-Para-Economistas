@@ -22,4 +22,16 @@ resuls = load("resultados.jld")
 
 ```
 
-Veja que eu designei um objeto que recebe as variáveis carregadas. Esse objeto vai ser um dicionário, então para acessar o objeto `kgrid`, por exemplo, bastaria digitar `resuls["kgrid"]`. 
+Veja que eu designei um objeto que recebe as variáveis carregadas. Esse objeto vai ser um dicionário, então para acessar o objeto `kgrid`, por exemplo, bastaria digitar `resuls["kgrid"]`.
+
+# Funções com o mesmo nome em pacotes diferentes
+
+Algumas vezes dois pacotes dão o mesmo nome para duas funções que fazem coisas diferentes. São vários pacotes com vários contribuidores diferentes, e é de se esperar que alguns nomes sejam repetidos.
+
+A maneira do Julia contornar isso é similar com a do Python: use `nome do pacote.função`. Assim, se o por algum motivo a função `optimize` do pacote **Optim** conflita com algum outro nome de função de outro pacote, poderíamos chamar o optimize usando `Optim.optimize()`.
+
+Veja que, quando carregamos pacotes e dois nomes nos pacotes entram em conflito, o Julia nos avisa com um Warning. Por exemplo:
+
+```julia
+WARNING: using Optim.optimize in module Main conflicts with an existing identifier.
+```
