@@ -1,4 +1,139 @@
-<!doctype html> <html lang=en > <meta charset=UTF-8 > <meta name=viewport  content="width=device-width, initial-scale=1"> <link rel=stylesheet  href="/Julia-Para-Economistas/libs/katex/katex.min.css"> <link rel=stylesheet  href="/Julia-Para-Economistas/css/judoc.css"> <link rel=stylesheet  href="/Julia-Para-Economistas/css/pure.css"> <link rel=stylesheet  href="/Julia-Para-Economistas/css/side-menu.css"> <style> .jd-content{padding-left:10%;} @media (min-width: 940px) { .jd-content {width: 640px; margin-left: 0px; padding-left: 80px;} .header {width: 700px;} } </style> <link rel=icon  href="/Julia-Para-Economistas/assets/infra/favicon.png"> <title>Instalando</title> <div id=layout > <a href="#menu" id=menuLink  class=menu-link ><span></span></a> <div id=menu > <div class=pure-menu > <a class=pure-menu-heading  href="#">Jl para Econ</a> <ul class=pure-menu-list > <li class="pure-menu-item "><a href="/Julia-Para-Economistas/" class=pure-menu-link >Home</a> <li class="pure-menu-item "><a href="/Julia-Para-Economistas/pub/Instalando.html" class=pure-menu-link >Instalando</a> <li class="pure-menu-item "><a href="/Julia-Para-Economistas/pub/primeirospassos.html" class=pure-menu-link >Primeiros Passos</a> <li class="pure-menu-item "><a href="/Julia-Para-Economistas/pub/graficos.html" class=pure-menu-link >Gráficos</a> <li class="pure-menu-item "><a href="/Julia-Para-Economistas/pub/Controledefluxo.html" class=pure-menu-link >Controle de Fluxo</a> <li class="pure-menu-item "><a href="/Julia-Para-Economistas/pub/mat.html" class=pure-menu-link >Matemática no Julia</a> <li class="pure-menu-item "><a href="/Julia-Para-Economistas/pub/misc.html" class=pure-menu-link >Miscelânea</a> </ul> </div> </div> <div id=main > <div class=header > <h1>Instalando</h1> <h2>Using the Pure/Side-Menu template</h2> </div> <div class=jd-content > <h1><a id=instalao_e_ides  href="#instalao_e_ides">Instalação e IDEs</a></h1> Você pode usar o Julia online via o <a href="https://www.juliabox.com/">JuliaBox</a> ou <a href="https://julialang.org/downloads/">baixar o Julia</a>. O Julia está disponível para basicamente qualquer sistema operacional &#40;Windows, Mac e uma infinidade de distribuições de Linux&#41;. Eu recomendo baixar e instalar. Se você estiver utilizando uma distribuição de Linux você também pode ir no gerenciador de pacotes e baixar por lá. A instalação é sem surpresas.</p> <p>Uma vez instalado você pode usar o Julia direto do console, mas essa opção é sempre restritiva &#40;além de ser feio&#41;. Existem vários ambientes de desenvolvimento &#40;IDEs, <em>Integrated Developmnet Enviroment</em>&#41; para o Julia. Em particular:</p> <ol> <li><p>O <a href="https://atom.io/">Atom</a>. É o que eu uso e está disponível para todos os sistemas. O Atom é extremamente versátil, tem uma infinidade de pacotes, mas é pesado &#40;especialmente no Windows&#41;. O Julia oferece o Atom com o nome de JuliaPro.</p> <li><p>Os <em>notebooks</em> do Jupyter, que são usados também para outras linguagens, em particular o Python.</p> <li><p>Outras opções são o Visual Studio, Sublime Text. Eu nunca usei essas opções e não sei quais são as limitações dela.</p> </ol> <p>O resto dessa seção vai focar em instalar o Atom e o Julia e o Jupyter.</p> <h2><a id=julia_direto_no_console  href="#julia_direto_no_console">Julia direto no console</a></h2> As vezes é necessário usar o Julia direto do console. Isso é relativamente fácil no Mac e no Linux, mas é chato no Windows. Aqui vai um passo a passo:</p> <p>No Windows o Julia se esconde no appdata, e o caminho depende do seu nome de usuário. A maneira mais fácil de achar ele é a seguinte:</p> <ol> <li><p>Abra o &quot;explorador de arquivos&quot; &#40;ou Windows Explorer se você nasceu na década de 90&#41;</p> <li><p>Na barra de endereço digite &#37;appdata&#37;</p> <li><p>Ele vai entrar em .../appdata/roaming. Suba um diretório para appdata</p> <li><p>Entre na pasta local</p> <li><p>Lá vai ter a pasta de instalação juliax.x, onde x.x é o número da versão. Entre nela</p> <li><p>Clique duas vezes no atalho julia</p> </ol> <h2><a id=atom  href="#atom">Atom</a></h2> Depois de baixar e instalar o Atom, você precisa instalar alguns pacotes nele. Para isso dê ctrl &#43; , &#40;command &#43; , no Mac&#41; - ou vá em file, settings. Selecione Install e busque e baixe os seguintes pacotes:</p> <ul> <li><p>Ink</p> <li><p>Julia Client</p> <li><p>Language julia</p> <li><p>Uber juno</p> </ul> <p>Salvo engano instalando os 3 primeiros o último é instalado automaticamente. Quando a instalação de tudo for concluída e bem sucedida, duas coisas novas vão surgir no atom:</p> <ul> <li><p>Uma barra a esquerda com vários botões, inclusive um inseto, um raio, um play, um pause e um stop.</p> <li><p>Um novo menu Julia</p> </ul> <p>Para iniciar o Julia clique no icone <em>show console</em> &#40;debaixo do planeta com um anel&#41;. Vai surgir na sua tela um novo painel no Atom escrito <em>Press Enter to start Julia</em>. Aperte enter. Na primeira vez ele precisa instalar algumas coisas. Não é incomum ele falhar e quando você tentar de novo ele reclamar que falta um pacote. Nesse caso abra o console &#40;vá no menu Julia do próprio Atom e clique em <em>Open Console</em>&#41; e instale o pacote que falta. Mais embaixo eu explico como instalar pacotes.</p> <p>Quando você tiver tudo instalado corretamente e funcionando a sua tela vai ser parecida com essa:</p> <p>&#40;vai ter uma imagem aqui&#41;</p> <p>As vezes o Atom pode ter problemas para achar o caminho correto para o Julia. Nesse caso, você pode mudar o caminho indo no menu Julia -&gt; Settings... Leia a seção acima de como abrir o Julia no console acima. Ao invés de fazer o último passo, selecione o caminho da pasta &#40;que fica naquela barra lá em cima&#41; e copie e cole no Julia Path nas <em>settings</em> do Julia no Atom.</p> <h2>Jupyter</h2> <p>O Jupyter é outra opção para usar o Julia. Para ele, você precisa instalar o <a href="https://www.anaconda.com/distribution/">Anaconda</a>. Instale ele &#40;isso pode ser um pouco demorado&#41;. Depois abra o Julia, instale o pacote IJulia &#40;eu explico como instalar o pacote adiante&#41; e carregue ele. Feche o Julia e abra o Jupyter, que vai abrir no seu navegador. Isso deve ser o suficiente para permitir você criar um notebook com o Julia &#40;clicando em <em>new</em>&#41;</p> <h1><a id=instalando_pacotes  href="#instalando_pacotes">Instalando pacotes</a></h1> Como na maioria das linguagens de programação atuais, o ecosistema de pacotes escritos por outras pessoas ajudam com várias tarefas que nós vamos nos deparar - por exemplo, algoritmos de otimização, de encontrar o zero de uma função e de interpolação. Antes de instalar pacotes no Julia, você deve checar o <a href="https://juliaobserver.com/">Julia Observer</a> para checar quais pacotes você precisa.</p> <p>Para instalar os pacotes:</p> <ol> <li><p>Aperte a tecla &#93; &#40;sim, fechar o colchetes&#41;. Isso deve mudar o seu console de <code>julia&gt;</code> para <code>pkg v&gt;</code>, onde v é número da versão.</p> <li><p>Digite <code>add nome-do-pacote</code></p> <li><p>Quando terminar, para voltar para o modo normal do Julia, aperte backspace</p> </ol> <p>Para carregar um pacote instalado, digite <code>using nome-do-pacote</code> <p>Por exemplo, para instalar o pacote <em>Optim</em>, fariamos:</p> <pre><code class=hljs>&#93; #&#40;isso não vai gerar nada além da mudança de julia&gt; para package&gt;&#41;
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+   <!-- Un-minified script so that can play a bit -->
+<link rel="stylesheet" href="/libs/katex/katex.min.css">
+     
+  
+  <link rel="stylesheet" href="/css/judoc.css">
+  <link rel="stylesheet" href="/css/pure.css">
+  <link rel="stylesheet" href="/css/side-menu.css">
+  <!-- style adjustments -->
+  <style>
+    .jd-content{padding-left:10%;}
+    @media (min-width: 940px) {
+      .jd-content {width: 640px; margin-left: 0px; padding-left: 80px;}
+      .header {width: 700px;}
+    }
+  </style>
+  <link rel="icon" href="/assets/infra/favicon.png">
+   <title>Instalando</title>  
+</head>
+<body>
+  <div id="layout">
+    <!-- Menu toggle / hamburger icon -->
+    <a href="#menu" id="menuLink" class="menu-link"><span></span></a>
+    <div id="menu">
+      <div class="pure-menu">
+        <a class="pure-menu-heading" href="#">Jl para Econ</a>
+        <ul class="pure-menu-list">
+          <li class="pure-menu-item "><a href="/" class="pure-menu-link">Home</a></li>
+          <li class="pure-menu-item "><a href="/pub/Instalando.html" class="pure-menu-link">Instalando</a></li>
+          <li class="pure-menu-item "><a href="/pub/primeirospassos.html" class="pure-menu-link">Primeiros Passos</a></li>
+          <li class="pure-menu-item "><a href="/pub/graficos.html" class="pure-menu-link">Gráficos</a></li>
+          <li class="pure-menu-item "><a href="/pub/mat.html" class="pure-menu-link">Matemática no Julia</a></li>
+          <li class="pure-menu-item "><a href="/pub/Controledefluxo.html" class="pure-menu-link">Controle de Fluxo</a></li>
+          <li class="pure-menu-item "><a href="/pub/foos.html" class="pure-menu-link">Funções</a></li>
+          <li class="pure-menu-item "><a href="/pub/misc.html" class="pure-menu-link">Miscelânea</a></li>
+        </ul>
+      </div>
+    </div>
+    <div id="main"> <!-- Closed in foot -->
+      <div class="header">
+        <h1>Instalando</h1>
+        <h2>Using the Pure/Side-Menu template</h2>
+      </div>
+
+<!-- Content appended here -->
+
+<div class="jd-content">
+<h1><a id="instalao_e_ides" href="#instalao_e_ides">Instalação e IDEs</a></h1> Você pode usar o Julia online via o <a href="https://www.juliabox.com/">JuliaBox</a> ou <a href="https://julialang.org/downloads/">baixar o Julia</a>. O Julia está disponível para basicamente qualquer sistema operacional &#40;Windows, Mac e uma infinidade de distribuições de Linux&#41;. Eu recomendo baixar e instalar. Se você estiver utilizando uma distribuição de Linux você também pode ir no gerenciador de pacotes e baixar por lá. A instalação é sem surpresas.</p>
+<p>Uma vez instalado você pode usar o Julia direto do console, mas essa opção é sempre restritiva &#40;além de ser feio&#41;. Existem vários ambientes de desenvolvimento &#40;IDEs, <em>Integrated Developmnet Enviroment</em>&#41; para o Julia. Em particular:</p>
+<ol>
+<li><p>O <a href="https://atom.io/">Atom</a>. É o que eu uso e está disponível para todos os sistemas. O Atom é extremamente versátil, tem uma infinidade de pacotes, mas é pesado &#40;especialmente no Windows&#41;. O Julia oferece o Atom com o nome de JuliaPro.</p>
+</li>
+<li><p>Os <em>notebooks</em> do Jupyter, que são usados também para outras linguagens, em particular o Python.</p>
+</li>
+<li><p>Outras opções são o Visual Studio, Sublime Text. Eu nunca usei essas opções e não sei quais são as limitações dela.</p>
+</li>
+</ol>
+<p>O resto dessa seção vai focar em instalar o Atom e o Julia e o Jupyter.</p>
+<h1><a id="julia_direto_no_console" href="#julia_direto_no_console">Julia direto no console</a></h1> As vezes é necessário usar o Julia direto do console. Isso é relativamente fácil no Mac e no Linux, mas é chato no Windows. Aqui vai um passo a passo:</p>
+<p>No Windows o Julia se esconde no appdata, e o caminho depende do seu nome de usuário. A maneira mais fácil de achar ele é a seguinte:</p>
+<ol>
+<li><p>Abra o &quot;explorador de arquivos&quot; &#40;ou Windows Explorer se você nasceu na década de 90&#41;</p>
+</li>
+<li><p>Na barra de endereço digite &#37;appdata&#37;</p>
+</li>
+<li><p>Ele vai entrar em .../appdata/roaming. Suba um diretório para appdata</p>
+</li>
+<li><p>Entre na pasta local</p>
+</li>
+<li><p>Lá vai ter a pasta de instalação juliax.x, onde x.x é o número da versão. Entre nela</p>
+</li>
+<li><p>Clique duas vezes no atalho julia</p>
+</li>
+</ol>
+<h1><a id="atom" href="#atom">Atom</a></h1> Depois de baixar e instalar o Atom, você precisa instalar alguns pacotes nele. Para isso dê ctrl &#43; , &#40;command &#43; , no Mac&#41; - ou vá em file, settings. Selecione Install e busque e baixe os seguintes pacotes:</p>
+<ul>
+<li><p>Ink</p>
+</li>
+<li><p>Julia Client</p>
+</li>
+<li><p>Language julia</p>
+</li>
+<li><p>Uber juno</p>
+</li>
+</ul>
+<p>Salvo engano instalando os 3 primeiros o último é instalado automaticamente. Quando a instalação de tudo for concluída e bem sucedida, duas coisas novas vão surgir no atom:</p>
+<ul>
+<li><p>Uma barra a esquerda com vários botões, inclusive um inseto, um raio, um play, um pause e um stop.</p>
+</li>
+<li><p>Um novo menu Julia</p>
+</li>
+</ul>
+<p>Para iniciar o Julia clique no icone <em>show console</em> &#40;debaixo do planeta com um anel&#41;. Vai surgir na sua tela um novo painel no Atom escrito <em>Press Enter to start Julia</em>. Aperte enter. Na primeira vez ele precisa instalar algumas coisas. Não é incomum ele falhar e quando você tentar de novo ele reclamar que falta um pacote. Nesse caso abra o console &#40;vá no menu Julia do próprio Atom e clique em <em>Open Console</em>&#41; e instale o pacote que falta. Mais embaixo eu explico como instalar pacotes.</p>
+<p>Quando você tiver tudo instalado corretamente e funcionando a sua tela vai ser parecida com essa:</p>
+<p>&#40;vai ter uma imagem aqui&#41;</p>
+<p>As vezes o Atom pode ter problemas para achar o caminho correto para o Julia. Nesse caso, você pode mudar o caminho indo no menu Julia -&gt; Settings... Leia a seção acima de como abrir o Julia no console acima. Ao invés de fazer o último passo, selecione o caminho da pasta &#40;que fica naquela barra lá em cima&#41; e copie e cole no Julia Path nas <em>settings</em> do Julia no Atom.</p>
+<h1>Jupyter</h1>
+<p>O Jupyter é outra opção para usar o Julia. Para ele, você precisa instalar o <a href="https://www.anaconda.com/distribution/">Anaconda</a>. Instale ele &#40;isso pode ser um pouco demorado&#41;. Depois abra o Julia, instale o pacote IJulia &#40;eu explico como instalar o pacote adiante&#41; e carregue ele. Feche o Julia e abra o Jupyter, que vai abrir no seu navegador. Isso deve ser o suficiente para permitir você criar um notebook com o Julia &#40;clicando em <em>new</em>&#41;</p>
+<h1><a id="instalando_pacotes" href="#instalando_pacotes">Instalando pacotes</a></h1> Como na maioria das linguagens de programação atuais, o ecosistema de pacotes escritos por outras pessoas ajudam com várias tarefas que nós vamos nos deparar - por exemplo, algoritmos de otimização, de encontrar o zero de uma função e de interpolação. Antes de instalar pacotes no Julia, você deve checar o <a href="https://juliaobserver.com/">Julia Observer</a> para checar quais pacotes você precisa.</p>
+<p>Para instalar os pacotes:</p>
+<ol>
+<li><p>Aperte a tecla &#93; &#40;sim, fechar o colchetes&#41;. Isso deve mudar o seu console de <code>julia&gt;</code> para <code>pkg v&gt;</code>, onde v é número da versão.</p>
+</li>
+<li><p>Digite <code>add nome-do-pacote</code></p>
+</li>
+<li><p>Quando terminar, para voltar para o modo normal do Julia, aperte backspace</p>
+</li>
+</ol>
+<p>Para carregar um pacote instalado, digite <code>using nome-do-pacote</code>
+<p>Por exemplo, para instalar o pacote <em>Optim</em>, fariamos:</p>
+<pre><code>&#93; #&#40;isso não vai gerar nada além da mudança de julia&gt; para package&gt;&#41;
 add Optim
 backspace #&#40;isso não vai gerar nada além da mudança de package&gt; para julia&gt;&#41;
-using Optim</code></pre> Tendo instalado o Julia, um IDE e sabendo instalar pacotes, podemos seguir adiante. <div class=page-foot > <div class=copyright > &copy; Daniel Coutinho. Last modified: June 01, 2019. Website built with <a href="https://github.com/tlienart/JuDoc.jl">JuDoc.jl</a>. </div> </div> </div> </div> </div> <script src="/Julia-Para-Economistas/libs/pure/ui.min.js"></script>
+using Optim</code></pre>
+ Tendo instalado o Julia, um IDE e sabendo instalar pacotes, podemos seguir adiante.
+<div class="page-foot">
+  <div class="copyright">
+    &copy; Daniel Coutinho. Last modified: July 14, 2019. Website built with <a href="https://github.com/tlienart/JuDoc.jl">JuDoc.jl</a>.
+  </div>
+</div>
+
+</div>
+<!-- CONTENT ENDS HERE -->
+      </div> <!-- end of id=main -->
+  </div> <!-- end of id=layout -->
+  <script src="/libs/pure/ui.min.js"></script>
+  
+      <script src="/libs/katex/katex.min.js"></script>
+<script src="/libs/katex/auto-render.min.js"></script>
+<script>renderMathInElement(document.body)</script>
+
+  
+  
+</body>
+</html>

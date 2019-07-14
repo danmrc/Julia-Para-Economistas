@@ -35,3 +35,11 @@ Veja que, quando carregamos pacotes e dois nomes nos pacotes entram em conflito,
 ```julia
 WARNING: using Optim.optimize in module Main conflicts with an existing identifier.
 ```
+
+# Chamando arquivos de fora
+
+É bastante comum separar funções do corpo principal do código. Em geral, podemos ter um arquivo com funções (ou uma só) e queremos carregar ela no nosso código. Nós podemos fazer isso usando o comando `include`. Suponha que eu tenha um arquivo com funções chamado _foo.jl_. Posso carregar as funções dele usando:
+
+```julia
+include("foos.jl")
+```

@@ -2,7 +2,7 @@
 
 Essa página trata extensivamente de como fazer gráficos no Julia. A principal biblioteca para isso é o **Plots**, que é "só" um pacote que amarra vários outros com uma sintaxe comum. Eu vou mostrar no fim como mudar qual pacote está sendo usado para fazer os plots, mas eu acho que o padrão (GR) produz resultados extremamente aceitáveis - melhor que os plots usuais do R, por exemplo.
 
-## O Básico
+# O Básico
 
 Podemos querer fazer o gráfico de uma variável, y, que é uma função continua como $x^2$. Para isso, basta definir a função e passar para o comando `plot`:
 
@@ -52,7 +52,7 @@ plot!(x,h.(x),line = :dash,label = "h(x)",w=2)
 
 ![](/src/imagens/grafico_ex1.png)
 
-## Pontos, não linhas
+# Pontos, não linhas
 
 O `plot`, por default, faz linhas. Às vezes queremos o gráfico exibindo uma nuvem de pontos e não linhas. O comando `scatter` faz isso. Por exemplo, eu posso gerar 100 números saídos de uma Normal com média 0 e variância 1:
 
@@ -66,7 +66,32 @@ scatter(vals)
 
 Nós podemos usar `scatter!` para colocar pontos por cima ou até mesmo `plot!` para colocar uma linha no gráfico.
 
-## Salvando o resultado
+# Histogramas
+
+Produzir histogramas também é simples: o comando é `histogram`. Histogramas podem ser colocados um sobre o outro:
+
+```julia
+
+vals1 = randn(100)
+vals2 = randn(500)
+
+histogram(vals1)
+histogram!(vals2)
+```
+![](/src/imagens/grafico_ex3.png)
+
+Veja que as vezes o resultado de um histograma podem cobrir o outro completamente, como ocorreu na figura acima. Podemos colocar um valor para a transparência do gráfico com a opção `alpha`:
+
+```julia
+
+histogram(vals1)
+histogram!(vals2,alpha=0.7)
+```
+![](/src/imagens/grafico_ex4.png)
+
+Veja que também podemos usar labels para mudar a legenda nos histogramas.
+
+# Salvando o resultado
 
 Uma vez que você esteja satisfeito com o gráfico, salvar é bem simples: basta usar `png(caminho do arquivo)`. No caso dos gráficos para este site, por exemplo:
 
