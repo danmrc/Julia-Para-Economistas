@@ -1,3 +1,94 @@
 @def title = "Matemática no Julia II"
 
-No capítulo anterior de matemática, eu falei sobre diversos tópicos como otimização, achar raízes e interpolação. Nessa seção, eu vou tratar apenas de fazer Álgebra Linear no Julia. 
+No capítulo anterior de matemática, eu falei sobre diversos tópicos como otimização, achar raízes e interpolação. Nessa seção, eu vou tratar apenas de fazer Álgebra Linear no Julia.
+
+Coisas lineares são matematicamente tratáveis e matrizes são objetos fundamentais na matemática. Muitos modelos econômicos não lineares são de alguma forma linearizados para serem tratáveis.
+
+Eu já discuti como criar matrizes no post de [primeiros passos](/pub/primeirospassos.html) e irei pular essa parte. Mais abaixo eu discuto como criar matrizes esparsas.
+
+# Primeiros passos
+
+O pacote fundamental para este post é o **LinearAlgebra** - o que não deve ser surpreendente. Ele já vem pré instalado com o Julia e para carregar, basta fazer `using LinearAlgebra`. Isso nos abre a possibilidade de usar diversas decomposições - que serão tratadas na próxima seção - bem como alguns truques úteis. Um deles é que podemos gerar a matriz identidade da seguinte maneira:
+
+```julia
+
+Matrix(I,2,2)
+```
+
+Nesse caso, a matriz vai ser $2 \times 2$. Curiosamente, ela vai sair do tipo booleano - ou seja, a diagonal principal vai ter _true_ e o resto das posições vão ser _false_. Nós podemos modificar para termos a matriz númerica usando uma chave com o tipo entre o nome da função e o parêntese:
+
+```julia
+
+Matrix{Float64}(I,2,2)
+```
+
+E todos os números vão ser do tipo _Float64_ - não é muito importante entender o porque do 64, mas agora temos uma matriz com zero e um.
+
+Em muitas situações você pode usar o `I` no lugar da identidade, e o Julia vai ajustar para automaticamente fazer as dimensões baterem. Por exemplo:
+
+```julia
+
+I + [1 4;2 3]
+```
+Retorna:
+
+$$\begin{bmatrix}
+2 & 4\\
+2 & 4\\
+\end{bmatrix}$$
+
+# Decomposições
+
+## Autovalores
+
+Existem várias decomposições úteis em Álgebra Linear. A mais comum é a de autorvalores e autovetores, que pode ser obtida pelo comando eigen~~~<a href="#note1" id="note1ref"><sup>1</sup></a>~~~:
+
+```julia
+
+A = [1 2;3 4]
+autos = eigen(A)
+```
+O objeto autos tem dois elementos, os autovalores e os autovetores, que podem ser acessados via `autos.values` e `autos.vectors`, respectivamente.
+
+## SVD
+
+A _Singular Value Decomposition_ (SVD) é outra decomposição bastante frequente. Uma matriz $A$ decomposta por SVD:
+
+$$ A = U S V^{\prime}$$
+
+Onde $U$ e $V$ são matrizes ortonormais~~~<a href="#note1" id="note1ref"><sup>2</sup></a>~~~ e S é diagonal. O comando do Julia que gera a decomposição svd é `svd`, e o Julia usa os nomes U,S e V para os elementos dentro de um objeto gerado pelo comando `svd`. Veja que S vem como um vetor e podemos organizar ele como uma matriz diagonal usando o comando `Diagonal`, que pega o vetor que você passa para o comando e gera uma matriz diagonal a partir daquele vetor. Assim:
+
+```julia
+
+A = [1 2 2; 2 4 7;9 8 7]
+
+svd_dec = svd(A)
+
+svd_dec.U*Diagonal(svd_dec.S)*svd_dec.Vt
+```
+A última linha deve ser idêntica a matriz A (tirando erros de arredondamento)
+
+## Schur
+
+A decomposição de Schur é uma decomposição não tão conhecida quantas as duas anteriores, mas é usada em alguns algoritmos em economia. Essencialmente, a decomposição de Schur faz:
+
+$$ A = Z*S*Z^\prime $$
+
+Onde $Z$ é ortonormal. O comando no Julia é `schur`:
+
+```julia
+
+A = [1 2 2; 2 4 7;9 8 7]
+
+schur_dec = schur(A)
+
+schur_dec.Z*schur_dec.Schur*schur_dec.Z'
+```
+
+## Um minuto de Algebra Linear (ou: o que essas 3 decomposições tem em comum)
+
+Vamos gerar a matriz $F = A'A$, sendo A a matriz definida anteriormente. F é simétrica (e portanto, normal)
+
+~~~<a id="note1" href="#note1ref"><sup>1</sup></a>~~~Porque em inglês autovalores são _eigenvalues_ e autovetores são _eigenvectors_.
+
+~~~<a href="#note1" id="note1ref"><sup>2</sup></a>~~~ Maneira chique de dizer que o produto interno de duas colunas quaisquer da matriz são ortogonais (tem produto interno zero)
