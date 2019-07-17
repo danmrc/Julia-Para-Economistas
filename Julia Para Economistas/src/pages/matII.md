@@ -4,7 +4,7 @@ No capítulo anterior de matemática, eu falei sobre diversos tópicos como otim
 
 Coisas lineares são matematicamente tratáveis e matrizes são objetos fundamentais na matemática. Muitos modelos econômicos não lineares são de alguma forma linearizados para serem tratáveis.
 
-Eu já discuti como criar matrizes no post de [primeiros passos](/pub/primeirospassos.html) e irei pular essa parte. Mais abaixo eu discuto como criar matrizes esparsas.
+Eu já discuti como criar matrizes no post de [primeiros passos](/pub/primeirospassos.html) e irei pular essa parte. Discutirei futuramente como criar matrizes esparsas - e porque elas são úteis. 
 
 # Primeiros passos
 
@@ -118,7 +118,22 @@ Para ver o que cada um desses comandos retorna, a melhor opção é olhar o help
 
 _Nota: essa seção é o detalhe do detalhe. Mas a decomposição de Schur é frequentemente usada em economia (macro, para ser bastante preciso). Por completude, eu adiciono essa seção._
 
+Às vezes precisamos de ordernar a decomposição de schur do maior autovalor generalizado (isso é, o autovalor da decomposição de schur) para o menor, ou o contrário. O comando `ordschur`permite fazer isso de maneira imediata, mas com uma sintaxe meio esquisita (na minha opinião): primeiro um objeto gerado pelo comando `schur`; depois - e esta é a parte esquisita - uma matriz de _true_ e _false_ onde na posição _true_ vão ser ordenadas primeiro e as _false_ vão ser ordenadas por último. Por exemplo:
 
+```julia
+A = [1 .2 .5;0 1 0;.1 1 0;]
+
+schur_decomp = schur(A)
+ordem = abs.(schur_decomp.values) .< 1
+
+ordschur(schur_decomp,ordem)
+```
+
+Garante que os autovalores menores que 1 em módulo vão ser os primeiros na ordenação da matriz. Veja que isso preserva as propriedades da seção anterior sobre multiplicar as matrizes da decomposição de Schur gerar a matriz original.
+
+A mesma ideia pode ser usada para a decomposição de Schur generalizada.
+
+-----
 
 ~~~<a id="note1" href="#note1ref"><sup>1</sup></a>~~~Porque em inglês autovalores são _eigenvalues_ e autovetores são _eigenvectors_.
 
