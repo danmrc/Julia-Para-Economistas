@@ -98,4 +98,4 @@ Uma vez que você esteja satisfeito com o gráfico, salvar é bem simples: basta
 ```julia
 png("C:\\Users\\User\\Documents\\GitHub\\Julia-Para-Economistas\\Julia Para Economistas\\src\\imagens\\grafico_ex2")
 ```
-Obviamente, isso salva o arquivo no formato png - que é o mais comum hoje em dia e tem tamanho bastante aceitável. Outros formatos estão disponíveis. Infelizmente, _eps_, que é um formato usado com frequência em documentos do LaTeX, não está implementado para o GR, e não existe um comando `eps()` (até onde eu sei).
+Obviamente, isso salva o arquivo no formato png - que é o mais comum hoje em dia e tem tamanho bastante aceitável. Outros formatos estão disponíveis. Infelizmente, _eps_, que é um formato usado com frequência em documentos do LaTeX, não está implementado para o GR, e não existe um comando `eps()` para salvar imagens. (até onde eu sei).
