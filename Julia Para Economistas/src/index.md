@@ -45,6 +45,8 @@ Obviamente, o Julia não é perfeito. Eis alguns problemas do Julia:
 
 Eu não posso deixar de observar que o ponto 2 pode ser uma _qualidade_. Não usar soluções "enlatadas" (implementadas por outras pessoas) e implementar você mesmo acaba te fazendo entender o que o algoritmo faz (talvez seja a _única_ maneira de _realmente entender_ um algoritmo). Entretanto, isso é uma questão de gosto: muitos economistas acham a parte numérica chata e não são piores economistas por isso.
 
+-----
+
 ~~~
 <a id="note1" href="#note1ref"><sup>1</sup></a>Infelizmente a página em português do tema são 3 linhas.
 ~~~

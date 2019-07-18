@@ -4,9 +4,49 @@ No capítulo anterior de matemática, eu falei sobre diversos tópicos como otim
 
 Coisas lineares são matematicamente tratáveis e matrizes são objetos fundamentais na matemática. Muitos modelos econômicos não lineares são de alguma forma linearizados para serem tratáveis.
 
-Eu já discuti como criar matrizes no post de [primeiros passos](/pub/primeirospassos.html) e irei pular essa parte. Discutirei futuramente como criar matrizes esparsas - e porque elas são úteis. 
+Eu já discuti como criar matrizes no post de [primeiros passos](/pub/primeirospassos.html) e irei pular essa parte. Discutirei futuramente como criar matrizes esparsas - e porque elas são úteis.
 
 # Primeiros passos
+
+As três operações funcionam normalmente. Veja que `*` multiplica matrizes da maneira usual e não elemento a elemento. Uma operação fundamental é inverter uma matriz, o que pode ser obtido via o comando `inv`:
+
+```julia
+
+A=[1 2;3 4]
+inv(A)
+```
+
+Poderíamos usar isso para resolver um sistema linear, como por exemplo:
+
+$$\begin{bmatrix}
+1 & 2\\
+3 & 4\\
+\end{bmatrix} \begin{bmatrix}
+x\\
+y\\
+\end{bmatrix} = \begin{bmatrix}
+0\\
+1\\
+\end{bmatrix}$$
+
+Nós poderíamos resolver esse problema usando:
+
+```julia
+
+b = [0;1]
+inv(A)*b
+```
+
+Mas essa não é a melhor maneira: a melhora maneira é usar a contrabarra:
+
+```julia
+
+A\b
+```
+
+Com a contrabarra, o Julia não necessariamente resolve o sistema invertendo a matriz, o que tem muitas vantagens - inverter matriz é custoso, e se a matriz for esparsas existem algoritmos que resolvem o problema de maneira mais eficiente que usando o `inv()`.
+
+# LinearAlgebra
 
 O pacote fundamental para este post é o **LinearAlgebra** - o que não deve ser surpreendente. Ele já vem pré instalado com o Julia e para carregar, basta fazer `using LinearAlgebra`. Isso nos abre a possibilidade de usar diversas decomposições - que serão tratadas na próxima seção - bem como alguns truques úteis. Um deles é que podemos gerar a matriz identidade da seguinte maneira:
 
@@ -37,11 +77,15 @@ $$\begin{bmatrix}
 2 & 4\\
 \end{bmatrix}$$
 
+Ao carregar o pacote `LinearAlgebra`, nós também temos acesso aos comandos `det` e `tr`, que calculam o determinante e o traço de uma matriz, respectivamente.
+
 # Decomposições
+
+Existem várias decomposições úteis em Álgebra Linear. Eu exploro duas muito comuns (Autovalores e SVD) e uma incomum, mas com amplo uso em macroeconomia - a decomposição de Schur.
 
 ## Autovalores
 
-Existem várias decomposições úteis em Álgebra Linear. A mais comum é a de autorvalores e autovetores, que pode ser obtida pelo comando eigen~~~<a href="#note1" id="note1ref"><sup>1</sup></a>~~~:
+ A decomposição mais comum é a de autorvalores e autovetores, que pode ser obtida pelo comando eigen~~~<a href="#note1" id="note1ref"><sup>1</sup></a>~~~:
 
 ```julia
 
