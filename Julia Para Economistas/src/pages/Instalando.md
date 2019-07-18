@@ -47,7 +47,9 @@ Para iniciar o Julia clique no icone _show console_ (debaixo do planeta com um a
 
 Quando você tiver tudo instalado corretamente e funcionando a sua tela vai ser parecida com essa:
 
-(vai ter uma imagem aqui)
+![](/src/imagens/atom.png)
+
+([clique aqui](/src/imagens/atom.png) para ver maior)
 
 As vezes o Atom pode ter problemas para achar o caminho correto para o Julia. Nesse caso, você pode mudar o caminho indo no menu Julia -> Settings... Leia a seção acima de como abrir o Julia no console acima. Ao invés de fazer o último passo, selecione o caminho da pasta (que fica naquela barra lá em cima) e copie e cole no Julia Path nas _settings_ do Julia no Atom.
 

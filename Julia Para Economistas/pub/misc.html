@@ -1,7 +1,92 @@
-<!doctype html> <html lang=en > <meta charset=UTF-8 > <meta name=viewport  content="width=device-width, initial-scale=1"> <link rel=stylesheet  href="/Julia-Para-Economistas/libs/katex/katex.min.css"> <link rel=stylesheet  href="/Julia-Para-Economistas/css/judoc.css"> <link rel=stylesheet  href="/Julia-Para-Economistas/css/pure.css"> <link rel=stylesheet  href="/Julia-Para-Economistas/css/side-menu.css"> <style> .jd-content{padding-left:10%;} @media (min-width: 940px) { .jd-content {width: 640px; margin-left: 0px; padding-left: 80px;} .header {width: 700px;} } </style> <link rel=icon  href="/Julia-Para-Economistas/assets/infra/favicon.png"> <title>Miscelâneas</title> <div id=layout > <a href="#menu" id=menuLink  class=menu-link ><span></span></a> <div id=menu > <div class=pure-menu > <a class=pure-menu-heading  href="#">Jl para Econ</a> <ul class=pure-menu-list > <li class="pure-menu-item "><a href="/Julia-Para-Economistas/" class=pure-menu-link >Home</a> <li class="pure-menu-item "><a href="/Julia-Para-Economistas/pub/Instalando.html" class=pure-menu-link >Instalando</a> <li class="pure-menu-item "><a href="/Julia-Para-Economistas/pub/primeirospassos.html" class=pure-menu-link >Primeiros Passos</a> <li class="pure-menu-item "><a href="/Julia-Para-Economistas/pub/graficos.html" class=pure-menu-link >Gráficos</a> <li class="pure-menu-item "><a href="/Julia-Para-Economistas/pub/mat.html" class=pure-menu-link >Matemática I</a> <li class="pure-menu-item "><a href="/Julia-Para-Economistas/pub/matII.html" class=pure-menu-link >Matemática II</a> <li class="pure-menu-item "><a href="/Julia-Para-Economistas/pub/Controledefluxo.html" class=pure-menu-link >Controle de Fluxo</a> <li class="pure-menu-item "><a href="/Julia-Para-Economistas/pub/foos.html" class=pure-menu-link >Funções</a> <li class="pure-menu-item "><a href="/Julia-Para-Economistas/pub/misc.html" class=pure-menu-link >Miscelânea</a> </ul> </div> </div> <div id=main > <div class=header > <h1>Miscelâneas</h1> <h2>Using the Pure/Side-Menu template</h2> </div> <div class=jd-content > <p><strong>Estes são tópicos que ainda não encontrei um lugar adequado para colocar - mas que são úteis</strong></p> <h2><a id=salvando_resultados  href="#salvando_resultados">Salvando resultados</a></h2> Depois de realizar uma longa simulação, além dos gráficos que geramos, muito provavelmente vamos querer salvar algum tipo de informação da simulação. Muitas vezes queremos salvar de maneira que o objeto seja preservado, ou seja, se geramos um array <span class=katex ><span class=katex-mathml ><math><semantics><mrow><mn>3</mn><mo>×</mo><mn>4</mn><mo>×</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">3 \times 4 \times 2</annotation></semantics></math></span><span class=katex-html  aria-hidden=true ><span class=base ><span class=strut  style="height:0.72777em;vertical-align:-0.08333em;"></span><span class=mord >3</span><span class=mspace  style="margin-right:0.2222222222222222em;"></span><span class=mbin >×</span><span class=mspace  style="margin-right:0.2222222222222222em;"></span></span><span class=base ><span class=strut  style="height:0.72777em;vertical-align:-0.08333em;"></span><span class=mord >4</span><span class=mspace  style="margin-right:0.2222222222222222em;"></span><span class=mbin >×</span><span class=mspace  style="margin-right:0.2222222222222222em;"></span></span><span class=base ><span class=strut  style="height:0.64444em;vertical-align:0em;"></span><span class=mord >2</span></span></span></span> , nós vamos querer guardar ele dessa maneira. O pacote <strong>JLD</strong> traz uma maneira de salvar dados preservando o formato: o comando é <code>save</code> e recebe como primeiro argumento o nome do arquivo; depois o nome que cada objeto vai receber ao ser carregado &#40;portanto, uma <em>string</em>&#41; e o objeto. Se tivermos vários objetos, colocamos nome, objeto, nome, objeto...</p> <p>Um exemplo vai clarificar as coisas: Suponha que temos os objetos <code>kgrid</code>e <code>cons</code>, por exemplo. Ambos são arrays. Vamos salvar em um arquivo chamado <em>resultados.jld</em> - preste atenção na extensão do arquivo. Teríamos apenas que, depois de carregado o pacote, fazer:</p> <pre><code class="julia hljs">save(<span class=hljs-string >"resultados.jld"</span>,<span class=hljs-string >"kgrid"</span>,kgrid,<span class=hljs-string >"cons"</span>,cons)
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+   <!-- Un-minified script so that can play a bit -->
+<link rel="stylesheet" href="/libs/katex/katex.min.css">
+     
+  
+  <link rel="stylesheet" href="/css/judoc.css">
+  <link rel="stylesheet" href="/css/pure.css">
+  <link rel="stylesheet" href="/css/side-menu.css">
+  <!-- style adjustments -->
+  <style>
+    .jd-content{padding-left:10%;}
+    @media (min-width: 940px) {
+      .jd-content {width: 640px; margin-left: 0px; padding-left: 80px;}
+      .header {width: 700px;}
+    }
+  </style>
+  <link rel="icon" href="/assets/infra/favicon.png">
+   <title>Miscelâneas</title>  
+</head>
+<body>
+  <div id="layout">
+    <!-- Menu toggle / hamburger icon -->
+    <a href="#menu" id="menuLink" class="menu-link"><span></span></a>
+    <div id="menu">
+      <div class="pure-menu">
+        <a class="pure-menu-heading" href="#">Jl para Econ</a>
+        <ul class="pure-menu-list">
+          <li class="pure-menu-item "><a href="/" class="pure-menu-link">Home</a></li>
+          <li class="pure-menu-item "><a href="/pub/Instalando.html" class="pure-menu-link">Instalando</a></li>
+          <li class="pure-menu-item "><a href="/pub/primeirospassos.html" class="pure-menu-link">Primeiros Passos</a></li>
+          <li class="pure-menu-item "><a href="/pub/graficos.html" class="pure-menu-link">Gráficos</a></li>
+          <li class="pure-menu-item "><a href="/pub/mat.html" class="pure-menu-link">Matemática I</a></li>
+          <li class="pure-menu-item "><a href="/pub/matII.html" class="pure-menu-link">Matemática II</a></li>
+          <li class="pure-menu-item "><a href="/pub/Controledefluxo.html" class="pure-menu-link">Controle de Fluxo</a></li>
+          <li class="pure-menu-item "><a href="/pub/foos.html" class="pure-menu-link">Funções</a></li>
+          <li class="pure-menu-item "><a href="/pub/misc.html" class="pure-menu-link">Miscelânea</a></li>
+        </ul>
+      </div>
+    </div>
+    <div id="main"> <!-- Closed in foot -->
+      <div class="header">
+        <h1>Miscelâneas</h1>
+        <h2>Using the Pure/Side-Menu template</h2>
+      </div>
 
-</code></pre> <p>Se quisermos carregar o objeto, basta usar <code>load</code>:</p> <pre><code class="julia hljs">resuls = load(<span class=hljs-string >"resultados.jld"</span>)
+<!-- Content appended here -->
 
-</code></pre> <p>Veja que eu designei um objeto que recebe as variáveis carregadas. Esse objeto vai ser um dicionário, então para acessar o objeto <code>kgrid</code>, por exemplo, bastaria digitar <code>resuls&#91;&quot;kgrid&quot;&#93;</code>.</p> <h1><a id=funes_com_o_mesmo_nome_em_pacotes_diferentes  href="#funes_com_o_mesmo_nome_em_pacotes_diferentes">Funções com o mesmo nome em pacotes diferentes</a></h1> Algumas vezes dois pacotes dão o mesmo nome para duas funções que fazem coisas diferentes. São vários pacotes com vários contribuidores diferentes, e é de se esperar que alguns nomes sejam repetidos.</p> <p>A maneira do Julia contornar isso é similar com a do Python: use <code>nome do pacote.função</code>. Assim, se o por algum motivo a função <code>optimize</code> do pacote <strong>Optim</strong> conflita com algum outro nome de função de outro pacote, poderíamos chamar o optimize usando <code>Optim.optimize&#40;&#41;</code>.</p> <p>Veja que, quando carregamos pacotes e dois nomes nos pacotes entram em conflito, o Julia nos avisa com um Warning. Por exemplo:</p> <pre><code class="julia hljs">WARNING: <span class=hljs-keyword >using</span> Optim.optimize <span class=hljs-keyword >in</span> <span class=hljs-keyword >module</span> Main conflicts with an existing identifier.
-</code></pre> <h1><a id=chamando_arquivos_de_fora  href="#chamando_arquivos_de_fora">Chamando arquivos de fora</a></h1> É bastante comum separar funções do corpo principal do código. Em geral, podemos ter um arquivo com funções &#40;ou uma só&#41; e queremos carregar ela no nosso código. Nós podemos fazer isso usando o comando <code>include</code>. Suponha que eu tenha um arquivo com funções chamado <em>foo.jl</em>. Posso carregar as funções dele usando:</p> <pre><code class="julia hljs">include(<span class=hljs-string >"foos.jl"</span>)
-</code></pre> </p> <div class=page-foot > <div class=copyright > &copy; Daniel Coutinho. Last modified: July 14, 2019. Website built with <a href="https://github.com/tlienart/JuDoc.jl">JuDoc.jl</a>. </div> </div> </div> </div> </div> <script src="/Julia-Para-Economistas/libs/pure/ui.min.js"></script>
+<div class="jd-content">
+<p><strong>Estes são tópicos que ainda não encontrei um lugar adequado para colocar - mas que são úteis</strong></p>
+<h2><a id="salvando_resultados" href="#salvando_resultados">Salvando resultados</a></h2> Depois de realizar uma longa simulação, além dos gráficos que geramos, muito provavelmente vamos querer salvar algum tipo de informação da simulação. Muitas vezes queremos salvar de maneira que o objeto seja preservado, ou seja, se geramos um array \(3 \times 4 \times 2\), nós vamos querer guardar ele dessa maneira. O pacote <strong>JLD</strong> traz uma maneira de salvar dados preservando o formato: o comando é <code>save</code> e recebe como primeiro argumento o nome do arquivo; depois o nome que cada objeto vai receber ao ser carregado &#40;portanto, uma <em>string</em>&#41; e o objeto. Se tivermos vários objetos, colocamos nome, objeto, nome, objeto...</p>
+<p>Um exemplo vai clarificar as coisas: Suponha que temos os objetos <code>kgrid</code>e <code>cons</code>, por exemplo. Ambos são arrays. Vamos salvar em um arquivo chamado <em>resultados.jld</em> - preste atenção na extensão do arquivo. Teríamos apenas que, depois de carregado o pacote, fazer:</p>
+<pre><code class="language-julia">save("resultados.jld","kgrid",kgrid,"cons",cons)
+
+</code></pre>
+<p>Se quisermos carregar o objeto, basta usar <code>load</code>:</p>
+<pre><code class="language-julia">resuls = load("resultados.jld")
+
+</code></pre>
+<p>Veja que eu designei um objeto que recebe as variáveis carregadas. Esse objeto vai ser um dicionário, então para acessar o objeto <code>kgrid</code>, por exemplo, bastaria digitar <code>resuls&#91;&quot;kgrid&quot;&#93;</code>.</p>
+<h1><a id="funes_com_o_mesmo_nome_em_pacotes_diferentes" href="#funes_com_o_mesmo_nome_em_pacotes_diferentes">Funções com o mesmo nome em pacotes diferentes</a></h1> Algumas vezes dois pacotes dão o mesmo nome para duas funções que fazem coisas diferentes. São vários pacotes com vários contribuidores diferentes, e é de se esperar que alguns nomes sejam repetidos.</p>
+<p>A maneira do Julia contornar isso é similar com a do Python: use <code>nome do pacote.função</code>. Assim, se o por algum motivo a função <code>optimize</code> do pacote <strong>Optim</strong> conflita com algum outro nome de função de outro pacote, poderíamos chamar o optimize usando <code>Optim.optimize&#40;&#41;</code>.</p>
+<p>Veja que, quando carregamos pacotes e dois nomes nos pacotes entram em conflito, o Julia nos avisa com um Warning. Por exemplo:</p>
+<pre><code class="language-julia">WARNING: using Optim.optimize in module Main conflicts with an existing identifier.
+</code></pre>
+<h1><a id="chamando_arquivos_de_fora" href="#chamando_arquivos_de_fora">Chamando arquivos de fora</a></h1> É bastante comum separar funções do corpo principal do código. Em geral, podemos ter um arquivo com funções &#40;ou uma só&#41; e queremos carregar ela no nosso código. Nós podemos fazer isso usando o comando <code>include</code>. Suponha que eu tenha um arquivo com funções chamado <em>foo.jl</em>. Posso carregar as funções dele usando:</p>
+<pre><code class="language-julia">include("foos.jl")
+</code></pre></p>
+
+<div class="page-foot">
+  <div class="copyright">
+    &copy; Daniel Coutinho. Last modified: July 14, 2019. Website built with <a href="https://github.com/tlienart/JuDoc.jl">JuDoc.jl</a>.
+  </div>
+</div>
+
+</div>
+<!-- CONTENT ENDS HERE -->
+      </div> <!-- end of id=main -->
+  </div> <!-- end of id=layout -->
+  <script src="/libs/pure/ui.min.js"></script>
+  
+      <script src="/libs/katex/katex.min.js"></script>
+<script src="/libs/katex/auto-render.min.js"></script>
+<script>renderMathInElement(document.body)</script>
+
+  
+  
+</body>
+</html>
