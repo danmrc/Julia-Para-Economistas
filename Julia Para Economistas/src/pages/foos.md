@@ -140,7 +140,7 @@ res1,res2 = foo2(args)
 
 Agora `res1` contém `resultado1` e `res2` contém `resultado2`
 
-# Argumentos: ordem e nome
+# Argumentos: ordem, nome e defaut
 
 Outra coisa peculiar do Julia é que os argumentos devem ser passados na ordem em que eles foram escritos na função e sem o nome. Assim:
 
@@ -175,11 +175,44 @@ end
 foo(val_a,val_b,d = val_d,c = val_c)
 ```
 
-# Exemplo
+Muitas vezes, para facilitar a vida do usuário, queremos colocar valores padrões para a função. Por exemplo, o algoritmo de otimização está implícito no comando `optimize`. Nós podemos fazer isso no Julia simplesmente colocando um `=` no argumento da função e um valor ao escrever a função. Por exemplo, uma função que soa dois números, a e b. Eu vou fazer de forma que se não passarmos nenhum valor para b, b = 0:
 
 ```julia
 
-function solve_lypaunov(A,Sigma;tol=1e-6,iter_max=100)
+function soma(a,b=0)
+  a+b
+end
+```
+
+# Exemplo
+
+Vamos colocar todas as ideias dessa página e mais algumas da seção de [controle de fluxo](/pubs/Controledefluxo.html) para construir uma função que resolve a [Equação de Lyapunov](https://en.wikipedia.org/wiki/Lyapunov_equation). Esta equação aparece com frequência em problemas econômicos e resolver é bem simples. Como motivação, considere o VAR (_Vector Autoregression_):
+
+$$x_{t+1} = Ax_t + u_t$$
+
+Onde $u_t$ é um erro estocástico com variância dada pela matriz $\Sigma_u$. Se nós quisermos a variância de $x_{t+1}$, teremos:
+
+$$Var(x_{t+1}) = AVar(x_t)A^{\prime} + \Sigma_u$$
+
+Se o processo é estacionário (o que exige algumas condições sobre a matriz A), então $Var(x_{t+1}) = Var(x_t)$ - nós vamos tamvém chamar $Var(x_t)$ de $\Sigma_x$. Veja que como produto matricial não comuta, nós não conseguimos colocar $Var(x_t)$ em evidência.
+
+Uma estratégia para resolver esse problema é iterar a seguinte equação (eu li essa solução em um artigo famoso, [Tauchen (1986)](https://doi.org/10.1016/0165-1765(86)90168-0)):
+
+$$\Sigma_{j+1} = A \Sigma_j A^\prime + \Sigma_u$$
+
+Até convergência, onde $j$ indexa a iteração. Veja que para o primeiro passo do algoritmo precisamos de um chute inicial Vamos construir uma função que faça isso. Nossa função vai receber:
+
+1. A matriz A
+2. A matriz $\Sigma_u$
+3. A tolerância e o número máximo de iterações
+
+A tolerância é qual o tamanho da mudança entre as iterações $j$ e $j+1$ necessários para o algoritmo parar: se a mudança for abaixo da tolerância, nós retornamos a matriz obtida como a matriz que resolver o problema.
+
+Nossa função vai receber os argumentos de (3) com nome, usando a sintaxe do `;`. Para o chute inicial nós vamos usar a matriz identidade. Esse chute é razoável porque, dada a nossa motivação (calcular a matriz de variância covariância de um processo autoregressivo), nós gostariamos que uma solução atendesse a duas características: primeiro, simétrica; segundo, que todas as entradas na diagonal principal fossem positivas. A matriz identidade atende a essas propriedades. Para usar `I` como a matriz identidade (como discutido na parte de Álgebra Linear), vamos precisar carregar o pacote **LinearAlgebra**. O coração da nossa função vai ser um `while` que, enquanto nós não alcançamos a convergência - ou o número máximo de iterações - que faz a conta da matriz $\Sigma_x$:
+
+```julia
+
+function solve_lyapunov(A,Sigma;tol=1e-6,iter_max=100)
   err = 1
   j = 1
   sol = I
@@ -191,6 +224,11 @@ function solve_lypaunov(A,Sigma;tol=1e-6,iter_max=100)
   end
   return sol,j,err
 end
+```
+
+Veja que eu escrevi a função de maneira que ela retorna três objetos: a matriz resultado, o número de iterações e o tamanho da diferença entre a última e a penúltima iteração. Vamos fazer um pequeno teste e mostrar as opções de como salvar os diferentes elementos que a função retorna:
+
+```julia
 
 A=[0.5 0.2;-0.4 0.6]
 

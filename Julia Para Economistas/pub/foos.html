@@ -135,7 +135,7 @@ res = foo2(args)
 <pre><code class="language-julia">res1,res2 = foo2(args)
 </code></pre>
 <p>Agora <code>res1</code> contém <code>resultado1</code> e <code>res2</code> contém <code>resultado2</code>
-<h1><a id="argumentos_ordem_e_nome" href="#argumentos_ordem_e_nome">Argumentos: ordem e nome</a></h1> Outra coisa peculiar do Julia é que os argumentos devem ser passados na ordem em que eles foram escritos na função e sem o nome. Assim:</p>
+<h1><a id="argumentos_ordem_nome_e_defaut" href="#argumentos_ordem_nome_e_defaut">Argumentos: ordem, nome e defaut</a></h1> Outra coisa peculiar do Julia é que os argumentos devem ser passados na ordem em que eles foram escritos na função e sem o nome. Assim:</p>
 <pre><code class="language-julia">foo(a,b,c)
   função
 end
@@ -156,7 +156,30 @@ end
 
 foo(val_a,val_b,d = val_d,c = val_c)
 </code></pre>
-<h1><a id="exemplo" href="#exemplo">Exemplo</a></h1> <pre><code class="language-julia">function solve_lypaunov(A,Sigma;tol=1e-6,iter_max=100)
+<p>Muitas vezes, para facilitar a vida do usuário, queremos colocar valores padrões para a função. Por exemplo, o algoritmo de otimização está implícito no comando <code>optimize</code>. Nós podemos fazer isso no Julia simplesmente colocando um <code>&#61;</code> no argumento da função e um valor ao escrever a função. Por exemplo, uma função que soa dois números, a e b. Eu vou fazer de forma que se não passarmos nenhum valor para b, b &#61; 0:</p>
+<pre><code class="language-julia">function soma(a,b=0)
+  a+b
+end
+</code></pre>
+<h1><a id="exemplo" href="#exemplo">Exemplo</a></h1> Vamos colocar todas as ideias dessa página e mais algumas da seção de <a href="/pubs/Controledefluxo.html">controle de fluxo</a> para construir uma função que resolve a <a href="https://en.wikipedia.org/wiki/Lyapunov_equation">Equação de Lyapunov</a>. Esta equação aparece com frequência em problemas econômicos e resolver é bem simples. Como motivação, considere o VAR &#40;<em>Vector Autoregression</em>&#41;:</p>
+\[x_{t+1} = Ax_t + u_t\]
+<p>Onde \(u_t\) é um erro estocástico com variância dada pela matriz \(\Sigma_u\). Se nós quisermos a variância de \(x_{t+1}\), teremos:</p>
+\[Var(x_{t+1}) = AVar(x_t)A^{\prime} + \Sigma_u\]
+<p>Se o processo é estacionário &#40;o que exige algumas condições sobre a matriz A&#41;, então \(Var(x_{t+1}) = Var(x_t)\) - nós vamos tamvém chamar \(Var(x_t)\) de \(\Sigma_x\). Veja que como produto matricial não comuta, nós não conseguimos colocar \(Var(x_t)\) em evidência.</p>
+<p>Uma estratégia para resolver esse problema é iterar a seguinte equação &#40;eu li essa solução em um artigo famoso, <a href="https://doi.org/10.1016/0165-1765&#40;86&#41;90168-0">Tauchen &#40;1986&#41;</a>&#41;:</p>
+\[\Sigma_{j+1} = A \Sigma_j A^\prime + \Sigma_u\]
+<p>Até convergência, onde \(j\) indexa a iteração. Veja que para o primeiro passo do algoritmo precisamos de um chute inicial Vamos construir uma função que faça isso. Nossa função vai receber:</p>
+<ol>
+<li><p>A matriz A</p>
+</li>
+<li><p>A matriz \(\Sigma_u\)</p>
+</li>
+<li><p>A tolerância e o número máximo de iterações</p>
+</li>
+</ol>
+<p>A tolerância é qual o tamanho da mudança entre as iterações \(j\) e \(j+1\) necessários para o algoritmo parar: se a mudança for abaixo da tolerância, nós retornamos a matriz obtida como a matriz que resolver o problema.</p>
+<p>Nossa função vai receber os argumentos de &#40;3&#41; com nome, usando a sintaxe do <code>;</code>. Para o chute inicial nós vamos usar a matriz identidade. Para isso, vamos precisar carregar o pacote <strong>LinearAlgebra</strong>. O coração da nossa função vai ser um <code>while</code> que, enquanto nós não alcançamos a convergência - ou o número máximo de iterações - que faz a conta da matriz \(\Sigma_x\):</p>
+<pre><code class="language-julia">function solve_lyapunov(A,Sigma;tol=1e-6,iter_max=100)
   err = 1
   j = 1
   sol = I
@@ -168,8 +191,9 @@ foo(val_a,val_b,d = val_d,c = val_c)
   end
   return sol,j,err
 end
-
-A=[0.5 0.2;-0.4 0.6]
+</code></pre>
+<p>Vamos fazer um pequeno teste e mostrar as opções de como salvar os diferentes elementos que a função retorna:</p>
+<pre><code class="language-julia">A=[0.5 0.2;-0.4 0.6]
 
 solucao,tentativa,err = solve_lypaunov(A,I)
 solucao = solve_lypaunov(A,I)
