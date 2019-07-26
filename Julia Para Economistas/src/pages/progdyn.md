@@ -1,7 +1,9 @@
 @def title = "Exemplo: programação dinâmica"
 
 -----
+
 Para entender esse exemplo, você precisa entender a parte de [Matemática I](/pub/mat.html), [controle de fluxo](/pub/Controledefluxo.html) e [funções](/pub/foos.html)
+
 ----
 
 Nesse exemplo eu vou tratar de resolver um problema de programação dinâmica. Eu vou focar no aspecto de programação e menos em entender o problema: existem excelentes fontes sobre isso e eu escrevi sobre [programação dinâmica no Azul](https://azul.netlify.com/2018/09/08/programacao-dinamica-i/). Existem várias variações ao redor do mesmo tema, e o cenário que eu vou adotar é de um agente que tem preferências log e pode acumular capital $k$ e opera uma tecnologia de produção $f(k)=k^\alpha$. O problema do agente é:
@@ -77,30 +79,47 @@ end
 
 Veja que com isso, somos incapazes de recuperar os valores do resultados. Precisamos colocar os valores da otimização em um array. Nós temos duas estratégias possíveis: podemos criar um array que salva os valores novos e reescreve os valores antigos; ou um array em que cada linha corresponde a uma iteração do algoritmo. Eu vou seguir o segund método porque ele vai permitir que a gente veja se a diferença entre as funções valores depois de terminarmos. Isso facilita a vida de descobrir se cometemos algum erro no algoritmo. Isso só vai fazer sentido no algoritmo completo, quando consideramos as diferentes iterações.
 
-Para a etapa 6, vamos usar um `while`: enquanto não atingimos o número máximo de iteração OU a diferença entre a função valor for maior que uma tolerância, o algoritmo continua. Vamos obter algo do tipo:
+Para a etapa 6, vamos usar um `while`: enquanto não atingimos o número máximo de iteração OU a diferença entre a função valor for maior que uma tolerância, o algoritmo continua. Isso significa que o `while` vai receber uma condição e: continue se o número de iteração estiver abaixo do máximo e a tolerância estiver acima da necessária.
+
+No fim, vamos obter algo do tipo:
 
 ```julia
 
 using Optim
+using Interpolations
 
 iter_max = 400
 tol = 1e-9
 
+u(c) = log(c)
+f(k) = k^alfa
+
+k_grid = range(1e-7,20,length = 200)
+beta = 0.9
+delta = 0.6
+alfa = 0.6
+
 value = zeros(length(k_grid),iter_max)
+value[:,1] = u.(k_grid)
 
 error = 1
 j = 2
 
 while error > tol && j <= iter_max
-  for i in 1:length(k_grid)
+  inter_value = LinearInterpolation(k_grid,value[i,j-1], extrapolation_bc = Interpolations.Flat()) #interpolação da função valor
+  for i in 1:length(k_grid) #iterando nos valores do gri de capital
     k_now = k_grid[i]
-    function V(c)
+    function V(c) #definação da função valor - recebe apenas o consumo e calcula todo o resto
       k_next = f(k_now) - c + (1-delta)*k_now
       return - u(c) - beta*inter_value(k_next)
     end
-    resull = optimize(V(c),1e-9,f(k_now) + (1-delta)*k_now)
-    value[i,j] = -resull.minimum
+    resull = optimize(V(c),1e-9,f(k_now) + (1-delta)*k_now) #otimizando a função valor
+    value[i,j] = -resull.minimum #salvando o resultado
   end
-  j = j + 1
+  global j = j + 1
+  global error = maximum(abs.(value[:,j]-value[:,j-1]))
 end
 ```
+Onde eu escolhi o valor dos parâmetros que geralmente é usado. Veja que a minha indexação começa em 2 já que a primeira posição do array `value` é o chute inicial. Veja também que quando salvamos o resultado da otimização nós multiplicamos ele por -1 já que tivemos que multiplicar a função por -1 para encontrar o mínimo.
+
+Ao computar o erro, eu usei o máximo do valor absoluto da diferença entre duas iterações. Isso pode ser visto como uma maneira de dizer que queremos que, mesmo no pior dos casos, a mudança seja abaixo de um certo nível, ou podemos usar uma justificativa matemática um pouco mais formal e dizer que isso é a norma $\ell_{\infty}$.

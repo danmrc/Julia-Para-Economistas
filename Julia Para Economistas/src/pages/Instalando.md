@@ -59,7 +59,7 @@ As vezes o Atom pode ter problemas para achar o caminho correto para o Julia. Ne
 
 # Instalando pacotes
 
-Como na maioria das linguagens de programação atuais, o ecosistema de pacotes escritos por outras pessoas ajudam com várias tarefas que nós vamos nos deparar - por exemplo, algoritmos de otimização, de encontrar o zero de uma função e de interpolação. Antes de instalar pacotes no Julia, você deve checar o [Julia Observer](https://juliaobserver.com/) para checar quais pacotes você precisa.
+Como na maioria das linguagens de programação atuais, o ecosistema de pacotes escritos por outras pessoas ajudam com várias tarefas que nós vamos nos deparar - por exemplo, algoritmos de otimização, encontrar o zero de uma função e de interpolação. O [Julia Observer](https://juliaobserver.com/) é o catálogo de pacotes: quando você quiser saber se existe um "pacote que faz x", você deve procurar lá.
 
 Para instalar os pacotes:
 

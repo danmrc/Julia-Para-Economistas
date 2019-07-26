@@ -13,7 +13,7 @@ A primeira coisa é que podemos usar o Julia como uma grande calculadora:
 
 Isso deve te retornar 4. Obviamente essa não é a maior utilidade do Julia.
 
-## Criando matrizes e arrays
+# Criando matrizes e arrays
 
 Vamos começar construindo e acessando matrizes e arrays. Isso vai nos mostrar várias coisas da linguagem. Arrays (os matemáticos chamam de tensores, aparentemente) são matrizes com mais de duas dimensões - ou melhor dizendo, matrizes são arrays de 2 dimensões. O Julia não tem nenhum problema em gerar arrays com números arbitrários de dimensões. Vamos gerar uma matriz de zeros:
 
@@ -41,7 +41,7 @@ Para acessar uma linha inteira ou uma coluna (e suas generalizações para array
 primeiro_obj[1,:]
 ```
 
-Se quisermos a matriz que corresponde a primeira dimensão do segundo objeto, fariamos:
+Se quisermos a matriz que corresponde ao primeiro elemento da primeira dimensão do segundo objeto, fariamos:
 
 ```julia
 segundo_obj[1,:,:]
@@ -76,7 +76,7 @@ A[1,2] = 0
 
 ```
 
-## Funções básicas
+# Funções básicas
 
 Podemos criar funções matemáticas de maneira muito natural: defina a função, entre parênteses os argumentos e use a igualdade para definir a função. Uma utilidade Cobb Douglas de dois bens, $x$ e $y$ com paramêtro $\alpha$, seria implementada:
 
@@ -94,11 +94,11 @@ u(1,1,0.5)
 
 ```
 
-## Operadores
+# Operadores
 
 O Julia, como quase toda linguagem de programação, tem alguns operadores pré definidos que fazem exatamente o que esperamos que eles façam. Por exemplo, + soma dois objetos, se isso for possível (não podemos somar um número com uma matriz). Subtração (-), multiplicação (*), divisão (/) exponenciação (^) são outros operadores comuns. Além disso, podemos querer testar igualdade e relações de ordem - maior e menor, por exemplo. Igualdade é testada com `==`. Logo `1 == 1` retorna `true` e `1 == 2` retorna `false` (e agora você também sabe como é verdadeiro e falso no Julia). $>$ e $<$ testam relações de ordem.
 
-## Vetorizando qualquer coisa
+# Vetorizando qualquer coisa
 
 Uma das melhores coisas do Julia é a vetorização. É melhor explicar isso com um exemplo: suponha que você tem um vetor qualquer `v`. Você quer somar 1 em todas as entradas do vetor. Uma maneira de fazer isso é criar um vetor de 1 da mesma dimensão de `v` e somar. A outra é simplesmente usar o `.+`, literalmente um ponto e o sinal de adição:
 
@@ -126,7 +126,7 @@ aa[2:3] .= 0 #Atenção para o ponto antes do igual
 
 ```
 
-## Sequências
+# Sequências
 
 Muitas vezes queremos usar sequências de números para uma variedade de coisas. Em muitos problemas, estabelecemos um grid de pontos que servem como "base" para resolver problemas interessantes. Temos várias maneiras de fazer isso no Julia.
 
@@ -176,7 +176,7 @@ E aqui sim o array será preenchido com os números conforme esperaríamos. Veja
 
 Isso retorna (no meu PC) os tamanhos 0 e 176,respectivamente.
 
-## Ponto flutuante e erro: a pedra no sapato da computação
+# Ponto flutuante e erro: a pedra no sapato da computação
 
 Computadores não podem armazenar todos os números possíveis. Isso esbarra em um fato matemático não trivial, mas tem uma razão intuitiva: suponha que quisessemos guardar um número enorme em número de dígitos - pi é um exemplo clássico. Um computador com memória finita seria incapaz de fazer isso - imagine quantas folhas de papel seriam necessárias para escrever um número que é de 1 a um milhão concatenados (então os primeiros 3 digitos são 123).
 
@@ -194,9 +194,15 @@ optimize(f,-1,1)
 
 Veja que a função `optimize()` recebe 3 parâmetros: a função, f; o menor valor possível na busca, -1; e o maior possível,1. No meu computador, ele retorna $-2.77*10^{17}$. Veja que isso não é zero - mas é próximo o bastante.
 
-As implicações disso não são óbvias agora, mas um exemplo pode ajudar: suponha que queremos encontrar o equilíbrio de um mercado, onde demanda = oferta. Isso é achar um zero na função excesso de demanda (demanda - oferta = 0). Veja que o computador dificilmente vai encontrar um zero: ele vai encontrar algo próximo a zero, como um número que é $10^{-17}$. Nesse caso, teremos que estabelcer uma tolerância - o quão próximo de zero queremos ficar. Mais próximo significa mais custo computacional, em geral. 
+As implicações disso não são óbvias agora, mas um exemplo pode ajudar: suponha que queremos encontrar o equilíbrio de um mercado, onde demanda = oferta. Isso é achar um zero na função excesso de demanda (demanda - oferta = 0). Veja que o computador dificilmente vai encontrar um zero: ele vai encontrar algo próximo a zero, como um número que é $10^{-17}$. Nesse caso, teremos que estabelcer uma tolerância - o quão próximo de zero queremos ficar. Mais próximo significa mais custo computacional, em geral.
 
-## O quão rápido o Julia realmente é?
+# Comentando
+
+Uma vez escrito o código, um bom hábito é comentar o código. Comentários não são processados pela linguagem de programação e servem para documentar o que fizemos. Para comentar com o Julia, basta digitar #: assim `#comentário` não é processado pelo Julia. Eu já fiz isso em algumas linhas de código anterior.
+
+É um bom hábito comentar o código, explicando em linhas gerais o que o pedaço do código faz. Obviamente, não há necessidade de explicar uma soma, por exemplo. Mas um _loop_ (veremos isso mais a frente) pode necessitar de explicação de o que ele faz. Veja que isso deve ser feito mesmo se o código não for distribuído: o você do futuro pode precisar de uma ajuda para lembrar o que você fez no passado.   
+
+# O quão rápido o Julia realmente é?
 
 Uma coisa frustrante nas primeiras vezes que se usa o Julia é a sensação que ele é mais lento que linguagens como R ou Python. O primeiro exemplo pode não sair instantaneamente, apesar de ser uma conta trivial. Como o Julia é mais rápido se nem um 2+2 ele é rápido?
 

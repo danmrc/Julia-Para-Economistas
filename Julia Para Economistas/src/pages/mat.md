@@ -60,6 +60,8 @@ sol = optimize(f,[0,0],BFGS())
 
 Veja que o nome do algoritmo é chamado como se fosse uma função sem argumentos.
 
+O objeto `sol` contém várias informações: o ponto do mínimo, o valor do mínimo, se houve convergência, em quantas etapas. Em geral, apesar das outras informações serão úteis, nós teremos mais interesse em acessar o ponto do mínimo e o valor no mínimo. Para acessar esses valores usamos uma sintaxe parecida com a do Python: nome do objeto.alguma coisa. No caso, para obter o ponto de mínimo, faríamos `sol.minimizer`; e o valor no mínimo é obtido pelo `sol.minimum`.   
+
 # Roots
 
 O pacote **roots** permite achar raízes de funções univariadas. Existem quatro maneiras de chamar o comando, mas todos recebem as mesma opções. Vamos tentar achar o zero da função $x+1$ (que convenientemente tem zero em $x=-1$). Vamos usar a função `fzero` para encontrar o zero dessa função. Ele recebe a função e o limite inferior e o superior para buscar o zero:
