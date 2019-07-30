@@ -4,9 +4,9 @@
 
 Você pode usar o Julia online via o [JuliaBox](https://www.juliabox.com/) ou [baixar o Julia](https://julialang.org/downloads/). O Julia está disponível para basicamente qualquer sistema operacional (Windows, Mac e uma infinidade de distribuições de Linux). Eu recomendo baixar e instalar. Se você estiver utilizando uma distribuição de Linux você também pode ir no gerenciador de pacotes e baixar por lá. A instalação é sem surpresas.
 
-Uma vez instalado você pode usar o Julia direto do console, mas essa opção é sempre restritiva (além de ser feio). Existem vários ambientes de desenvolvimento (IDEs, _Integrated Developmnet Enviroment_) para o Julia. Em particular:
+Uma vez instalado, você pode usar o Julia direto do console, mas essa opção é sempre restritiva (além de ser feio). Existem vários ambientes de desenvolvimento (IDEs, _Integrated Development Enviroment_) para o Julia. Em particular:
 
-1. O [Atom](https://atom.io/). É o que eu uso e está disponível para todos os sistemas. O Atom é extremamente versátil, tem uma infinidade de pacotes, mas é pesado (especialmente no Windows). O Julia oferece o Atom com o nome de JuliaPro.
+1. O [Atom](https://atom.io/). É o que eu uso e está disponível para todos os sistemas. O Atom é extremamente versátil, tem uma infinidade de pacotes, mas é pesado (especialmente no Windows). Os desenvolvedroes do Julia oferece o Atom com o nome de JuliaPro.
 
 2. Os _notebooks_ do Jupyter, que são usados também para outras linguagens, em particular o Python.
 
@@ -18,7 +18,7 @@ O resto dessa seção vai focar em instalar o Atom e o Julia e o Jupyter.
 
 As vezes é necessário usar o Julia direto do console. Isso é relativamente fácil no Mac e no Linux, mas é chato no Windows. Aqui vai um passo a passo:
 
-No Windows o Julia se esconde no appdata, e o caminho depende do seu nome de usuário. A maneira mais fácil de achar ele é a seguinte:
+No Windows o Julia se esconde na pasta appdata, e o caminho depende do seu nome de usuário. A maneira mais fácil de achar ele é a seguinte:
 
  1. Abra o "explorador de arquivos" (ou Windows Explorer se você nasceu na década de 90)
  2. Na barra de endereço digite %appdata%
@@ -43,7 +43,7 @@ Salvo engano instalando os 3 primeiros o último é instalado automaticamente. Q
 * Um novo menu Julia
 
 
-Para iniciar o Julia clique no icone _show console_ (debaixo do planeta com um anel). Vai surgir na sua tela um novo painel no Atom escrito _Press Enter to start Julia_. Aperte enter. Na primeira vez ele precisa instalar algumas coisas. Não é incomum ele falhar e quando você tentar de novo ele reclamar que falta um pacote. Nesse caso abra o console (vá no menu Julia do próprio Atom e clique em _Open Console_) e instale o pacote que falta. Mais embaixo eu explico como instalar pacotes.
+Para iniciar o Julia clique no icone _show console_ (o quinto debaixo para cima). Vai surgir na sua tela um novo painel no Atom escrito _Press Enter to start Julia_. Aperte enter. Na primeira vez ele precisa instalar algumas coisas. Não é incomum ele falhar e quando você tentar de novo ele reclamar que falta um pacote. Nesse caso abra o console (vá no menu Julia do próprio Atom e clique em _Open Console_) e instale o pacote que falta. Mais embaixo eu explico como instalar pacotes.
 
 Quando você tiver tudo instalado corretamente e funcionando a sua tela vai ser parecida com essa:
 
@@ -51,11 +51,11 @@ Quando você tiver tudo instalado corretamente e funcionando a sua tela vai ser 
 
 ([clique aqui](/src/imagens/atom.png) para ver maior)
 
-As vezes o Atom pode ter problemas para achar o caminho correto para o Julia. Nesse caso, você pode mudar o caminho indo no menu Julia -> Settings... Leia a seção acima de como abrir o Julia no console acima. Ao invés de fazer o último passo, selecione o caminho da pasta (que fica naquela barra lá em cima) e copie e cole no Julia Path nas _settings_ do Julia no Atom.
+As vezes o Atom pode ter problemas para achar o caminho correto para o Julia. Nesse caso, você pode mudar o caminho indo no menu Julia -> Settings... Leia a seção acima de como abrir o Julia no console. Ao invés de fazer o último passo, selecione o caminho da pasta (que fica naquela barra lá em cima) e copie e cole no Julia Path nas _Settings_ do Julia no Atom.
 
  # Jupyter
 
- O Jupyter é outra opção para usar o Julia. Para ele, você precisa instalar o [Anaconda](https://www.anaconda.com/distribution/). Instale ele (isso pode ser um pouco demorado). Depois abra o Julia, instale o pacote IJulia (eu explico como instalar o pacote adiante) e carregue ele. Feche o Julia e abra o Jupyter, que vai abrir no seu navegador. Isso deve ser o suficiente para permitir você criar um notebook com o Julia (clicando em _new_)
+ O Jupyter é outra opção para usar o Julia. Para usar o Jupyter, você precisa instalar o [Anaconda](https://www.anaconda.com/distribution/). Instale o Anaconda (isso pode ser um pouco demorado). Depois abra o Julia, instale o pacote IJulia (eu explico como instalar o pacote adiante) e carregue ele. Feche o Julia e abra o Jupyter, que vai abrir no seu navegador. Isso deve ser o suficiente para permitir você criar um notebook com o Julia (clicando em _new_)
 
 # Instalando pacotes
 

@@ -1,6 +1,6 @@
 @def title = "Gráficos"
 
-Essa página trata extensivamente de como fazer gráficos no Julia. A principal biblioteca para isso é o **Plots**, que é "só" um pacote que amarra vários outros com uma sintaxe comum. Eu vou mostrar no fim como mudar qual pacote está sendo usado para fazer os plots, mas eu acho que o padrão (GR) produz resultados extremamente aceitáveis - melhor que os plots usuais do R, por exemplo.
+Essa página trata extensivamente de como fazer gráficos no Julia. A principal biblioteca para isso é o **Plots**, que é "só" um pacote que amarra vários outros com uma sintaxe comum. Eu vou mostrar no fim como mudar qual pacote está sendo usado para fazer os plots, mas eu acho que o padrão (GR) produz resultados extremamente aceitáveis - melhor que os _plots_ usuais do R, por exemplo.
 
 # O Básico
 
@@ -39,7 +39,7 @@ Nós podemos fazer várias mudanças no gráfico. Entre as mais frequentes:
 
 * w muda a espessura da linha. É um número inteiro.
 * line muda o tipo da linha. O argumento é escrito de uma maneira curiosa: é `:algumacoisa`. Assim, `:dash` gera uma linha tracejada, `:solid` gera uma linha inteira (que é o default). Veja outras opções no site do Plots.
-* label muda a legenda. É uma string.
+* label muda a legenda. É uma string~~~<a href="#note1" id="note1ref"><sup>1</sup></a>~~~.
 * legend muda a posição da legenda. É como no line, e recebe um argumento com dois pontos. `:topleft` muda a legenda para o canto esquerdo superior (o padrão é no canto direito) etc.
 
 Eis aqui uma ilustração do uso desses argumentos:
@@ -93,9 +93,15 @@ Veja que também podemos usar labels para mudar a legenda nos histogramas.
 
 # Salvando o resultado
 
-Uma vez que você esteja satisfeito com o gráfico, salvar é bem simples: basta usar `png(caminho do arquivo)`. No caso dos gráficos para este site, por exemplo:
+Uma vez que você esteja satisfeito com o gráfico, salvar é bem simples: basta usar `png(caminho do arquivo)`. Esse comando vai salvar o gráfico que está sendo exibido, no caso do Atom. Para salvar um dos gráficos que compõe esta página, eu usei:
 
 ```julia
 png("C:\\Users\\User\\Documents\\GitHub\\Julia-Para-Economistas\\Julia Para Economistas\\src\\imagens\\grafico_ex2")
 ```
-Obviamente, isso salva o arquivo no formato png - que é o mais comum hoje em dia e tem tamanho bastante aceitável. Outros formatos estão disponíveis. Infelizmente, _eps_, que é um formato usado com frequência em documentos do LaTeX, não está implementado para o GR, e não existe um comando `eps()` para salvar imagens. (até onde eu sei).
+Obviamente, isso salva o arquivo no formato png - que é o mais comum hoje em dia e tem tamanho bastante aceitável. Outros formatos estão disponíveis. Infelizmente, _eps_, que é um formato usado com frequência em documentos do LaTeX, não está implementado para o GR, e não existe um comando `eps()` para salvar imagens (até onde eu sei).
+
+-----
+
+~~~
+<a id="note1" href="#note1ref"><sup>1</sup></a>Uma expressão entre aspas que vai ser intepretada como um texto. Ex.: "texto".
+~~~

@@ -8,7 +8,7 @@ Eu já discuti como criar matrizes no post de [primeiros passos](/pub/primeirosp
 
 # Primeiros passos
 
-As três operações funcionam normalmente. Veja que `*` multiplica matrizes da maneira usual e não elemento a elemento. Uma operação fundamental é inverter uma matriz, o que pode ser obtido via o comando `inv`:
+As três operações funcionam normalmente. Veja que `*` multiplica matrizes da maneira usual e não elemento a elemento - multiplicar elemento a elemento é feito com o `.*` - lembrem da nossa discussão sobre vetorização. Uma operação fundamental é inverter uma matriz, o que pode ser obtido via o comando `inv`:
 
 ```julia
 
@@ -62,7 +62,7 @@ Nesse caso, a matriz vai ser $2 \times 2$. Curiosamente, ela vai sair do tipo bo
 Matrix{Float64}(I,2,2)
 ```
 
-E todos os números vão ser do tipo _Float64_ - não é muito importante entender o porque do 64, mas agora temos uma matriz com zero e um.
+E todos os números vão ser do tipo _Float64_ - não é muito importante entender o porque do 64, mas agora temos uma matriz com zero e um. Veja que isso funciona para outras funções que geram matrizes, como `zeros` e `ones`.
 
 Em muitas situações você pode usar o `I` no lugar da identidade, e o Julia vai ajustar para automaticamente fazer as dimensões baterem. Por exemplo:
 
@@ -100,7 +100,7 @@ A _Singular Value Decomposition_ (SVD) é outra decomposição bastante frequent
 
 $$ A = U S V^{\prime}$$
 
-Onde $U$ e $V$ são matrizes ortonormais~~~<a href="#note1" id="note1ref"><sup>2</sup></a>~~~ e S é diagonal. Os elemntos de $S$ são conhecidos como valores singulares. O comando do Julia que gera a decomposição svd é `svd`, e o Julia usa os nomes U,S e V para os elementos dentro de um objeto gerado pelo comando `svd`. Veja que S vem como um vetor e podemos organizar ele como uma matriz diagonal usando o comando `Diagonal`, que pega o vetor que você passa para o comando e gera uma matriz diagonal a partir daquele vetor. Assim:
+Onde $U$ e $V$ são matrizes ortonormais~~~<a href="#note2" id="note2ref"><sup>2</sup></a>~~~ e S é diagonal. Os elemntos de $S$ são conhecidos como valores singulares. O comando do Julia que gera a decomposição svd é `svd`, e o Julia usa os nomes U,S e V para os elementos dentro de um objeto gerado pelo comando `svd`. Veja que S vem como um vetor e podemos organizar ele como uma matriz diagonal usando o comando `Diagonal`, que pega o vetor que você passa para o comando e gera uma matriz diagonal a partir daquele vetor. Assim:
 
 ```julia
 
@@ -160,9 +160,9 @@ Para ver o que cada um desses comandos retorna, a melhor opção é olhar o help
 
 ## Ordernando Schur*
 
-_Nota: essa seção é o detalhe do detalhe. Mas a decomposição de Schur é frequentemente usada em economia (macro, para ser bastante preciso). Por completude, eu adiciono essa seção._
+_Nota: essa seção é o detalhe do detalhe. Mas a decomposição de Schur é frequentemente usada em economia (macro, para ser bastante preciso) e a ordenção é importante. Por completude, eu adiciono essa seção._
 
-Às vezes precisamos de ordernar a decomposição de schur do maior autovalor generalizado (isso é, o autovalor da decomposição de schur) para o menor, ou o contrário. O comando `ordschur`permite fazer isso de maneira imediata, mas com uma sintaxe meio esquisita (na minha opinião): primeiro um objeto gerado pelo comando `schur`; depois - e esta é a parte esquisita - uma matriz de _true_ e _false_ onde na posição _true_ vão ser ordenadas primeiro e as _false_ vão ser ordenadas por último. Por exemplo:
+Às vezes precisamos de ordernar a decomposição de Schur para isolar autovalores generalizado acima de um certo valor(isso é, o autovalor da decomposição de schur) ou o contrário. O comando `ordschur`permite fazer isso de maneira imediata, mas com uma sintaxe meio esquisita (na minha opinião): primeiro um objeto gerado pelo comando `schur`; depois - e esta é a parte esquisita - uma matriz de _true_ e _false_ onde na posição _true_ vão ser ordenadas primeiro e as _false_ vão ser ordenadas por último. Por exemplo:
 
 ```julia
 A = [1 .2 .5;0 1 0;.1 1 0;]
@@ -175,10 +175,10 @@ ordschur(schur_decomp,ordem)
 
 Garante que os autovalores menores que 1 em módulo vão ser os primeiros na ordenação da matriz. Veja que isso preserva as propriedades da seção anterior sobre multiplicar as matrizes da decomposição de Schur gerar a matriz original.
 
-A mesma ideia pode ser usada para a decomposição de Schur generalizada.
+A mesma ideia pode ser usada para a decomposição de Schur generalizada - mas é um pouco mais complicado porque a definação de autovalores generalizados na decomposição de Schur depende da divisão de dois vetores.
 
 -----
 
 ~~~<a id="note1" href="#note1ref"><sup>1</sup></a>~~~Porque em inglês autovalores são _eigenvalues_ e autovetores são _eigenvectors_.
 
-~~~<a href="#note1" id="note1ref"><sup>2</sup></a>~~~ Maneira chique de dizer que o produto interno de duas colunas quaisquer da matriz são ortogonais (tem produto interno zero)
+~~~<a id="note2" href="#note2ref"><sup>2</sup></a>~~~ Maneira chique de dizer que o produto interno de duas colunas quaisquer da matriz são ortogonais (tem produto interno zero)

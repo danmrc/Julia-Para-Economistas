@@ -1,6 +1,6 @@
 @def title = "Matemática no Julia I"
 
-Nessa seção vamos focar nas ferramentas matemáticas que serão úteis para a gente no Julia. Elas em geral vem em forma de pacotes. Nós vamos focar em : otimização, achar a raiz e . Os pacotes que vamos usar são o **Optim**, o **Roots** e o **Interpolations**. Eu também vou tratar sumariamente de fazer gráficos no Julia - que são sempre de grande valia para analisar problemas. Para saber mais sobre gráficos, visite a parte de [gráficos](/pub/graficos.html)
+Nessa seção vamos focar nas ferramentas matemáticas que serão úteis para a gente no Julia. Elas em geral vem em forma de pacotes. Nós vamos focar em: otimização, achar a raiz e interpolação. Os pacotes que vamos usar são o **Optim**, o **Roots** e o **Interpolations**. Gráficos também são muito úteis: para saber mais sobre gráficos, visite a parte de [gráficos](/pub/graficos.html)
 
 # Optim
 
@@ -60,7 +60,7 @@ sol = optimize(f,[0,0],BFGS())
 
 Veja que o nome do algoritmo é chamado como se fosse uma função sem argumentos.
 
-O objeto `sol` contém várias informações: o ponto do mínimo, o valor do mínimo, se houve convergência, em quantas etapas. Em geral, apesar das outras informações serão úteis, nós teremos mais interesse em acessar o ponto do mínimo e o valor no mínimo. Para acessar esses valores usamos uma sintaxe parecida com a do Python: nome do objeto.alguma coisa. No caso, para obter o ponto de mínimo, faríamos `sol.minimizer`; e o valor no mínimo é obtido pelo `sol.minimum`.   
+O objeto `sol` contém várias informações: o ponto do mínimo, o valor do mínimo, se houve convergência, em quantas etapas. Em geral, apesar das outras informações serão úteis, nós teremos mais interesse em acessar o ponto do mínimo e o valor no mínimo. Para acessar esses valores usamos uma sintaxe parecida com a do Python: nome do objeto.alguma coisa. No caso, para obter o ponto de mínimo, faríamos `sol.minimizer`; e o valor no mínimo é obtido pelo `sol.minimum`.
 
 # Roots
 
@@ -71,7 +71,7 @@ O pacote **roots** permite achar raízes de funções univariadas. Existem quatr
 g(x) = x-1
 zer = fzero(g,-2,0)
 ```
-A outra opção é usar a função `find_zero`, que tem sintaxe igual; as funções `fzeros` e `find_zeros`, no plural, buscam _todos_ os zeros. Elas são significativamente mais lentas na minha experiência e se voce sabe que o problema só tem um zero - pelo menos dentro da região em que ele está buscando - voce ganha em usar o `fzero` ou o `find_zero`.
+A outra opção é usar a função `find_zero`, que tem sintaxe igual; as funções `fzeros` e `find_zeros`, no plural, buscam _todos_ os zeros. Elas são significativamente mais lentos na minha experiência e se você sabe que o problema só tem um zero - pelo menos dentro da região em que ele está buscando - você ganha muita velocidade em usar o `fzero` ou o `find_zero`.
 
 Veja que o fato da sintaxe ser parecida com a otimização em uma variável não é mera coinciência: quando otimizamos na mão usando os métodos de cálculo, buscamos o zero da derivada da função $f$. Logo, as semelhanças vão bem além da superfíce do problema.
 
@@ -81,7 +81,9 @@ O pacote **Interpolations** permite fazer interpolação. A ideia de interpolaç
 
 Uma maneira possível de fazer interpolação é, se temos $n$ pontos, podemos construir um polinômio de grau $n-1$ que passe por todos os pontos. Essa não é uma [estratégia muito boa](https://azul.netlify.com/2018/08/27/interpolacao/): funções simples podem ter aproximações horrorosas por polinômios.
 
-Uma maneira extremamente simples - e fantasticamente útil - de fazer interpolação é "ligar os pontos", como em um livro infátil. Ligue os pontos usando retas. Fazer isso com o **Interpolations** é bastante simples. Podemos querer aproximar a função $\frac{1}{1+x^2}$ por retas. O comando `LinearInterpolation` faz isso para gente. Eu vou gerar 10 pontos equidistantes entre -5 e 5 em um vetor `xx` e avaliar a função e salvar isso no vetor `yy`. Depois, eu vou usar o `LinearInterpolation` para gerar uma função que é a interpolação linear:
+Uma maneira extremamente simples - e fantasticamente útil - de fazer interpolação é "ligar os pontos", como na bricadeira de criança. Podemos ligar os pontos usando retas, o auge da simplicidade: isso se chama interpolação linear. Fazer isso com o **Interpolations** é bastante simples. O comando `LinearInterpolation` faz isso para gente.
+
+Como de praxe, é mais fácil explicar com um exemplo: vamos aproximar a função $\frac{1}{1+x^2}$ por interpolação linear. Eu vou gerar 10 pontos equidistantes entre -5 e 5 em um vetor `xx` e avaliar a função e salvar isso no vetor `yy`. Depois, eu vou usar o `LinearInterpolation` para gerar uma função que é a interpolação linear:
 
 ```julia
 

@@ -4,7 +4,7 @@ Nessa página nós vamos tratar de _controle de fluxo_. Esses são comandos esse
 
 # Como ler essa seção
 
-Esse capítulo segue a seguinte estrutura: eu apresento os comandos secamente no começo de cada seção: o objetivo é que aqueles que já sabem o que _if_s, _for_s e _while_s fazem possam entender a sintaxe do Julia. Ainda assim, eu sugiro uma leitura, ainda que  Depois, eu discuto o que cada comando faz com detalhes. A última seção apresenta alguns exemplos, e são de interesse geral.
+Esse capítulo segue a seguinte estrutura: eu apresento os comandos secamente no começo de cada seção: o objetivo é que aqueles que já sabem o que _if_s, _for_s e _while_s fazem possam entender a sintaxe do Julia. Ainda assim, eu sugiro uma leitura, ainda que diagonal. Depois, eu discuto o que cada comando faz com detalhes. A última seção apresenta alguns exemplos, e são de interesse geral.
 
 # If
 
@@ -19,7 +19,7 @@ else
 end
 ```
 
-_If_ s são blocos que permitem que você teste uma condição e execute um comando condicional àaquele condição ser atendida. Caso contrário (_else_) outro comando pode ser executado. Um exemplo simples é testar se um número é positivo:
+_If_ s são blocos que permitem que você teste uma condição e execute um comando condicional àquele condição ser atendida. Caso contrário (_else_) outro comando pode ser executado. Um exemplo simples é testar se um número é positivo:
 
 ```julia
   if numero > 0
@@ -29,7 +29,7 @@ _If_ s são blocos que permitem que você teste uma condição e execute um coma
   end
 ```
 
-Veja que se você não definir antes a variável `numero`, o Julia vai dar um erro porque a variável não está definida. Por sinal, isso também introduz a função `println`, que "imprime" (escreve) coisas direto no console
+Veja que se você não definir antes a variável `numero`, o Julia vai dar um erro porque a variável não está definida. Por sinal, isso também introduz a função `println`, que "imprime" (escreve) coisas direto no console, pulando uma linha.
 
 Podemos estabelecer `numero = 3` e a rotina acima deve retornar um positivo.
 
@@ -72,7 +72,7 @@ for i in vetor
 end
 ```
 
-O `for`permite repetir algum conjunto de operações um número de vezes - por isso ele é conhecido como um loop. Um exemplo bobo e simples é tirar o quadrado de todos os número de um vetor de 1 a 10:
+O `for`permite repetir algum conjunto de operações um número de vezes - por isso ele é conhecido como um _loop_. Um exemplo bobo e simples é tirar a raiz quadrada de todos os número de um vetor de 1 a 10:
 
 ```julia
   bb = zeros(10)
@@ -89,7 +89,7 @@ Nosso exemplo acima é extremamente simples para ser ilustrativo: o _for_ é rea
 
 (O While exige o uso da _keyword_ global, então leia a seção mesmo que _en passant_)
 
-O While é, como o for, um _loop_. A diferença é que enquanto o for repete a mesma operação $n$ vezes, o while repete uma operação até uma certa condição passar a ser falsa. Poderíamos repetir o mesmo exemplo acima usando o while:
+O _While_ é, como o _for_, um _loop_. A diferença é que enquanto o for repete a mesma operação $n$ vezes, o while repete uma operação até uma certa condição passar a ser falsa. Poderíamos repetir o mesmo exemplo acima usando o while:
 
 ```julia
 
@@ -102,7 +102,7 @@ while i <= 10
   global i = i + 1
 end
 ```
-Veja que isso involve várias linhas de código a mais que o for. A utilidade do While vai ficar clara mais abaixo. Vamos focar primeiro na estrutura do problema.
+Veja que isso involve várias linhas de código a mais que o for. A utilidade do _while_ vai ficar clara mais abaixo. Vamos focar primeiro na estrutura do problema.
 
 Primeiro, temos que declarar o valor da variável que indexa o _loop_ antes do _while_. Na declaração do _while_, colocamos a condição que deve ser atentida para o programa se repetir - nesse caso, i deve ser menor ou igual a 10.
 

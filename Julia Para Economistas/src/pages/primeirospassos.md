@@ -21,7 +21,7 @@ Vamos começar construindo e acessando matrizes e arrays. Isso vai nos mostrar v
 primeiro_obj = zeros(5,5)
 ```
 
-E agora podemos acessar o `primeiro_obj` e ver que ele é simplesmente 5 colunas e 5 linhas de zero. Veja que para dar nome a um objeto no Julia usamos o sinal de igualdade. Vamos continuar brincando, mas dessa vez eu vou gerar um array de _três_ dimensões com números sorteados da distribuição normal (0,1) (números aleatórios):
+E agora podemos acessar o `primeiro_obj` e ver que ele é simplesmente 5 colunas e 5 linhas de zero. Veja que para criar um objeto no Julia usamos o sinal de igualdade. Vamos continuar brincando, mas dessa vez eu vou gerar um array de _três_ dimensões com números sorteados da distribuição normal (0,1) (números aleatórios):
 
 ```julia
 segundo_obj = randn(5,2,3)
@@ -54,7 +54,7 @@ size(primeiro_obj)
 
 Isso deve ter retornar `(5,5)`.
 
-As vezes nós queremos construir matrizes elemento a elemento. No Julia, espaço separa elementos na mesma linha e o `;` separa as linhas. Assim, para fazer a matriz:
+Nós podemos querer construir matrizes elemento a elemento. Para construir matrizes no Julia, usamos o colchetes (`[]`): espaço separa elementos na mesma linha e o `;` separa as linhas. Assim, para fazer a matriz:
 
 $$A = \begin{bmatrix}
 1&3 \\
@@ -78,7 +78,7 @@ A[1,2] = 0
 
 # Funções básicas
 
-Podemos criar funções matemáticas de maneira muito natural: defina a função, entre parênteses os argumentos e use a igualdade para definir a função. Uma utilidade Cobb Douglas de dois bens, $x$ e $y$ com paramêtro $\alpha$, seria implementada:
+Podemos criar funções matemáticas de maneira muito natural: dê um nome para função, coloque os argumentos entre parênteses e use a igualdade para definir a função. Uma utilidade Cobb Douglas de dois bens, $x$ e $y$ com paramêtro $\alpha$, seria implementada:
 
 ```julia
 
@@ -86,7 +86,7 @@ u(x,y,alfa) = alfa*log(x) + (1-alfa)*log(y)
 
 ```
 
-Onde `log` é a função logaritmo natural (ou neperiano). Usamos ela como qualquer outra função:
+Onde `log` é a função logaritmo natural (ou neperiano). Usamos a nossa função recém definida ela como qualquer outra função:
 
 ```julia
 
@@ -96,7 +96,23 @@ u(1,1,0.5)
 
 # Operadores
 
-O Julia, como quase toda linguagem de programação, tem alguns operadores pré definidos que fazem exatamente o que esperamos que eles façam. Por exemplo, + soma dois objetos, se isso for possível (não podemos somar um número com uma matriz). Subtração (-), multiplicação (*), divisão (/) exponenciação (^) são outros operadores comuns. Além disso, podemos querer testar igualdade e relações de ordem - maior e menor, por exemplo. Igualdade é testada com `==`. Logo `1 == 1` retorna `true` e `1 == 2` retorna `false` (e agora você também sabe como é verdadeiro e falso no Julia). $>$ e $<$ testam relações de ordem.
+O Julia, como quase toda linguagem de programação, tem alguns operadores pré definidos que fazem exatamente o que esperamos que eles façam. Por exemplo, + soma dois objetos, se isso for possível (não podemos somar um número com uma matriz). Subtração (-), multiplicação (*), divisão (/) exponenciação (^) são outros operadores comuns. Além disso, podemos querer testar igualdade e relações de ordem - maior e menor, por exemplo.
+
+## Operadores Lógicos
+
+Igualdade é testada com `==`. Logo `1 == 1` retorna `true` e `1 == 2` retorna `false` (e agora você também sabe como é verdadeiro e falso no Julia). $>$ e $<$ testam relações de ordem - se um objeto é maior que outro. Por exemplo $ 2> 3$ retorna falso e $2 < 3$ retorna verdadeiro. Veja que isso requer que a ordem seja bem definida.
+
+Uma característica legal do Julia é que ele permite testar várias desigualdades simultaneamente. Por exemplo:
+
+```julia
+
+3 < 5 < 7
+3 < 7 < 5
+```
+
+A primeira expressão retorna `true` (defato, 5 é maior que 3 e menor que 7) e a segunda `false` (7 não é menor que 5)
+
+Outros dois operadores lógicos são o E e o OU: eles são definidos usando `&` e `|`, respectivamente. Em alguns casos, precisamos usar irmãos gêmeos deles, que são o `&&` e o `||` (uma aplicação desses operadores vai aparecer na seção de controle de fluxo). O operador E retorna false se algum dos argumentos é falso e verdadeiro apenas se os dois argumentos forem verdadeiros; o OU retorna true se um dos argumentos é verdadeiro e falso se os dois argumentos são falsos.
 
 # Vetorizando qualquer coisa
 
@@ -132,7 +148,7 @@ Muitas vezes queremos usar sequências de números para uma variedade de coisas.
 
 Para criar uma sequência de inteiros, podemos fazer `a:b`, e isso vai gerar uma sequência de todos os inteiros entre a e b. Veja que nós podemos usar números decimais(ex.: `1.5:3.5`) e nós vamos obter a sequência $(1.5, 2.5,3.5)$. Um problema com esse tipo de coisa é que se tentarmos fazer `0.5:0.7`, isso vai nos retornar um único elemento, $0.5$. O próximo elemento da lista seria $1.5$, mas estamos colocando o fim em 0.7.
 
-Uma maneira de construir sequências com um "passo" de qualquert amanho é usando `a:passo:b`, onde a é o número de ínicio e b é o número final. Então, se quisermos construir uma sequência de 0.5 a 0.7 que cresce 0.1 a cada posição deo vetor, fariamos `0.5:0.1:0.7`. Podemos também fazer sequências que decrescente, por exemplo `1:-0.1:0`vai criar uma sequência decrescente de 0 a 1.
+Uma maneira de construir sequências com um "passo" de qualquer tamanho é usando `a:passo:b`, onde a é o número de ínicio e b é o número final. Então, se quisermos construir uma sequência de 0.5 a 0.7 que cresce 0.1 a cada posição deo vetor, fariamos `0.5:0.1:0.7`. Podemos também fazer sequências que decrescente, por exemplo `1:-0.1:0`vai criar uma sequência decrescente de 0 a 1, com o tamanho do passo sendo igual a 0.1.
 
 A função `range` permite fazer as mesmas coisas. Segue uma série de exemplos:
 
@@ -200,10 +216,10 @@ As implicações disso não são óbvias agora, mas um exemplo pode ajudar: supo
 
 Uma vez escrito o código, um bom hábito é comentar o código. Comentários não são processados pela linguagem de programação e servem para documentar o que fizemos. Para comentar com o Julia, basta digitar #: assim `#comentário` não é processado pelo Julia. Eu já fiz isso em algumas linhas de código anterior.
 
-É um bom hábito comentar o código, explicando em linhas gerais o que o pedaço do código faz. Obviamente, não há necessidade de explicar uma soma, por exemplo. Mas um _loop_ (veremos isso mais a frente) pode necessitar de explicação de o que ele faz. Veja que isso deve ser feito mesmo se o código não for distribuído: o você do futuro pode precisar de uma ajuda para lembrar o que você fez no passado.   
+É um bom hábito comentar o código, explicando em linhas gerais o que o pedaço do código faz. Obviamente, não há necessidade de explicar uma soma, por exemplo. Mas um _loop_ (veremos isso mais a frente) pode precisar de uma explicação de o que ele faz. Veja que isso deve ser feito mesmo se o código não for distribuído: o você do futuro vai precisar de uma ajuda para lembrar o que você fez no passado.
 
 # O quão rápido o Julia realmente é?
 
-Uma coisa frustrante nas primeiras vezes que se usa o Julia é a sensação que ele é mais lento que linguagens como R ou Python. O primeiro exemplo pode não sair instantaneamente, apesar de ser uma conta trivial. Como o Julia é mais rápido se nem um 2+2 ele é rápido?
+Uma coisa frustrante nas primeiras vezes que se usa o Julia é a sensação que ele é mais lento que linguagens como R ou Python. O primeiro exemplo desta página - somar dois números - pode não sair instantaneamente, apesar de ser uma conta trivial. Como o Julia é mais rápido se nem um 2+2 ele é rápido?
 
 Parte da resposta se deve a maneira como o Julia procede, que é diferente da maneira como o Python procede. Isso faz com que códigos pequenos (por exemplo, 2+2), seja relativamente lento, mas códigos grandes sejam mais rápido.
