@@ -21,11 +21,13 @@ Vamos começar construindo e acessando matrizes e arrays. Isso vai nos mostrar v
 primeiro_obj = zeros(5,5)
 ```
 
-E agora podemos acessar o `primeiro_obj` e ver que ele é simplesmente 5 colunas e 5 linhas de zero. Veja que para criar um objeto no Julia usamos o sinal de igualdade. Vamos continuar brincando, mas dessa vez eu vou gerar um array de _três_ dimensões com números sorteados da distribuição normal (0,1) (números aleatórios):
+A função `zeros` (e em geral funções que geram _arrays_, como `ones` ou `randn`) recebem o número de elementos em cada dimensão: assim, `zeros(5)` geraria um vetor com 5 zeros; `zeros(5,5)` gera uma matriz $5 \times 5$ de zeros. E agora podemos acessar o `primeiro_obj` e ver que ele é simplesmente 5 colunas e 5 linhas de zero. Veja que para criar um objeto no Julia usamos o sinal de igualdade. Vamos continuar brincando, mas dessa vez eu vou gerar um array de _três_ dimensões com números sorteados da distribuição normal (0,1) (números aleatórios):
 
 ```julia
 segundo_obj = randn(5,2,3)
 ```
+
+O `segundo-obj` tem 3 dimensões, com 5 elementos na primeira, 2 na segunda e 3 na terceira dimensão: podemos imaginar o `segundo_obj` como um conjunto de 3 matrizes de tamanho $5 \times 2$ (ou porque não, 5 matrizes $2 \times 3$ etc.)
 
 Vamos acessar o primeiro elemento de cada dimensão dos dois objetos. Para isso, usamos o colchetes (como no R) e o primeiro elemento é 1, não 0 (atenção usuários de Python!):
 
@@ -217,6 +219,27 @@ As implicações disso não são óbvias agora, mas um exemplo pode ajudar: supo
 Uma vez escrito o código, um bom hábito é comentar o código. Comentários não são processados pela linguagem de programação e servem para documentar o que fizemos. Para comentar com o Julia, basta digitar #: assim `#comentário` não é processado pelo Julia. Eu já fiz isso em algumas linhas de código anterior.
 
 É um bom hábito comentar o código, explicando em linhas gerais o que o pedaço do código faz. Obviamente, não há necessidade de explicar uma soma, por exemplo. Mas um _loop_ (veremos isso mais a frente) pode precisar de uma explicação de o que ele faz. Veja que isso deve ser feito mesmo se o código não for distribuído: o você do futuro vai precisar de uma ajuda para lembrar o que você fez no passado.
+
+# Nomes de campos
+
+Frequentemente nós vamos gerar objetos - especialmente a partir de pacotes - que tem campos com diferentes nomes. Às vezes, precisamos saber o nome dos campos (porque eles estão mal documentados) diretamente no Julia. Existem dois caminhos para isso:
+
+* `fieldnames(typeof(obj))`
+* Digitar o nome do objeto no console seguido de um ponto a apertar tab. Logo, faríamos `obj.` e na sequência a tecla tab.
+
+Por exemplo, vamos repetir o exemplo de otimização, dessa vez salvando o resultado em um objeto chamado `op`:
+
+```julia
+
+using Optim
+
+f(x) = x^2
+
+op = optimize(f,-1,1)
+
+```
+
+Se fizermos `fieldnames(typeof(op))` ou digitar no console `op.` e pressionar tab, devemos obter o nome dos campos. Veja que eles são mostrados em ordens diferentes. 
 
 # O quão rápido o Julia realmente é?
 

@@ -87,41 +87,52 @@ No fim, vamos obter algo do tipo:
 
 ```julia
 
+#Pacotes que vamos usar
+
 using Optim
 using Interpolations
 
-iter_max = 400
-tol = 1e-9
+#Parâmetros pro algoritmo
 
-u(c) = log(c)
-f(k) = k^alfa
+iter_max = 400 #número máximo de iterações: depois dissso o programa sai mesmo se não tiver convergência
+tol = 1e-9 #Qual a mudança mínima necessária para nós concluirmos que convergiu? Colocamos 1e-9.
 
-k_grid = range(1e-7,20,length = 200)
-beta = 0.9
-delta = 0.6
-alfa = 0.6
+u(c) = log(c) #função utilidade
+f(k) = k^alfa #função de produção
 
-value = zeros(length(k_grid),iter_max)
-value[:,1] = u.(k_grid)
-policy = zeros(length(k_grid),iter_max)
+k_grid = range(1e-7,20,length = 200) #grid de capital
+
+#Parâmetros econômicos, gloriosamente inventados
+
+beta = 0.9 #taxa de desconto
+delta = 0.6 #taxa de depreciação
+alfa = 0.6 #parâmetro de depreciação
+
+#Arrays que eu vou encher de dados em cada passo do algoritmo
+
+value = zeros(length(k_grid),iter_max) #esse array recebe o valor da função valor
+value[:,1] = u.(k_grid) #chute inicial para a função valor
+policy = zeros(length(k_grid),iter_max) #esse array recebe os valores de consumo ótimos em cada passo do algoritmo
+
+#Inicializando os parâmetros para o while
 
 error = 1
 j = 2
 
 while error > tol && j < iter_max
   inter_value = LinearInterpolation(k_grid,value[:,j-1], extrapolation_bc = Interpolations.Flat()) #interpolação da função valor
-  for i in 1:length(k_grid) #iterando nos valores do gri de capital
-    k_now = k_grid[i]
-    function V(c) #definação da função valor - recebe apenas o consumo e calcula todo o resto
-      k_next = f(k_now) - c + (1-delta)*k_now
-      return - u(c) - beta*inter_value(k_next)
+  for i in 1:length(k_grid) #iterando nos valores do grid de capital
+    k_now = k_grid[i] #só para facilitar a npssa vida: o valor do capital no loop é k_now. Desnecessário, mas deixa o código mais legível.
+    function V(c) #definição da função valor - recebe apenas o consumo e calcula todo o resto
+      k_next = f(k_now) - c + (1-delta)*k_now #calculando o capital implicado pela escolha de consumo hoje
+      return - u(c) - beta*inter_value(k_next) #isso é a equação (2), multiplicada por -1
     end
     resull = optimize(V,1e-9,f(k_now) + (1-delta)*k_now) #otimizando a função valor
-    value[i,j] = -resull.minimum
-    policy[i,j] = resull.minimizer #salvando o resultado
+    value[i,j] = -resull.minimum #salvando o valor da função valor
+    policy[i,j] = resull.minimizer #salvando o consumo no ótimo
   end
   global j = j + 1
-  global error = maximum(abs.(value[:,j]-value[:,j-1]))
+  global error = maximum(abs.(value[:,j]-value[:,j-1])) #calculando o erro nessa iteração
 end
 ```
 Onde eu escolhi o valor dos parâmetros que geralmente é usado. Veja que a minha indexação começa em 2 já que a primeira posição do array `value` é o chute inicial. Veja também que quando salvamos o resultado da otimização nós multiplicamos ele por -1 já que tivemos que multiplicar a função por -1 para encontrar o mínimo.
