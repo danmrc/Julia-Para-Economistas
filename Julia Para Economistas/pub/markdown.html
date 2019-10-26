@@ -21,7 +21,7 @@
     }
   </style>
   <link rel="icon" href="/assets/infra/favicon.png">
-   <title>Bibliografia</title>  
+   <title>Relatórios</title>  
 </head>
 <body>
   <div id="layout">
@@ -48,30 +48,33 @@
     </div>
     <div id="main"> <!-- Closed in foot -->
       <div class="header">
-        <h1>Bibliografia</h1>
+        <h1>Relatórios</h1>
         <h2>Julia Para Economistas</h2>
       </div>
 
 <!-- Content appended here -->
 
 <div class="jd-content">
-<p>Essa página é dedicada apenas a bibliografia do manual. Ela é dividida em duas seções: a bibliografia para o Julia e a bibliografia de métodos numéricos. Como dito na primeira página desse manual, uma grande influência para este manual - que mistura métodos númericos e Julia - é o <a href="https://lectures.quantecon.org/jl/">quant-econ</a>. Todas as fontes citadas estão em inglês, então a barreira linguística pode ser um problema.</p>
-<h1 id="julia"><a href="/pub/biblio.html#julia">Julia</a></h1>
-<ul>
-<li><p>A referência obrigatória é a <a href="https://docs.julialang.org/en">própria documentação do Julia</a>. Lá você encontra tudo da linguagem.</p>
-</li>
-</ul>
-<h1 id="mtodos_nmericos"><a href="/pub/biblio.html#mtodos_nmericos">Métodos númericos</a></h1>
-<ul>
-<li><p>Um dos meus livros favoritos, o <em>Numerical Methods in Economics</em>, do Kenneth L. Judd, de 1998</p>
-</li>
-<li><p>Outro livro muito bom que discute várias coisas numéricas é o <em>EconomicDynamics in Discrete Time</em>, de Jianjun Miao, de 2014.</p>
-</li>
-</ul>
+<p>Uma parte tão importante quanto gerar resultados é a apresenta-los. O R fornece a opção do R Markdown, um arquivo que permite você misturar pedaços de código e texto - e o código é executado junto com a compilação do código. O Julia fornece exatamente a mesma ideia, com diferenças devido a maturação de cada um dos sistemas.</p>
+<p>O pacote no Julia que nos permite escrever arquivos de Julia Markdown se chama <strong>Weave</strong>. Essa seção é dividida em duas partes: a primeira só ilustra as diferenças do Julia Markdown para o R Markdown. A segunda introduz o Julia Markdown desde o começo. Se você está familiarizado com o R Markdown, leia a próxima seção. Caso contrário, pule direto para a segunda seção.</p>
+<h1 id="diferenas_para_o_r_markdown"><a href="/pub/markdown.html#diferenas_para_o_r_markdown">Diferenças para o R Markdown</a></h1>
+<p>O arquivo Markdown funciona exatamente igual a um arquivo R Markdown: a única diferença é que ao invés de usar &#96;&#96;&#96;r, usamos &#96;&#96;&#96;julia &#40;não esqueça de fechar o bloco&#33;&#41;. Para rodar pedaços de código no meio do texto, use &#96;j.</p>
+<p>Uma vez escrito, salve o arquivo com a extensão .jmd. O comando do Weave é <code>weave&#40;&#41;</code>, e recebe o caminho do arquivo e uma opção de qual tipo de documento deve ser gerado. Os formatos disponíveis para gerar documentos podem ser obtidos com <code>list_out_formats&#40;&#41;</code>. Assim, para gerar um html de um arquivo jmd chamado exemplo, fariamos <code>weave&#40;exemplo.jmd, doctype &#61; &quot;md2html&quot;&#41;</code>.</p>
+<p>Uma idiosincrasia do Weave é que precisamos declarar o caminho do arquivo a ser gerado no output no cabeçalho do documento. Assim, nosso arquivo exemplo teria como cabeçalho:</p>
+<pre><code class="language-julia">---
+title: Um exemplo
+author: Daniel Coutinho
+date: Hoje
+options:
+  md2html:
+      out_path: exemplo.html
+  out_path: exemplo.md
+---</code></pre>
+<p>Preste atenção na identação&#33;</p>
 
 <div class="page-foot">
   <div class="copyright">
-    &copy; Daniel Coutinho. Last modified: October 02, 2019. Website built with <a href="https://github.com/tlienart/JuDoc.jl">JuDoc.jl</a>.
+    &copy; Daniel Coutinho. Last modified: October 26, 2019. Website built with <a href="https://github.com/tlienart/JuDoc.jl">JuDoc.jl</a>.
   </div>
 </div>
 

@@ -61,7 +61,7 @@ As vezes o Atom pode ter problemas para achar o caminho correto para o Julia. Ne
 
 Como na maioria das linguagens de programação atuais, o ecosistema de pacotes escritos por outras pessoas ajudam com várias tarefas que nós vamos nos deparar - por exemplo, algoritmos de otimização, encontrar o zero de uma função e de interpolação. O [Julia Observer](https://juliaobserver.com/) é o catálogo de pacotes: quando você quiser saber se existe um "pacote que faz x", você deve procurar lá.
 
-Para instalar os pacotes:
+Para instalar os pacotes, faça o seguinte **no terminal ou no REPL**:
 
 1. Aperte a tecla ] (sim, fechar o colchetes). Isso deve mudar o seu console de `julia>` para `pkg v>`, onde v é número da versão.
 2. Digite `add nome-do-pacote`
@@ -69,12 +69,12 @@ Para instalar os pacotes:
 
 Para carregar um pacote instalado, digite `using nome-do-pacote`
 
-Por exemplo, para instalar o pacote _Optim_, fariamos:
+Por exemplo, para instalar o pacote _Optim_, fariamos, _no terminal_:
 
 ```
 ] #(isso não vai gerar nada além da mudança de julia> para package>)
 add Optim
 backspace #(isso não vai gerar nada além da mudança de package> para julia>)
-using Optim
+using Optim #esse último estágio pode ser feito fora do terminal, em um script
 ```
 Tendo instalado o Julia, um IDE e sabendo instalar pacotes, podemos seguir adiante.

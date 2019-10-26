@@ -13,6 +13,12 @@ A primeira coisa é que podemos usar o Julia como uma grande calculadora:
 
 Isso deve te retornar 4. Obviamente essa não é a maior utilidade do Julia.
 
+# Pedindo Ajuda
+
+Muitas vezes nós temos dúvidas sobre qual é o comando que faz isso ou aquilo, ou quais argumentos as funções recebem. Assim, o help é necessário até para programadores experientes. Para buscar no help, vá no terminal (ou REPL) - _e isso funciona apenas no terminal_ e digite ?. Isso deve mudar o cursor de julia para help. Digite o nome da função e aperte enter. Se existir uma função com este nome e com uma página de help, ela será mostrada. Caso contrário, o Julia sugere nomes próximos que podem te interessar (ex.: um comando que é todo em maiúscula e voce passou tudo em minúscula).
+
+Veja que para obter help de funções dentro de pacotes, você tem que carregar o pacote. 
+
 # Criando matrizes e arrays
 
 Vamos começar construindo e acessando matrizes e arrays. Isso vai nos mostrar várias coisas da linguagem. Arrays (os matemáticos chamam de tensores, aparentemente) são matrizes com mais de duas dimensões - ou melhor dizendo, matrizes são arrays de 2 dimensões. O Julia não tem nenhum problema em gerar arrays com números arbitrários de dimensões. Vamos gerar uma matriz de zeros:
@@ -239,7 +245,7 @@ op = optimize(f,-1,1)
 
 ```
 
-Se fizermos `fieldnames(typeof(op))` ou digitar no console `op.` e pressionar tab, devemos obter o nome dos campos. Veja que eles são mostrados em ordens diferentes. 
+Se fizermos `fieldnames(typeof(op))` ou digitar no console `op.` e pressionar tab, devemos obter o nome dos campos. Veja que eles são mostrados em ordens diferentes.
 
 # O quão rápido o Julia realmente é?
 

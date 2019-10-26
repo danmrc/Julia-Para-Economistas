@@ -4,18 +4,16 @@ Essa página trata extensivamente de como fazer gráficos no Julia. A principal 
 
 # O Básico
 
-Podemos querer fazer o gráfico de uma variável, y, que é uma função continua como $x^2$. Para isso, basta definir a função e passar para o comando `plot`:
+Podemos querer fazer o gráfico de uma variável, y, que é uma função continua como $x^2$. Para isso, vamos primeiro chamar o pacote e definir a função `plot`:
 
 ```julia
 
 using Plots
 
 f(x) = x^2
-
-plot(f(x))
 ```
 
-Se quisermos fazer o plot em um conjunto de valores de x específicos podemos gerar eles usando os comandos que geram sequência e passar para o comando plot e para a função:
+Parafazer o plot em um conjunto de valores de x específicos podemos gerar eles usando os comandos que geram sequências e passar para o comando plot e para a função:
 
 ```julia
 
@@ -29,7 +27,7 @@ Podemos querer fazer o gráfico de outra função por cima. Para isso, basta usa
 
 ```julia
 h(x)=2x^3-3x^2
-plot(g)
+plot(f)
 plot!(h)
 ```
 

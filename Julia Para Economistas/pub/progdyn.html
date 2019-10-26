@@ -1,68 +1,207 @@
-<!doctype html> <html lang=en > <meta charset=UTF-8 > <meta name=viewport  content="width=device-width, initial-scale=1"> <link rel=stylesheet  href="/Julia-Para-Economistas/libs/katex/katex.min.css"> <link rel=stylesheet  href="/Julia-Para-Economistas/css/judoc.css"> <link rel=stylesheet  href="/Julia-Para-Economistas/css/pure.css"> <link rel=stylesheet  href="/Julia-Para-Economistas/css/side-menu.css"> <style> .jd-content{padding-left:10%;} @media (min-width: 940px) { .jd-content {width: 640px; margin-left: 0px; padding-left: 80px;} .header {width: 700px;} } </style> <link rel=icon  href="/Julia-Para-Economistas/assets/infra/favicon.png"> <title>Exemplo: programação dinâmica</title> <div id=layout > <a href="#menu" id=menuLink  class=menu-link ><span></span></a> <div id=menu > <div class=pure-menu > <a class=pure-menu-heading  href="#">Jl para Econ</a> <ul class=pure-menu-list > <li class="pure-menu-item "><a href="/Julia-Para-Economistas/" class=pure-menu-link >Home</a> <li class="pure-menu-item "><a href="/Julia-Para-Economistas/pub/Instalando.html" class=pure-menu-link >Instalando</a> <li class="pure-menu-item "><a href="/Julia-Para-Economistas/pub/primeirospassos.html" class=pure-menu-link >Primeiros Passos</a> <li class="pure-menu-item "><a href="/Julia-Para-Economistas/pub/graficos.html" class=pure-menu-link >Gráficos</a> <li class="pure-menu-item "><a href="/Julia-Para-Economistas/pub/mat.html" class=pure-menu-link >Matemática I</a> <li class="pure-menu-item "><a href="/Julia-Para-Economistas/pub/matII.html" class=pure-menu-link >Matemática II</a> <li class="pure-menu-item "><a href="/Julia-Para-Economistas/pub/Controledefluxo.html" class=pure-menu-link >Controle de Fluxo</a> <li class="pure-menu-item "><a href="/Julia-Para-Economistas/pub/foos.html" class=pure-menu-link >Funções</a> <li class="pure-menu-item "><a href="/Julia-Para-Economistas/pub/progdyn.html" class=pure-menu-link >Ex: Prog Dinâmica</a> <li class="pure-menu-item "><a href="/Julia-Para-Economistas/pub/misc.html" class=pure-menu-link >Miscelânea</a> <li class="pure-menu-item "><a href="/Julia-Para-Economistas/pub/biblio.html" class=pure-menu-link >Bibliografia</a> </ul> </div> </div> <div id=main > <div class=header > <h1>Exemplo: programação dinâmica</h1> <h2>Julia Para Economistas</h2> </div> <div class=jd-content > <hr /> <p>Para entender esse exemplo, você precisa entender a parte de <a href="/Julia-Para-Economistas/pub/mat.html">Matemática I</a>, <a href="/Julia-Para-Economistas/pub/Controledefluxo.html">controle de fluxo</a> e <a href="/Julia-Para-Economistas/pub/foos.html">funções</a></p> <hr /> <p>Nesse exemplo eu vou tratar de resolver um problema de programação dinâmica. Eu vou focar no aspecto de programação e menos em entender o problema: existem excelentes fontes sobre isso e eu escrevi sobre <a href="https://azul.netlify.com/2018/09/08/programacao-dinamica-i/">programação dinâmica no Azul</a>. Existem várias variações ao redor do mesmo tema, e o cenário que eu vou adotar é de um agente que tem preferências log e pode acumular capital <span class=katex ><span class=katex-mathml ><math><semantics><mrow><mi>k</mi></mrow><annotation encoding="application/x-tex">k</annotation></semantics></math></span><span class=katex-html  aria-hidden=true ><span class=base ><span class=strut  style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span></span></span></span> e opera uma tecnologia de produção <span class=katex ><span class=katex-mathml ><math><semantics><mrow><mi>f</mi><mo stretchy=false >(</mo><mi>k</mi><mo stretchy=false >)</mo><mo>=</mo><msup><mi>k</mi><mi>α</mi></msup></mrow><annotation encoding="application/x-tex">f(k)=k^\alpha</annotation></semantics></math></span><span class=katex-html  aria-hidden=true ><span class=base ><span class=strut  style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class=mopen >(</span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class=mclose >)</span><span class=mspace  style="margin-right:0.2777777777777778em;"></span><span class=mrel >=</span><span class=mspace  style="margin-right:0.2777777777777778em;"></span></span><span class=base ><span class=strut  style="height:0.69444em;vertical-align:0em;"></span><span class=mord ><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class=msupsub ><span class=vlist-t ><span class=vlist-r ><span class=vlist  style="height:0.664392em;"><span style="top:-3.063em;margin-right:0.05em;"><span class=pstrut  style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.0037em;">α</span></span></span></span></span></span></span></span></span></span></span> . O problema do agente é:</p> <span class=katex-display ><span class=katex ><span class=katex-mathml ><math><semantics><mrow><mi>max</mi><mo>⁡</mo><mstyle scriptlevel=0  displaystyle=true ><munderover><mo>∑</mo><mrow><mi>t</mi><mo>=</mo><mn>0</mn></mrow><mi mathvariant=normal >∞</mi></munderover><msup><mi>β</mi><mi>t</mi></msup><mi>log</mi><mo>⁡</mo><mo stretchy=false >(</mo><msub><mi>c</mi><mi>t</mi></msub><mo stretchy=false >)</mo><mtext>sujeito a</mtext><msub><mi>k</mi><mrow><mi>t</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>=</mo><mo stretchy=false >(</mo><mn>1</mn><mo>−</mo><mi>δ</mi><mo stretchy=false >)</mo><msub><mi>k</mi><mi>t</mi></msub><mo>+</mo><msubsup><mi>k</mi><mi>t</mi><mi>α</mi></msubsup><mo>−</mo><msub><mi>c</mi><mi>t</mi></msub></mstyle></mrow><annotation encoding="application/x-tex">\max \displaystyle \sum_{t=0}^{\infty} \beta^t \log(c_t) \text{sujeito a} k_{t+1} = (1 - \delta)k_t + k_t^\alpha - c_t</annotation></semantics></math></span><span class=katex-html  aria-hidden=true ><span class=base ><span class=strut  style="height:2.9185100000000004em;vertical-align:-1.267113em;"></span><span class=mop >max</span><span class=mspace  style="margin-right:0.16666666666666666em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class=vlist-r ><span class=vlist  style="height:1.6513970000000002em;"><span style="top:-1.882887em;margin-left:0em;"><span class=pstrut  style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">t</span><span class="mrel mtight">=</span><span class="mord mtight">0</span></span></span></span><span style="top:-3.050005em;"><span class=pstrut  style="height:3.05em;"></span><span><span class="mop op-symbol large-op">∑</span></span></span><span style="top:-4.3000050000000005em;margin-left:0em;"><span class=pstrut  style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">∞</span></span></span></span></span><span class=vlist-s >​</span></span><span class=vlist-r ><span class=vlist  style="height:1.267113em;"><span></span></span></span></span></span><span class=mspace  style="margin-right:0.16666666666666666em;"></span><span class=mord ><span class="mord mathdefault" style="margin-right:0.05278em;">β</span><span class=msupsub ><span class=vlist-t ><span class=vlist-r ><span class=vlist  style="height:0.843556em;"><span style="top:-3.113em;margin-right:0.05em;"><span class=pstrut  style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">t</span></span></span></span></span></span></span></span><span class=mspace  style="margin-right:0.16666666666666666em;"></span><span class=mop >lo<span style="margin-right:0.01389em;">g</span></span><span class=mopen >(</span><span class=mord ><span class="mord mathdefault">c</span><span class=msupsub ><span class="vlist-t vlist-t2"><span class=vlist-r ><span class=vlist  style="height:0.2805559999999999em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class=pstrut  style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">t</span></span></span></span><span class=vlist-s >​</span></span><span class=vlist-r ><span class=vlist  style="height:0.15em;"><span></span></span></span></span></span></span><span class=mclose >)</span><span class="mord text"><span class=mord >sujeito a</span></span><span class=mord ><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class=msupsub ><span class="vlist-t vlist-t2"><span class=vlist-r ><span class=vlist  style="height:0.301108em;"><span style="top:-2.5500000000000003em;margin-left:-0.03148em;margin-right:0.05em;"><span class=pstrut  style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">t</span><span class="mbin mtight">+</span><span class="mord mtight">1</span></span></span></span></span><span class=vlist-s >​</span></span><span class=vlist-r ><span class=vlist  style="height:0.208331em;"><span></span></span></span></span></span></span><span class=mspace  style="margin-right:0.2777777777777778em;"></span><span class=mrel >=</span><span class=mspace  style="margin-right:0.2777777777777778em;"></span></span><span class=base ><span class=strut  style="height:1em;vertical-align:-0.25em;"></span><span class=mopen >(</span><span class=mord >1</span><span class=mspace  style="margin-right:0.2222222222222222em;"></span><span class=mbin >−</span><span class=mspace  style="margin-right:0.2222222222222222em;"></span></span><span class=base ><span class=strut  style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.03785em;">δ</span><span class=mclose >)</span><span class=mord ><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class=msupsub ><span class="vlist-t vlist-t2"><span class=vlist-r ><span class=vlist  style="height:0.2805559999999999em;"><span style="top:-2.5500000000000003em;margin-left:-0.03148em;margin-right:0.05em;"><span class=pstrut  style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">t</span></span></span></span><span class=vlist-s >​</span></span><span class=vlist-r ><span class=vlist  style="height:0.15em;"><span></span></span></span></span></span></span><span class=mspace  style="margin-right:0.2222222222222222em;"></span><span class=mbin >+</span><span class=mspace  style="margin-right:0.2222222222222222em;"></span></span><span class=base ><span class=strut  style="height:0.9613919999999999em;vertical-align:-0.247em;"></span><span class=mord ><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class=msupsub ><span class="vlist-t vlist-t2"><span class=vlist-r ><span class=vlist  style="height:0.7143919999999999em;"><span style="top:-2.4530000000000003em;margin-left:-0.03148em;margin-right:0.05em;"><span class=pstrut  style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">t</span></span></span><span style="top:-3.113em;margin-right:0.05em;"><span class=pstrut  style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.0037em;">α</span></span></span></span><span class=vlist-s >​</span></span><span class=vlist-r ><span class=vlist  style="height:0.247em;"><span></span></span></span></span></span></span><span class=mspace  style="margin-right:0.2222222222222222em;"></span><span class=mbin >−</span><span class=mspace  style="margin-right:0.2222222222222222em;"></span></span><span class=base ><span class=strut  style="height:0.58056em;vertical-align:-0.15em;"></span><span class=mord ><span class="mord mathdefault">c</span><span class=msupsub ><span class="vlist-t vlist-t2"><span class=vlist-r ><span class=vlist  style="height:0.2805559999999999em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class=pstrut  style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">t</span></span></span></span><span class=vlist-s >​</span></span><span class=vlist-r ><span class=vlist  style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></span> <p>E <span class=katex ><span class=katex-mathml ><math><semantics><mrow><mi>β</mi></mrow><annotation encoding="application/x-tex">\beta</annotation></semantics></math></span><span class=katex-html  aria-hidden=true ><span class=base ><span class=strut  style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.05278em;">β</span></span></span></span> é a taxa de desconto intertemporal e <span class=katex ><span class=katex-mathml ><math><semantics><mrow><mi>δ</mi></mrow><annotation encoding="application/x-tex">\delta</annotation></semantics></math></span><span class=katex-html  aria-hidden=true ><span class=base ><span class=strut  style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.03785em;">δ</span></span></span></span> é a taxa de depreciação. Nosso objetivo é descrever qual a escolha ótima do consumidor, dado a quantidade de capital que ele tem. Para isso, reescreva o problema na forma de Bellman:</p> <span class=katex-display ><span class=katex ><span class=katex-mathml ><math><semantics><mrow><mi>V</mi><mo stretchy=false >(</mo><msub><mi>k</mi><mi>t</mi></msub><mo stretchy=false >)</mo><mo>=</mo><mi>max</mi><mo>⁡</mo><mi>log</mi><mo>⁡</mo><mo stretchy=false >(</mo><msub><mi>c</mi><mi>t</mi></msub><mo stretchy=false >)</mo><mo>+</mo><mi>β</mi><mi>V</mi><mo stretchy=false >(</mo><msub><mi>k</mi><mrow><mi>t</mi><mo>+</mo><mn>1</mn></mrow></msub><mo stretchy=false >)</mo></mrow><annotation encoding="application/x-tex">V(k_t) = \max \log(c_t) + \beta V(k_{t+1})</annotation></semantics></math></span><span class=katex-html  aria-hidden=true ><span class=base ><span class=strut  style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.22222em;">V</span><span class=mopen >(</span><span class=mord ><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class=msupsub ><span class="vlist-t vlist-t2"><span class=vlist-r ><span class=vlist  style="height:0.2805559999999999em;"><span style="top:-2.5500000000000003em;margin-left:-0.03148em;margin-right:0.05em;"><span class=pstrut  style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">t</span></span></span></span><span class=vlist-s >​</span></span><span class=vlist-r ><span class=vlist  style="height:0.15em;"><span></span></span></span></span></span></span><span class=mclose >)</span><span class=mspace  style="margin-right:0.2777777777777778em;"></span><span class=mrel >=</span><span class=mspace  style="margin-right:0.2777777777777778em;"></span></span><span class=base ><span class=strut  style="height:1em;vertical-align:-0.25em;"></span><span class=mop >max</span><span class=mspace  style="margin-right:0.16666666666666666em;"></span><span class=mop >lo<span style="margin-right:0.01389em;">g</span></span><span class=mopen >(</span><span class=mord ><span class="mord mathdefault">c</span><span class=msupsub ><span class="vlist-t vlist-t2"><span class=vlist-r ><span class=vlist  style="height:0.2805559999999999em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class=pstrut  style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">t</span></span></span></span><span class=vlist-s >​</span></span><span class=vlist-r ><span class=vlist  style="height:0.15em;"><span></span></span></span></span></span></span><span class=mclose >)</span><span class=mspace  style="margin-right:0.2222222222222222em;"></span><span class=mbin >+</span><span class=mspace  style="margin-right:0.2222222222222222em;"></span></span><span class=base ><span class=strut  style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.05278em;">β</span><span class="mord mathdefault" style="margin-right:0.22222em;">V</span><span class=mopen >(</span><span class=mord ><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class=msupsub ><span class="vlist-t vlist-t2"><span class=vlist-r ><span class=vlist  style="height:0.301108em;"><span style="top:-2.5500000000000003em;margin-left:-0.03148em;margin-right:0.05em;"><span class=pstrut  style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">t</span><span class="mbin mtight">+</span><span class="mord mtight">1</span></span></span></span></span><span class=vlist-s >​</span></span><span class=vlist-r ><span class=vlist  style="height:0.208331em;"><span></span></span></span></span></span></span><span class=mclose >)</span></span></span></span></span> <p>Onde <span class=katex ><span class=katex-mathml ><math><semantics><mrow><mi>V</mi><mo stretchy=false >(</mo><msub><mi>k</mi><mi>t</mi></msub><mo stretchy=false >)</mo></mrow><annotation encoding="application/x-tex">V(k_t)</annotation></semantics></math></span><span class=katex-html  aria-hidden=true ><span class=base ><span class=strut  style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.22222em;">V</span><span class=mopen >(</span><span class=mord ><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class=msupsub ><span class="vlist-t vlist-t2"><span class=vlist-r ><span class=vlist  style="height:0.2805559999999999em;"><span style="top:-2.5500000000000003em;margin-left:-0.03148em;margin-right:0.05em;"><span class=pstrut  style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">t</span></span></span></span><span class=vlist-s >​</span></span><span class=vlist-r ><span class=vlist  style="height:0.15em;"><span></span></span></span></span></span></span><span class=mclose >)</span></span></span></span> é a função valor, que não conhecemos. O algoritmo para resolver o problema é bastante simples:</p> <ol> <li><p>Estabela um grid de valores possíveis para <span class=katex ><span class=katex-mathml ><math><semantics><mrow><msub><mi>k</mi><mi>t</mi></msub></mrow><annotation encoding="application/x-tex">k_t</annotation></semantics></math></span><span class=katex-html  aria-hidden=true ><span class=base ><span class=strut  style="height:0.84444em;vertical-align:-0.15em;"></span><span class=mord ><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class=msupsub ><span class="vlist-t vlist-t2"><span class=vlist-r ><span class=vlist  style="height:0.2805559999999999em;"><span style="top:-2.5500000000000003em;margin-left:-0.03148em;margin-right:0.05em;"><span class=pstrut  style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">t</span></span></span></span><span class=vlist-s >​</span></span><span class=vlist-r ><span class=vlist  style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> </p> <li><p>Dê um chute inicial para os valores da função valor nos pontos do grid</p> <li><p>Interpole a função valor de alguma maneira</p> <li><p>Para cada ponto no grid, encontre o valor do consumo que maximiza a equação</p> <li><p>Salve o valor do máximo em um vetor</p> <li><p>Itere 3 - 5 até a diferença entre os máximos estarem abaixo de uma certa tolerância</p> </ol> <p>Vamos dissecar as etapas com cuidado.</p> <p>O grid pode ser igualmente espaçado, então vamos usar o comando range. Como capital deve ser maior que zero, o nosso menor valor vai ser um número pequeno diferente de 0. Vamos colocar 200 pontos.</p> <pre><code class="julia hljs">k_grid = range(<span class=hljs-number >1e-7</span>,<span class=hljs-number >20</span>,length = <span class=hljs-number >200</span>)
-</code></pre> <p>O último valor tem que ser escolhido de maneira que ele não gere problemas no algoritmo: teoricamente nós podemos acumular infinito de capital. Felizmente, retornos decrescentes de escala garantem que se o capital estiver muito acima do valor de <em>steady state</em>, a economia vai despoupar, i.e. reduzir a quantidade de capital.</p> <p>Nosso chute inicial vai ser bem simples: simplesmente é o valor da função utilidade do nosso agente avaliado no grid. Isso é equivalente a considerar uma escolha de consumir todo o capital no período. Enquanto isso dificilmente é a escolha ótima, é um bom chute inicial &#40;veja Judd &#40;1998&#41;&#41;.</p> <pre><code class="julia hljs">u(c) = log(c)
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+   <!-- Un-minified script so that can play a bit -->
+<link rel="stylesheet" href="/libs/katex/katex.min.css">
+     
+   <!-- Syntax highlighting via Prism, note: restricted langs -->
+<link rel="stylesheet" href="/libs/highlight/github.min.css">
+   
+  <link rel="stylesheet" href="/css/judoc.css">
+  <link rel="stylesheet" href="/css/pure.css">
+  <link rel="stylesheet" href="/css/side-menu.css">
+  <!-- style adjustments -->
+  <style>
+    .jd-content{padding-left:10%;}
+    @media (min-width: 940px) {
+      .jd-content {width: 640px; margin-left: 0px; padding-left: 80px;}
+      .header {width: 700px;}
+    }
+  </style>
+  <link rel="icon" href="/assets/infra/favicon.png">
+   <title>Exemplo: programação dinâmica</title>  
+</head>
+<body>
+  <div id="layout">
+    <!-- Menu toggle / hamburger icon -->
+    <a href="#menu" id="menuLink" class="menu-link"><span></span></a>
+    <div id="menu">
+      <div class="pure-menu">
+        <a class="pure-menu-heading" href="#">Jl para Econ</a>
+        <ul class="pure-menu-list">
+          <li class="pure-menu-item "><a href="/" class="pure-menu-link">Home</a></li>
+          <li class="pure-menu-item "><a href="/pub/Instalando.html" class="pure-menu-link">Instalando</a></li>
+          <li class="pure-menu-item "><a href="/pub/primeirospassos.html" class="pure-menu-link">Primeiros Passos</a></li>
+          <li class="pure-menu-item "><a href="/pub/graficos.html" class="pure-menu-link">Gráficos</a></li>
+          <li class="pure-menu-item "><a href="/pub/mat.html" class="pure-menu-link">Matemática I</a></li>
+          <li class="pure-menu-item "><a href="/pub/matII.html" class="pure-menu-link">Matemática II</a></li>
+          <li class="pure-menu-item "><a href="/pub/Controledefluxo.html" class="pure-menu-link">Controle de Fluxo</a></li>
+          <li class="pure-menu-item "><a href="/pub/foos.html" class="pure-menu-link">Funções</a></li>
+          <li class="pure-menu-item "><a href="/pub/progdyn.html" class="pure-menu-link">Ex: Prog Dinâmica</a></li>
+          <li class="pure-menu-item "><a href="/pub/markdown.html" class="pure-menu-link">Markdown</a></li>
+          <li class="pure-menu-item "><a href="/pub/misc.html" class="pure-menu-link">Miscelânea</a></li>
+          <li class="pure-menu-item "><a href="/pub/biblio.html" class="pure-menu-link">Bibliografia</a></li>
+        </ul>
+      </div>
+    </div>
+    <div id="main"> <!-- Closed in foot -->
+      <div class="header">
+        <h1>Exemplo: programação dinâmica</h1>
+        <h2>Julia Para Economistas</h2>
+      </div>
+
+<!-- Content appended here -->
+
+<div class="jd-content">
+<hr />
+<p>Para entender esse exemplo, você precisa entender a parte de <a href="/pub/mat.html">Matemática I</a>, <a href="/pub/Controledefluxo.html">controle de fluxo</a> e <a href="/pub/foos.html">funções</a></p>
+<hr />
+<p>Nesse exemplo eu vou tratar de resolver um problema de programação dinâmica. Eu vou focar no aspecto de programação e menos em entender o problema: existem excelentes fontes sobre isso e eu escrevi sobre <a href="https://azul.netlify.com/2018/09/08/programacao-dinamica-i/">programação dinâmica no Azul</a>. Existem várias variações ao redor do mesmo tema, e o cenário que eu vou adotar é de um agente que tem preferências log e pode acumular capital \(k\) e opera uma tecnologia de produção \(f(k)=k^\alpha\). O problema do agente é:</p>
+\[\max \displaystyle \sum_{t=0}^{\infty} \beta^t \log(c_t) \text{sujeito a} k_{t+1} = (1 - \delta)k_t + k_t^\alpha - c_t\]
+<p>E \(\beta\) é a taxa de desconto intertemporal e \(\delta\) é a taxa de depreciação. Nosso objetivo é descrever qual a escolha ótima do consumidor, dado a quantidade de capital que ele tem. Para isso, reescreva o problema na forma de Bellman:</p>
+\[V(k_t) = \max \log(c_t) + \beta V(k_{t+1})\]
+<p>Onde \(V(k_t)\) é a função valor, que não conhecemos. O algoritmo para resolver o problema é bastante simples:</p>
+<ol>
+<li><p>Estabela um grid de valores possíveis para \(k_t\)</p>
+</li>
+<li><p>Dê um chute inicial para os valores da função valor nos pontos do grid</p>
+</li>
+<li><p>Interpole a função valor de alguma maneira</p>
+</li>
+<li><p>Para cada ponto no grid, encontre o valor do consumo que maximiza a equação</p>
+</li>
+<li><p>Salve o valor do máximo em um vetor</p>
+</li>
+<li><p>Itere 3 - 5 até a diferença entre os máximos estarem abaixo de uma certa tolerância</p>
+</li>
+</ol>
+<p>Vamos dissecar as etapas com cuidado.</p>
+<p>O grid pode ser igualmente espaçado, então vamos usar o comando range. Como capital deve ser maior que zero, o nosso menor valor vai ser um número pequeno diferente de 0. Vamos colocar 200 pontos.</p>
+<pre><code class="language-julia">k_grid = range(1e-7,20,length = 200)
+</code></pre>
+<p>O último valor tem que ser escolhido de maneira que ele não gere problemas no algoritmo: teoricamente nós podemos acumular infinito de capital. Felizmente, retornos decrescentes de escala garantem que se o capital estiver muito acima do valor de <em>steady state</em>, a economia vai despoupar, i.e. reduzir a quantidade de capital.</p>
+<p>Nosso chute inicial vai ser bem simples: simplesmente é o valor da função utilidade do nosso agente avaliado no grid. Isso é equivalente a considerar uma escolha de consumir todo o capital no período. Enquanto isso dificilmente é a escolha ótima, é um bom chute inicial &#40;veja Judd &#40;1998&#41;&#41;.</p>
+<pre><code class="language-julia">u(c) = log(c)
 initial_guess = u.(k_grid)
-</code></pre> <p>Para interpolar, vamos usar o pacote <strong>Interpolations</strong> e fazer a interpolação linear entre os pontos.</p> <pre><code class="julia hljs"><span class=hljs-keyword >using</span> Interpolations
+</code></pre>
+<p>Para interpolar, vamos usar o pacote <strong>Interpolations</strong> e fazer a interpolação linear entre os pontos.</p>
+<pre><code class="language-julia">using Interpolations
 
 inter_value = LinearInterpolation(k_grid,initial_guess, extrapolation_bc = Interpolations.Flat())
-</code></pre> <p>Isso vai entrar dentro do loop, então o código acima é apenas um exemplo. Nós temos que fazer de maneira que sempre que atualizamos o nosso chute para a função valor, a interpolação vai ser atualizada também.</p> <p>O passo 4 involve escrever um loop que passa por todos os pontos do grid, e para cada ponto, encontra o consumo ótimo e o valor da função valor naquele ponto. Um <code>for</code> é perfeitamente adequado para os nossos propósitos. Nós vamos ter que escrever a função a ser otimizada em cada ponto e ela deve receber o consumo, computar o capital remanescente e retornar o valor da função valor naquele ponto, &quot;consultando&quot; a nossa interpolação. A função a ser otimizada, portanto, é:</p> <pre><code class="julia hljs"><span class=hljs-keyword >function</span> V(c)
-  k_next = f(k_now) - c + (<span class=hljs-number >1</span>-delta)*k_now
-  <span class=hljs-keyword >return</span> - u(c) - beta*inter_value(k_next)
-<span class=hljs-keyword >end</span>
-</code></pre> Veja que como queremos o máximo, eu estou multiplicando a função toda por -1. Além disso, a função recebe parâmetros externos <span class=katex ><span class=katex-mathml ><math><semantics><mrow><mi>β</mi></mrow><annotation encoding="application/x-tex">\beta</annotation></semantics></math></span><span class=katex-html  aria-hidden=true ><span class=base ><span class=strut  style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.05278em;">β</span></span></span></span> e <span class=katex ><span class=katex-mathml ><math><semantics><mrow><mi>δ</mi></mrow><annotation encoding="application/x-tex">\delta</annotation></semantics></math></span><span class=katex-html  aria-hidden=true ><span class=base ><span class=strut  style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.03785em;">δ</span></span></span></span> , que não são passados como argumentos da função para facilitar a nossa vida no passo de otimização:</p> <pre><code class="julia hljs"><span class=hljs-keyword >using</span> Optim
+</code></pre>
+<p>Isso vai entrar dentro do loop, então o código acima é apenas um exemplo. Nós temos que fazer de maneira que sempre que atualizamos o nosso chute para a função valor, a interpolação vai ser atualizada também.</p>
+<p>O passo 4 involve escrever um loop que passa por todos os pontos do grid, e para cada ponto, encontra o consumo ótimo e o valor da função valor naquele ponto. Um <code>for</code> é perfeitamente adequado para os nossos propósitos. Nós vamos ter que escrever a função a ser otimizada em cada ponto e ela deve receber o consumo, computar o capital remanescente e retornar o valor da função valor naquele ponto, &quot;consultando&quot; a nossa interpolação. A função a ser otimizada, portanto, é:</p>
+<pre><code class="language-julia">function V(c)
+  k_next = f(k_now) - c + (1-delta)*k_now
+  return - u(c) - beta*inter_value(k_next)
+end
+</code></pre> Veja que como queremos o máximo, eu estou multiplicando a função toda por -1. Além disso, a função recebe parâmetros externos \(\beta\) e \(\delta\), que não são passados como argumentos da função para facilitar a nossa vida no passo de otimização:</p>
+<pre><code class="language-julia">using Optim
 
-<span class=hljs-keyword >for</span> i <span class=hljs-keyword >in</span> <span class=hljs-number >1</span>:length(k_grid)
+for i in 1:length(k_grid)
   k_now = k_grid[i]
-  <span class=hljs-keyword >function</span> V(c)
-    k_next = f(k_now) - c + (<span class=hljs-number >1</span>-delta)*k_now
-    <span class=hljs-keyword >return</span> - u(c) - beta*inter_value(k_next)
-  <span class=hljs-keyword >end</span>
-  resull = optimize(V(c),<span class=hljs-number >1e-9</span>,f(k_now) + (<span class=hljs-number >1</span>-delta)*k_now)
-<span class=hljs-keyword >end</span>
-</code></pre> <p>Veja que com isso, somos incapazes de recuperar os valores do resultados. Precisamos colocar os valores da otimização em um array. Nós temos duas estratégias possíveis: podemos criar um array que salva os valores novos e reescreve os valores antigos; ou um array em que cada linha corresponde a uma iteração do algoritmo. Eu vou seguir o segundo método porque ele vai permitir que a gente veja se a diferença entre as funções valores depois de terminarmos. Isso facilita a vida de descobrir se cometemos algum erro no algoritmo. Isso só vai fazer sentido no algoritmo completo, quando consideramos as diferentes iterações.</p> <p>Eu também vou criar um array que recebe os valores do ponto de ótimo, que são o consumo ótimo para cada valor do estoque de capital. O array se chama <code>policy</code> porque na literatura a escolha ótima em um problema de otimização dinâmica é a &quot;política&quot; - talvez um nome infeliz.</p> <p>Para a etapa 6, vamos usar um <code>while</code>: enquanto não atingimos o número máximo de iteração OU a diferença entre a função valor for maior que uma tolerância, o algoritmo continua. Isso significa que o <code>while</code> vai receber uma condição E: continue se o número de iteração estiver abaixo do máximo <em>e</em> a tolerância estiver acima da necessária.</p> <p>No fim, vamos obter algo do tipo:</p> <pre><code class="julia hljs"><span class=hljs-keyword >using</span> Optim
-<span class=hljs-keyword >using</span> Interpolations
+  function V(c)
+    k_next = f(k_now) - c + (1-delta)*k_now
+    return - u(c) - beta*inter_value(k_next)
+  end
+  resull = optimize(V(c),1e-9,f(k_now) + (1-delta)*k_now)
+end
+</code></pre>
+<p>Veja que com isso, somos incapazes de recuperar os valores do resultados. Precisamos colocar os valores da otimização em um array. Nós temos duas estratégias possíveis: podemos criar um array que salva os valores novos e reescreve os valores antigos; ou um array em que cada linha corresponde a uma iteração do algoritmo. Eu vou seguir o segundo método porque ele vai permitir que a gente veja se a diferença entre as funções valores depois de terminarmos. Isso facilita a vida de descobrir se cometemos algum erro no algoritmo. Isso só vai fazer sentido no algoritmo completo, quando consideramos as diferentes iterações.</p>
+<p>Eu também vou criar um array que recebe os valores do ponto de ótimo, que são o consumo ótimo para cada valor do estoque de capital. O array se chama <code>policy</code> porque na literatura a escolha ótima em um problema de otimização dinâmica é a &quot;política&quot; - talvez um nome infeliz.</p>
+<p>Para a etapa 6, vamos usar um <code>while</code>: enquanto não atingimos o número máximo de iteração OU a diferença entre a função valor for maior que uma tolerância, o algoritmo continua. Isso significa que o <code>while</code> vai receber uma condição E: continue se o número de iteração estiver abaixo do máximo <em>e</em> a tolerância estiver acima da necessária.</p>
+<p>No fim, vamos obter algo do tipo:</p>
+<pre><code class="language-julia">#Pacotes que vamos usar
 
-iter_max = <span class=hljs-number >400</span>
-tol = <span class=hljs-number >1e-9</span>
+using Optim
+using Interpolations
 
-u(c) = log(c)
-f(k) = k^alfa
+#Parâmetros pro algoritmo
 
-k_grid = range(<span class=hljs-number >1e-7</span>,<span class=hljs-number >20</span>,length = <span class=hljs-number >200</span>)
-beta = <span class=hljs-number >0.9</span>
-delta = <span class=hljs-number >0.6</span>
-alfa = <span class=hljs-number >0.6</span>
+iter_max = 400 #número máximo de iterações: depois dissso o programa sai mesmo se não tiver convergência
+tol = 1e-9 #Qual a mudança mínima necessária para nós concluirmos que convergiu? Colocamos 1e-9.
 
-value = zeros(length(k_grid),iter_max)
-value[:,<span class=hljs-number >1</span>] = u.(k_grid)
-policy = zeros(length(k_grid),iter_max)
+u(c) = log(c) #função utilidade
+f(k) = k^alfa #função de produção
 
-error = <span class=hljs-number >1</span>
-j = <span class=hljs-number >2</span>
+k_grid = range(1e-7,20,length = 200) #grid de capital
 
-<span class=hljs-keyword >while</span> error &gt; tol &amp;&amp; j &lt; iter_max
-  inter_value = LinearInterpolation(k_grid,value[:,j-<span class=hljs-number >1</span>], extrapolation_bc = Interpolations.Flat()) <span class=hljs-comment >#interpolação da função valor</span>
-  <span class=hljs-keyword >for</span> i <span class=hljs-keyword >in</span> <span class=hljs-number >1</span>:length(k_grid) <span class=hljs-comment >#iterando nos valores do gri de capital</span>
-    k_now = k_grid[i]
-    <span class=hljs-keyword >function</span> V(c) <span class=hljs-comment >#definação da função valor - recebe apenas o consumo e calcula todo o resto</span>
-      k_next = f(k_now) - c + (<span class=hljs-number >1</span>-delta)*k_now
-      <span class=hljs-keyword >return</span> - u(c) - beta*inter_value(k_next)
-    <span class=hljs-keyword >end</span>
-    resull = optimize(V,<span class=hljs-number >1e-9</span>,f(k_now) + (<span class=hljs-number >1</span>-delta)*k_now) <span class=hljs-comment >#otimizando a função valor</span>
-    value[i,j] = -resull.minimum
-    policy[i,j] = resull.minimizer <span class=hljs-comment >#salvando o resultado</span>
-  <span class=hljs-keyword >end</span>
-  <span class=hljs-keyword >global</span> j = j + <span class=hljs-number >1</span>
-  <span class=hljs-keyword >global</span> error = maximum(abs.(value[:,j]-value[:,j-<span class=hljs-number >1</span>]))
-<span class=hljs-keyword >end</span>
-</code></pre> Onde eu escolhi o valor dos parâmetros que geralmente é usado. Veja que a minha indexação começa em 2 já que a primeira posição do array <code>value</code> é o chute inicial. Veja também que quando salvamos o resultado da otimização nós multiplicamos ele por -1 já que tivemos que multiplicar a função por -1 para encontrar o mínimo.</p> <p>Ao computar o erro, eu usei o máximo do valor absoluto da diferença entre duas iterações. Isso pode ser visto como uma maneira de dizer que queremos que, mesmo no pior dos casos, a mudança seja abaixo de um certo nível, ou podemos usar uma justificativa matemática um pouco mais formal e dizer que isso é a norma <span class=katex ><span class=katex-mathml ><math><semantics><mrow><msub><mi mathvariant=normal >ℓ</mi><mi mathvariant=normal >∞</mi></msub></mrow><annotation encoding="application/x-tex">\ell_{\infty}</annotation></semantics></math></span><span class=katex-html  aria-hidden=true ><span class=base ><span class=strut  style="height:0.84444em;vertical-align:-0.15em;"></span><span class=mord ><span class=mord >ℓ</span><span class=msupsub ><span class="vlist-t vlist-t2"><span class=vlist-r ><span class=vlist  style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class=pstrut  style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">∞</span></span></span></span></span><span class=vlist-s >​</span></span><span class=vlist-r ><span class=vlist  style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> .</p> <p>Vamos fazer uns gráficos para ilustrar. Primeiro, qual a política ótima:</p> <pre><code class="julia hljs"><span class=hljs-keyword >using</span> Plots
+#Parâmetros econômicos, gloriosamente inventados
 
-plot(k_grid,policy[:,<span class=hljs-number >218</span>], legend = :topleft, label = <span class=hljs-string >"Consumo"</span>)
+beta = 0.9 #taxa de desconto
+delta = 0.6 #taxa de depreciação
+alfa = 0.6 #parâmetro de depreciação
 
-png(<span class=hljs-string >"C:\\Users\\User\\Documents\\GitHub\\Julia-Para-Economistas\\Julia Para Economistas\\src\\imagens\\policy_prog_dyn"</span>)
-</code></pre> <img src="/Julia-Para-Economistas/src/imagens/policy_prog_dyn.png" alt="" /></p> <p><em>&#40;No meu computador o algoritmo precisou de 219 iterações para convergir. No seu computador, o número pode ser diferente&#41;</em></p> <p>Veja que a política ótima implica em um consumo bem abaixo do valor do estoque de capital. Vamos analisar a evolução da função valor para cada iteração:</p> <pre><code class="julia hljs">plot(k_grid[<span class=hljs-number >10</span>:<span class=hljs-number >200</span>],value[<span class=hljs-number >10</span>:<span class=hljs-number >200</span>,<span class=hljs-number >1</span>], legend = :bottomright, label = <span class=hljs-string >"Chute Inicial"</span>)
-plot!(k_grid[<span class=hljs-number >10</span>:<span class=hljs-number >200</span>],policy[<span class=hljs-number >10</span>:<span class=hljs-number >200</span>,<span class=hljs-number >20</span>], label = <span class=hljs-string >"j = 20"</span>)
-plot!(k_grid[<span class=hljs-number >10</span>:<span class=hljs-number >200</span>],policy[<span class=hljs-number >10</span>:<span class=hljs-number >200</span>,<span class=hljs-number >100</span>], label = <span class=hljs-string >"j = 100"</span>)
-plot!(k_grid[<span class=hljs-number >10</span>:<span class=hljs-number >200</span>],policy[<span class=hljs-number >10</span>:<span class=hljs-number >200</span>,<span class=hljs-number >200</span>], label = <span class=hljs-string >"j = 200"</span>)
+#Arrays que eu vou encher de dados em cada passo do algoritmo
 
-png(<span class=hljs-string >"C:\\Users\\User\\Documents\\GitHub\\Julia-Para-Economistas\\Julia Para Economistas\\src\\imagens\\value_prog_dyn"</span>)
-</code></pre> <p><img src="/Julia-Para-Economistas/src/imagens/value_prog_dyn.png" alt="" /></p> <p>&#40;Eu sou obrigado a cortar os 10 primeiros pontos porque log de um número próximo a zero é um número muito negativo e distorce o gráfico completamente&#41;</p> <p>Com 20 iterações a função valor já convergiu para a vizinhança do valor final. Isso mostra o quão poderoso é o algoritmo e a <a href="https://azul.netlify.com/2018/10/31/banach/">matemática por de trás dele</a> <div class=page-foot > <div class=copyright > &copy; Daniel Coutinho. Last modified: July 30, 2019. Website built with <a href="https://github.com/tlienart/JuDoc.jl">JuDoc.jl</a>. </div> </div> </div> </div> </div> <script src="/Julia-Para-Economistas/libs/pure/ui.min.js"></script>
+value = zeros(length(k_grid),iter_max) #esse array recebe o valor da função valor
+value[:,1] = u.(k_grid) #chute inicial para a função valor
+policy = zeros(length(k_grid),iter_max) #esse array recebe os valores de consumo ótimos em cada passo do algoritmo
+
+#Inicializando os parâmetros para o while
+
+error = 1
+j = 2
+
+while error > tol && j < iter_max
+  inter_value = LinearInterpolation(k_grid,value[:,j-1], extrapolation_bc = Interpolations.Flat()) #interpolação da função valor
+  for i in 1:length(k_grid) #iterando nos valores do grid de capital
+    k_now = k_grid[i] #só para facilitar a npssa vida: o valor do capital no loop é k_now. Desnecessário, mas deixa o código mais legível.
+    function V(c) #definição da função valor - recebe apenas o consumo e calcula todo o resto
+      k_next = f(k_now) - c + (1-delta)*k_now #calculando o capital implicado pela escolha de consumo hoje
+      return - u(c) - beta*inter_value(k_next) #isso é a equação (2), multiplicada por -1
+    end
+    resull = optimize(V,1e-9,f(k_now) + (1-delta)*k_now) #otimizando a função valor
+    value[i,j] = -resull.minimum #salvando o valor da função valor
+    policy[i,j] = resull.minimizer #salvando o consumo no ótimo
+  end
+  global j = j + 1
+  global error = maximum(abs.(value[:,j]-value[:,j-1])) #calculando o erro nessa iteração
+end
+</code></pre> Onde eu escolhi o valor dos parâmetros que geralmente é usado. Veja que a minha indexação começa em 2 já que a primeira posição do array <code>value</code> é o chute inicial. Veja também que quando salvamos o resultado da otimização nós multiplicamos ele por -1 já que tivemos que multiplicar a função por -1 para encontrar o mínimo.</p>
+<p>Ao computar o erro, eu usei o máximo do valor absoluto da diferença entre duas iterações. Isso pode ser visto como uma maneira de dizer que queremos que, mesmo no pior dos casos, a mudança seja abaixo de um certo nível, ou podemos usar uma justificativa matemática um pouco mais formal e dizer que isso é a norma \(\ell_{\infty}\).</p>
+<p>Vamos fazer uns gráficos para ilustrar. Primeiro, qual a política ótima:</p>
+<pre><code class="language-julia">using Plots
+
+plot(k_grid,policy[:,218], legend = :topleft, label = "Consumo")
+
+png("C:\\Users\\User\\Documents\\GitHub\\Julia-Para-Economistas\\Julia Para Economistas\\src\\imagens\\policy_prog_dyn")
+</code></pre> <img src="/src/imagens/policy_prog_dyn.png" alt="" /></p>
+<p><em>&#40;No meu computador o algoritmo precisou de 219 iterações para convergir. No seu computador, o número pode ser diferente&#41;</em></p>
+<p>Veja que a política ótima implica em um consumo bem abaixo do valor do estoque de capital. Vamos analisar a evolução da função valor para cada iteração:</p>
+<pre><code class="language-julia">plot(k_grid[10:200],value[10:200,1], legend = :bottomright, label = "Chute Inicial")
+plot!(k_grid[10:200],policy[10:200,20], label = "j = 20")
+plot!(k_grid[10:200],policy[10:200,100], label = "j = 100")
+plot!(k_grid[10:200],policy[10:200,200], label = "j = 200")
+
+png("C:\\Users\\User\\Documents\\GitHub\\Julia-Para-Economistas\\Julia Para Economistas\\src\\imagens\\value_prog_dyn")
+</code></pre>
+<p><img src="/src/imagens/value_prog_dyn.png" alt="" /></p>
+<p>&#40;Eu sou obrigado a cortar os 10 primeiros pontos porque log de um número próximo a zero é um número muito negativo e distorce o gráfico completamente&#41;</p>
+<p>Com 20 iterações a função valor já convergiu para a vizinhança do valor final. Isso mostra o quão poderoso é o algoritmo e a <a href="https://azul.netlify.com/2018/10/31/banach/">matemática por de trás dele</a>
+<div class="page-foot">
+  <div class="copyright">
+    &copy; Daniel Coutinho. Last modified: October 02, 2019. Website built with <a href="https://github.com/tlienart/JuDoc.jl">JuDoc.jl</a>.
+  </div>
+</div>
+
+</div>
+<!-- CONTENT ENDS HERE -->
+      </div> <!-- end of id=main -->
+  </div> <!-- end of id=layout -->
+  <script src="/libs/pure/ui.min.js"></script>
+  
+      <script src="/libs/katex/katex.min.js"></script>
+<script src="/libs/katex/auto-render.min.js"></script>
+<script>renderMathInElement(document.body)</script>
+
+  
+  
+      <script src="/libs/highlight/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();hljs.configure({tabReplace: '    '});</script>
+
+  
+</body>
+</html>
