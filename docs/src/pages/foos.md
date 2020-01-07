@@ -238,4 +238,20 @@ solucao,resto = solve_lypaunov(A,I)
 solucao,resto = solve_lypaunov(A,I, iter_max=500, tol = 1e-10)
 ```
 
-Veja que a matriz $A$ atende as condições necessárias para o VAR ser estacionários (o maior autovalor em módulo ser menor que 1) e que em todos os exemplos eu coloquei a matriz identidade como a matriz de variância-covariância do erro. 
+Veja que a matriz $A$ atende as condições necessárias para o VAR ser estacionários (o maior autovalor em módulo ser menor que 1) e que em todos os exemplos eu coloquei a matriz identidade como a matriz de variância-covariância do erro.
+
+# Funções anônimas
+
+Às vezes é conveniente definir uma função sem dar um nome para ela. Definimos uma função anônima fazendo `var->f(var)`. Um exemplo, como de praxe, ajuda a deixar as coisas mais claras:
+
+Podemos ter uma função que recebe vários argumentos mas você quer otimizar apenas em um deles. Para facilitar, vamos supor que esse é o caso e que a função em particular é $f(x,y) = (x-y)^2$, e queremos otimizar apenas em x e manter $y=2$. Então:
+
+```julia
+
+f(x,y) = (x-y)^2 #definindo a função
+
+optimize(x->f(x,2),-4,4)
+
+```
+
+Lembre-se que o -4 e 4 depois da função é o intervalo que queremos que ele busque pelo ótimo. Veja que podemos alterar y e ver que o ótimo muda para ficar igual a y - exatamente como deveria ser.   

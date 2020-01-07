@@ -1,144 +1,29 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-   <!-- Un-minified script so that can play a bit -->
-<link rel="stylesheet" href="/libs/katex/katex.min.css">
-     
-   <!-- Syntax highlighting via Prism, note: restricted langs -->
-<link rel="stylesheet" href="/libs/highlight/github.min.css">
-   
-  <link rel="stylesheet" href="/css/judoc.css">
-  <link rel="stylesheet" href="/css/pure.css">
-  <link rel="stylesheet" href="/css/side-menu.css">
-  <!-- style adjustments -->
-  <style>
-    .jd-content{padding-left:10%;}
-    @media (min-width: 940px) {
-      .jd-content {width: 640px; margin-left: 0px; padding-left: 80px;}
-      .header {width: 700px;}
-    }
-  </style>
-  <link rel="icon" href="/assets/infra/favicon.png">
-   <title>Gráficos</title>  
-</head>
-<body>
-  <div id="layout">
-    <!-- Menu toggle / hamburger icon -->
-    <a href="#menu" id="menuLink" class="menu-link"><span></span></a>
-    <div id="menu">
-      <div class="pure-menu">
-        <a class="pure-menu-heading" href="#">Jl para Econ</a>
-        <ul class="pure-menu-list">
-          <li class="pure-menu-item "><a href="/" class="pure-menu-link">Home</a></li>
-          <li class="pure-menu-item "><a href="/pub/Instalando.html" class="pure-menu-link">Instalando</a></li>
-          <li class="pure-menu-item "><a href="/pub/primeirospassos.html" class="pure-menu-link">Primeiros Passos</a></li>
-          <li class="pure-menu-item "><a href="/pub/graficos.html" class="pure-menu-link">Gráficos</a></li>
-          <li class="pure-menu-item "><a href="/pub/mat.html" class="pure-menu-link">Matemática I</a></li>
-          <li class="pure-menu-item "><a href="/pub/matII.html" class="pure-menu-link">Matemática II</a></li>
-          <li class="pure-menu-item "><a href="/pub/Controledefluxo.html" class="pure-menu-link">Controle de Fluxo</a></li>
-          <li class="pure-menu-item "><a href="/pub/foos.html" class="pure-menu-link">Funções</a></li>
-          <li class="pure-menu-item "><a href="/pub/progdyn.html" class="pure-menu-link">Ex: Prog Dinâmica</a></li>
-          <li class="pure-menu-item "><a href="/pub/markdown.html" class="pure-menu-link">Markdown</a></li>
-          <li class="pure-menu-item "><a href="/pub/misc.html" class="pure-menu-link">Miscelânea</a></li>
-          <li class="pure-menu-item "><a href="/pub/biblio.html" class="pure-menu-link">Bibliografia</a></li>
-        </ul>
-      </div>
-    </div>
-    <div id="main"> <!-- Closed in foot -->
-      <div class="header">
-        <h1>Gráficos</h1>
-        <h2>Julia Para Economistas</h2>
-      </div>
+<!doctype html> <html lang=en > <meta charset=UTF-8 > <meta name=viewport  content="width=device-width, initial-scale=1"> <link rel=stylesheet  href="/Julia-Para-Economistas/libs/katex/katex.min.css"> <link rel=stylesheet  href="/Julia-Para-Economistas/libs/highlight/github.min.css"> <link rel=stylesheet  href="/Julia-Para-Economistas/css/judoc.css"> <link rel=stylesheet  href="/Julia-Para-Economistas/css/pure.css"> <link rel=stylesheet  href="/Julia-Para-Economistas/css/side-menu.css"> <style> .jd-content{padding-left:10%;} @media (min-width: 940px) { .jd-content {width: 640px; margin-left: 0px; padding-left: 80px;} .header {width: 700px;} } </style> <link rel=icon  href="/Julia-Para-Economistas/assets/infra/favicon.png"> <title>Gráficos</title> <div id=layout > <a href="#menu" id=menuLink  class=menu-link ><span></span></a> <div id=menu > <div class=pure-menu > <a class=pure-menu-heading  href="#">Jl para Econ</a> <ul class=pure-menu-list > <li class="pure-menu-item "><a href="/Julia-Para-Economistas/" class=pure-menu-link >Home</a> <li class="pure-menu-item "><a href="/Julia-Para-Economistas/pub/Instalando.html" class=pure-menu-link >Instalando</a> <li class="pure-menu-item "><a href="/Julia-Para-Economistas/pub/primeirospassos.html" class=pure-menu-link >Primeiros Passos</a> <li class="pure-menu-item "><a href="/Julia-Para-Economistas/pub/graficos.html" class=pure-menu-link >Gráficos</a> <li class="pure-menu-item "><a href="/Julia-Para-Economistas/pub/mat.html" class=pure-menu-link >Matemática I</a> <li class="pure-menu-item "><a href="/Julia-Para-Economistas/pub/matII.html" class=pure-menu-link >Matemática II</a> <li class="pure-menu-item "><a href="/Julia-Para-Economistas/pub/Controledefluxo.html" class=pure-menu-link >Controle de Fluxo</a> <li class="pure-menu-item "><a href="/Julia-Para-Economistas/pub/foos.html" class=pure-menu-link >Funções</a> <li class="pure-menu-item "><a href="/Julia-Para-Economistas/pub/progdyn.html" class=pure-menu-link >Ex: Prog Dinâmica</a> <li class="pure-menu-item "><a href="/Julia-Para-Economistas/pub/markdown.html" class=pure-menu-link >Markdown</a> <li class="pure-menu-item "><a href="/Julia-Para-Economistas/pub/misc.html" class=pure-menu-link >Miscelânea</a> <li class="pure-menu-item "><a href="/Julia-Para-Economistas/pub/biblio.html" class=pure-menu-link >Bibliografia</a> </ul> </div> </div> <div id=main > <div class=header > <h1>Gráficos</h1> <h2>Julia Para Economistas</h2> </div> <div class=jd-content > <p>Essa página trata extensivamente de como fazer gráficos no Julia. A principal biblioteca para isso é o <strong>Plots</strong>, que é &quot;só&quot; um pacote que amarra vários outros com uma sintaxe comum. Eu vou mostrar no fim como mudar qual pacote está sendo usado para fazer os plots, mas eu acho que o padrão &#40;GR&#41; produz resultados extremamente aceitáveis - melhor que os <em>plots</em> usuais do R, por exemplo.</p> <h1 id=o_bsico ><a href="/Julia-Para-Economistas/pub/graficos.html#o_bsico">O Básico</a></h1> <p>Podemos querer fazer o gráfico de uma variável, y, que é uma função continua como <span class=katex ><span class=katex-mathml ><math><semantics><mrow><msup><mi>x</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">x^2</annotation></semantics></math></span><span class=katex-html  aria-hidden=true ><span class=base ><span class=strut  style="height:0.8141079999999999em;vertical-align:0em;"></span><span class=mord ><span class="mord mathdefault">x</span><span class=msupsub ><span class=vlist-t ><span class=vlist-r ><span class=vlist  style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class=pstrut  style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span>. Para isso, vamos primeiro chamar o pacote e definir a função <code>plot</code>:</p> <pre><code class="julia hljs"><span class=hljs-keyword >using</span> Plots
 
-<!-- Content appended here -->
-
-<div class="jd-content">
-<p>Essa página trata extensivamente de como fazer gráficos no Julia. A principal biblioteca para isso é o <strong>Plots</strong>, que é &quot;só&quot; um pacote que amarra vários outros com uma sintaxe comum. Eu vou mostrar no fim como mudar qual pacote está sendo usado para fazer os plots, mas eu acho que o padrão &#40;GR&#41; produz resultados extremamente aceitáveis - melhor que os <em>plots</em> usuais do R, por exemplo.</p>
-<h1 id="o_bsico"><a href="/pub/graficos.html#o_bsico">O Básico</a></h1>
-<p>Podemos querer fazer o gráfico de uma variável, y, que é uma função continua como \(x^2\). Para isso, vamos primeiro chamar o pacote e definir a função <code>plot</code>:</p>
-<pre><code class="language-julia">using Plots
-
-f(x) = x^2
-</code></pre>
-<p>Parafazer o plot em um conjunto de valores de x específicos podemos gerar eles usando os comandos que geram sequências e passar para o comando plot e para a função:</p>
-<pre><code class="language-julia">xx = -2:0.01:2
-plot(xx,f.(xx))
-</code></pre>
-<p>Basicamente estamos gerando um grid de valores, espaçados em \(0.01\) e avaliando a função em todos os pontos. Veja que a primeira vez que chamamos o plot ele é um pouco lento em gerar a imagem. Isso é só na primeira vez em cada vez que rodamos o Julia - chamadas subsequentes são mais agéis.</p>
-<p>Podemos querer fazer o gráfico de outra função por cima. Para isso, basta usar o plot com uma exclamação depois &#40;<code>plot&#33;</code>&#41;. Vou fazer o gráfico da função que já definimos e da função \(2x^3-3x^2\):</p>
-<pre><code class="language-julia">h(x)=2x^3-3x^2
+f(x) = x^<span class=hljs-number >2</span></code></pre> <p>Parafazer o plot em um conjunto de valores de x específicos podemos gerar eles usando os comandos que geram sequências e passar para o comando plot e para a função:</p> <pre><code class="julia hljs">xx = -<span class=hljs-number >2</span>:<span class=hljs-number >0.01</span>:<span class=hljs-number >2</span>
+plot(xx,f.(xx))</code></pre> <p>Basicamente estamos gerando um grid de valores, espaçados em <span class=katex ><span class=katex-mathml ><math><semantics><mrow><mn>0.01</mn></mrow><annotation encoding="application/x-tex">0.01</annotation></semantics></math></span><span class=katex-html  aria-hidden=true ><span class=base ><span class=strut  style="height:0.64444em;vertical-align:0em;"></span><span class=mord >0</span><span class=mord >.</span><span class=mord >0</span><span class=mord >1</span></span></span></span> e avaliando a função em todos os pontos. Veja que a primeira vez que chamamos o plot ele é um pouco lento em gerar a imagem. Isso é só na primeira vez em cada vez que rodamos o Julia - chamadas subsequentes são mais agéis.</p> <p>Podemos querer fazer o gráfico de outra função por cima. Para isso, basta usar o plot com uma exclamação depois &#40;<code>plot&#33;</code>&#41;. Vou fazer o gráfico da função que já definimos e da função <span class=katex ><span class=katex-mathml ><math><semantics><mrow><mn>2</mn><msup><mi>x</mi><mn>3</mn></msup><mo>−</mo><mn>3</mn><msup><mi>x</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">2x^3-3x^2</annotation></semantics></math></span><span class=katex-html  aria-hidden=true ><span class=base ><span class=strut  style="height:0.897438em;vertical-align:-0.08333em;"></span><span class=mord >2</span><span class=mord ><span class="mord mathdefault">x</span><span class=msupsub ><span class=vlist-t ><span class=vlist-r ><span class=vlist  style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class=pstrut  style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">3</span></span></span></span></span></span></span></span><span class=mspace  style="margin-right:0.2222222222222222em;"></span><span class=mbin >−</span><span class=mspace  style="margin-right:0.2222222222222222em;"></span></span><span class=base ><span class=strut  style="height:0.8141079999999999em;vertical-align:0em;"></span><span class=mord >3</span><span class=mord ><span class="mord mathdefault">x</span><span class=msupsub ><span class=vlist-t ><span class=vlist-r ><span class=vlist  style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class=pstrut  style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span>:</p> <pre><code class="julia hljs">h(x)=<span class=hljs-number >2</span>x^<span class=hljs-number >3</span>-<span class=hljs-number >3</span>x^<span class=hljs-number >2</span>
 plot(f)
-plot!(h)
-</code></pre>
-<p>Veja que ao usar o <code>plot&#33;</code>, o gráfico automaticamente muda o tamanho do eixo y e coloca a nova linha com uma cor diferente.</p>
-<p>Nós podemos fazer várias mudanças no gráfico. Entre as mais frequentes:</p>
-<ul>
-<li><p>w muda a espessura da linha. É um número inteiro.</p>
-</li>
-<li><p>line muda o tipo da linha. O argumento é escrito de uma maneira curiosa: é <code>:algumacoisa</code>. Assim, <code>:dash</code> gera uma linha tracejada, <code>:solid</code> gera uma linha inteira &#40;que é o default&#41;. Veja outras opções no site do Plots.</p>
-</li>
-<li><p>label muda a legenda. É uma string<a href="#note1" id="note1ref"><sup>1</sup></a>.</p>
-</li>
-<li><p>legend muda a posição da legenda. É como no line, e recebe um argumento com dois pontos. <code>:topleft</code> muda a legenda para o canto esquerdo superior &#40;o padrão é no canto direito&#41; etc.</p>
-</li>
-</ul>
-<p>Eis aqui uma ilustração do uso desses argumentos:</p>
-<pre><code class="language-julia">plot(x,g.(x),legend = :topleft,label = "g(x)")
-plot!(x,h.(x),line = :dash,label = "h(x)",w=2)
-</code></pre>
-<p><img src="/src/imagens/grafico_ex1.png" alt="" /></p>
-<h1 id="pontos_no_linhas"><a href="/pub/graficos.html#pontos_no_linhas">Pontos, não linhas</a></h1>
-<p>O <code>plot</code>, por default, faz linhas. Às vezes queremos o gráfico exibindo uma nuvem de pontos e não linhas. O comando <code>scatter</code> faz isso. Por exemplo, eu posso gerar 100 números saídos de uma Normal com média 0 e variância 1:</p>
-<pre><code class="language-julia">vals =  randn(100)
-scatter(vals)
-</code></pre>
-<p><img src="/src/imagens/grafico_ex2.png" alt="" /></p>
-<p>Nós podemos usar <code>scatter&#33;</code> para colocar pontos por cima ou até mesmo <code>plot&#33;</code> para colocar uma linha no gráfico.</p>
-<h1 id="histogramas"><a href="/pub/graficos.html#histogramas">Histogramas</a></h1>
-<p>Produzir histogramas também é simples: o comando é <code>histogram</code>. Histogramas podem ser colocados um sobre o outro:</p>
-<pre><code class="language-julia">vals1 = randn(100)
-vals2 = randn(500)
+plot!(h)</code></pre> <p>Veja que ao usar o <code>plot&#33;</code>, o gráfico automaticamente muda o tamanho do eixo y e coloca a nova linha com uma cor diferente.</p> <p>Nós podemos fazer várias mudanças no gráfico. Entre as mais frequentes:</p> <ul> <li><p>w muda a espessura da linha. É um número inteiro.</p> <li><p>line muda o tipo da linha. O argumento é escrito de uma maneira curiosa: é <code>:algumacoisa</code>. Assim, <code>:dash</code> gera uma linha tracejada, <code>:solid</code> gera uma linha inteira &#40;que é o default&#41;. Veja outras opções no site do Plots.</p> <li><p>label muda a legenda. É uma string<a href="#note1" id=note1ref ><sup>1</sup></a>.</p> <li><p>legend muda a posição da legenda. É como no line, e recebe um argumento com dois pontos. <code>:topleft</code> muda a legenda para o canto esquerdo superior &#40;o padrão é no canto direito&#41; etc.</p> </ul> <p>Eis aqui uma ilustração do uso desses argumentos:</p> <pre><code class="julia hljs">plot(x,g.(x),legend = :topleft,label = <span class=hljs-string >"g(x)"</span>)
+plot!(x,h.(x),line = :dash,label = <span class=hljs-string >"h(x)"</span>,w=<span class=hljs-number >2</span>)</code></pre> <p><img src="/Julia-Para-Economistas/src/imagens/grafico_ex1.png" alt="" /></p> <h1 id=pontos_no_linhas ><a href="/Julia-Para-Economistas/pub/graficos.html#pontos_no_linhas">Pontos, não linhas</a></h1> <p>O <code>plot</code>, por default, faz linhas. Às vezes queremos o gráfico exibindo uma nuvem de pontos e não linhas. O comando <code>scatter</code> faz isso. Por exemplo, eu posso gerar 100 números saídos de uma Normal com média 0 e variância 1:</p> <pre><code class="julia hljs">vals =  randn(<span class=hljs-number >100</span>)
+scatter(vals)</code></pre> <p><img src="/Julia-Para-Economistas/src/imagens/grafico_ex2.png" alt="" /></p> <p>Nós podemos usar <code>scatter&#33;</code> para colocar pontos por cima ou até mesmo <code>plot&#33;</code> para colocar uma linha no gráfico.</p> <h1 id=histogramas ><a href="/Julia-Para-Economistas/pub/graficos.html#histogramas">Histogramas</a></h1> <p>Produzir histogramas também é simples: o comando é <code>histogram</code>. Histogramas podem ser colocados um sobre o outro:</p> <pre><code class="julia hljs">vals1 = randn(<span class=hljs-number >100</span>)
+vals2 = randn(<span class=hljs-number >500</span>)
 
 histogram(vals1)
-histogram!(vals2)
-</code></pre> <img src="/src/imagens/grafico_ex3.png" alt="" /></p>
-<p>Veja que as vezes o resultado de um histograma podem cobrir o outro completamente, como ocorreu na figura acima. Podemos colocar um valor para a transparência do gráfico com a opção <code>alpha</code>:</p>
-<pre><code class="language-julia">histogram(vals1)
-histogram!(vals2,alpha=0.7)
-</code></pre> <img src="/src/imagens/grafico_ex4.png" alt="" /></p>
-<p>Veja que também podemos usar labels para mudar a legenda nos histogramas.</p>
-<h1 id="salvando_o_resultado"><a href="/pub/graficos.html#salvando_o_resultado">Salvando o resultado</a></h1>
-<p>Uma vez que você esteja satisfeito com o gráfico, salvar é bem simples: basta usar <code>png&#40;caminho do arquivo&#41;</code>. Esse comando vai salvar o gráfico que está sendo exibido, no caso do Atom. Para salvar um dos gráficos que compõe esta página, eu usei:</p>
-<pre><code class="language-julia">png("C:\\Users\\User\\Documents\\GitHub\\Julia-Para-Economistas\\Julia Para Economistas\\src\\imagens\\grafico_ex2")
-</code></pre> Obviamente, isso salva o arquivo no formato png - que é o mais comum hoje em dia e tem tamanho bastante aceitável. Outros formatos estão disponíveis. Infelizmente, <em>eps</em>, que é um formato usado com frequência em documentos do LaTeX, não está implementado para o GR, e não existe um comando <code>eps&#40;&#41;</code> para salvar imagens &#40;até onde eu sei&#41;.</p>
+histogram!(vals2)</code></pre> <img src="/Julia-Para-Economistas/src/imagens/grafico_ex3.png" alt="" /></p> <p>Veja que as vezes o resultado de um histograma podem cobrir o outro completamente, como ocorreu na figura acima. Podemos colocar um valor para a transparência do gráfico com a opção <code>alpha</code>:</p> <pre><code class="julia hljs">histogram(vals1)
+histogram!(vals2,alpha=<span class=hljs-number >0.7</span>)</code></pre> <img src="/Julia-Para-Economistas/src/imagens/grafico_ex4.png" alt="" /></p> <p>Veja que também podemos usar labels para mudar a legenda nos histogramas.</p> <h1 id=salvando_o_resultado ><a href="/Julia-Para-Economistas/pub/graficos.html#salvando_o_resultado">Salvando o resultado</a></h1> <p>Uma vez que você esteja satisfeito com o gráfico, salvar é bem simples: basta usar <code>png&#40;caminho do arquivo&#41;</code>. Esse comando vai salvar o gráfico que está sendo exibido, no caso do Atom. Para salvar um dos gráficos que compõe esta página, eu usei:</p> <pre><code class="julia hljs">png(<span class=hljs-string >"C:\\Users\\User\\Documents\\GitHub\\Julia-Para-Economistas\\Julia Para Economistas\\src\\imagens\\grafico_ex2"</span>)</code></pre> Obviamente, isso salva o arquivo no formato png - que é o mais comum hoje em dia e tem tamanho bastante aceitável. Outros formatos estão disponíveis. Infelizmente, <em>eps</em>, que é um formato usado com frequência em documentos do LaTeX, não está implementado para o GR, e não existe um comando <code>eps&#40;&#41;</code> para salvar imagens &#40;até onde eu sei&#41;.</p>
 <hr />
 
-<a id="note1" href="#note1ref"><sup>1</sup></a>Uma expressão entre aspas que vai ser intepretada como um texto. Ex.: "texto".
+<a id=note1  href="#note1ref"><sup>1</sup></a>Uma expressão entre aspas que vai ser intepretada como um texto. Ex.: "texto".
 </p>
 
-<div class="page-foot">
-  <div class="copyright">
-    &copy; Daniel Coutinho. Last modified: October 24, 2019. Website built with <a href="https://github.com/tlienart/JuDoc.jl">JuDoc.jl</a>.
+<div class=page-foot >
+  <div class=copyright >
+    &copy; Daniel Coutinho. Last modified: October 26, 2019. Website built with <a href="https://github.com/tlienart/JuDoc.jl">JuDoc.jl</a>.
   </div>
 </div>
 
 </div>
-<!-- CONTENT ENDS HERE -->
-      </div> <!-- end of id=main -->
-  </div> <!-- end of id=layout -->
-  <script src="/libs/pure/ui.min.js"></script>
-  
-      <script src="/libs/katex/katex.min.js"></script>
-<script src="/libs/katex/auto-render.min.js"></script>
-<script>renderMathInElement(document.body)</script>
 
-  
-  
-      <script src="/libs/highlight/highlight.pack.js"></script>
-<script>hljs.initHighlightingOnLoad();hljs.configure({tabReplace: '    '});</script>
-
-  
-</body>
-</html>
+      </div> 
+  </div> 
+  <script src="/Julia-Para-Economistas/libs/pure/ui.min.js"></script>

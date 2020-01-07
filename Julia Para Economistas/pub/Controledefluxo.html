@@ -1,183 +1,46 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-   <!-- Un-minified script so that can play a bit -->
-<link rel="stylesheet" href="/libs/katex/katex.min.css">
-     
-   <!-- Syntax highlighting via Prism, note: restricted langs -->
-<link rel="stylesheet" href="/libs/highlight/github.min.css">
-   
-  <link rel="stylesheet" href="/css/judoc.css">
-  <link rel="stylesheet" href="/css/pure.css">
-  <link rel="stylesheet" href="/css/side-menu.css">
-  <!-- style adjustments -->
-  <style>
-    .jd-content{padding-left:10%;}
-    @media (min-width: 940px) {
-      .jd-content {width: 640px; margin-left: 0px; padding-left: 80px;}
-      .header {width: 700px;}
-    }
-  </style>
-  <link rel="icon" href="/assets/infra/favicon.png">
-   <title>Fors, ifs, whiles</title>  
-</head>
-<body>
-  <div id="layout">
-    <!-- Menu toggle / hamburger icon -->
-    <a href="#menu" id="menuLink" class="menu-link"><span></span></a>
-    <div id="menu">
-      <div class="pure-menu">
-        <a class="pure-menu-heading" href="#">Jl para Econ</a>
-        <ul class="pure-menu-list">
-          <li class="pure-menu-item "><a href="/" class="pure-menu-link">Home</a></li>
-          <li class="pure-menu-item "><a href="/pub/Instalando.html" class="pure-menu-link">Instalando</a></li>
-          <li class="pure-menu-item "><a href="/pub/primeirospassos.html" class="pure-menu-link">Primeiros Passos</a></li>
-          <li class="pure-menu-item "><a href="/pub/graficos.html" class="pure-menu-link">Gráficos</a></li>
-          <li class="pure-menu-item "><a href="/pub/mat.html" class="pure-menu-link">Matemática I</a></li>
-          <li class="pure-menu-item "><a href="/pub/matII.html" class="pure-menu-link">Matemática II</a></li>
-          <li class="pure-menu-item "><a href="/pub/Controledefluxo.html" class="pure-menu-link">Controle de Fluxo</a></li>
-          <li class="pure-menu-item "><a href="/pub/foos.html" class="pure-menu-link">Funções</a></li>
-          <li class="pure-menu-item "><a href="/pub/progdyn.html" class="pure-menu-link">Ex: Prog Dinâmica</a></li>
-          <li class="pure-menu-item "><a href="/pub/markdown.html" class="pure-menu-link">Markdown</a></li>
-          <li class="pure-menu-item "><a href="/pub/misc.html" class="pure-menu-link">Miscelânea</a></li>
-          <li class="pure-menu-item "><a href="/pub/biblio.html" class="pure-menu-link">Bibliografia</a></li>
-        </ul>
-      </div>
-    </div>
-    <div id="main"> <!-- Closed in foot -->
-      <div class="header">
-        <h1>Fors, ifs, whiles</h1>
-        <h2>Julia Para Economistas</h2>
-      </div>
-
-<!-- Content appended here -->
-
-<div class="jd-content">
-<p>Nessa página nós vamos tratar de <em>controle de fluxo</em>. Esses são comandos essenciais para construir algoritmos númericos e centrais em qualquer código. Vamos tratar dos três mais comuns: <em>if</em>, <em>for</em> e <em>while</em></p>
-<h1 id="como_ler_essa_seo"><a href="/pub/Controledefluxo.html#como_ler_essa_seo">Como ler essa seção</a></h1>
-<p>Esse capítulo segue a seguinte estrutura: eu apresento os comandos secamente no começo de cada seção: o objetivo é que aqueles que já sabem o que <em>if</em>s, <em>for</em>s e <em>while</em>s fazem possam entender a sintaxe do Julia. Ainda assim, eu sugiro uma leitura, ainda que diagonal. Depois, eu discuto o que cada comando faz com detalhes. A última seção apresenta alguns exemplos, e são de interesse geral.</p>
-<h1 id="if"><a href="/pub/Controledefluxo.html#if">If</a></h1>
-<p>A sintaxe para o <em>If</em> é:</p>
-<pre><code class="language-julia">if condition
+<!doctype html> <html lang=en > <meta charset=UTF-8 > <meta name=viewport  content="width=device-width, initial-scale=1"> <link rel=stylesheet  href="/Julia-Para-Economistas/libs/katex/katex.min.css"> <link rel=stylesheet  href="/Julia-Para-Economistas/libs/highlight/github.min.css"> <link rel=stylesheet  href="/Julia-Para-Economistas/css/judoc.css"> <link rel=stylesheet  href="/Julia-Para-Economistas/css/pure.css"> <link rel=stylesheet  href="/Julia-Para-Economistas/css/side-menu.css"> <style> .jd-content{padding-left:10%;} @media (min-width: 940px) { .jd-content {width: 640px; margin-left: 0px; padding-left: 80px;} .header {width: 700px;} } </style> <link rel=icon  href="/Julia-Para-Economistas/assets/infra/favicon.png"> <title>Fors, ifs, whiles</title> <div id=layout > <a href="#menu" id=menuLink  class=menu-link ><span></span></a> <div id=menu > <div class=pure-menu > <a class=pure-menu-heading  href="#">Jl para Econ</a> <ul class=pure-menu-list > <li class="pure-menu-item "><a href="/Julia-Para-Economistas/" class=pure-menu-link >Home</a> <li class="pure-menu-item "><a href="/Julia-Para-Economistas/pub/Instalando.html" class=pure-menu-link >Instalando</a> <li class="pure-menu-item "><a href="/Julia-Para-Economistas/pub/primeirospassos.html" class=pure-menu-link >Primeiros Passos</a> <li class="pure-menu-item "><a href="/Julia-Para-Economistas/pub/graficos.html" class=pure-menu-link >Gráficos</a> <li class="pure-menu-item "><a href="/Julia-Para-Economistas/pub/mat.html" class=pure-menu-link >Matemática I</a> <li class="pure-menu-item "><a href="/Julia-Para-Economistas/pub/matII.html" class=pure-menu-link >Matemática II</a> <li class="pure-menu-item "><a href="/Julia-Para-Economistas/pub/Controledefluxo.html" class=pure-menu-link >Controle de Fluxo</a> <li class="pure-menu-item "><a href="/Julia-Para-Economistas/pub/foos.html" class=pure-menu-link >Funções</a> <li class="pure-menu-item "><a href="/Julia-Para-Economistas/pub/progdyn.html" class=pure-menu-link >Ex: Prog Dinâmica</a> <li class="pure-menu-item "><a href="/Julia-Para-Economistas/pub/markdown.html" class=pure-menu-link >Markdown</a> <li class="pure-menu-item "><a href="/Julia-Para-Economistas/pub/misc.html" class=pure-menu-link >Miscelânea</a> <li class="pure-menu-item "><a href="/Julia-Para-Economistas/pub/biblio.html" class=pure-menu-link >Bibliografia</a> </ul> </div> </div> <div id=main > <div class=header > <h1>Fors, ifs, whiles</h1> <h2>Julia Para Economistas</h2> </div> <div class=jd-content > <p>Nessa página nós vamos tratar de <em>controle de fluxo</em>. Esses são comandos essenciais para construir algoritmos númericos e centrais em qualquer código. Vamos tratar dos três mais comuns: <em>if</em>, <em>for</em> e <em>while</em></p> <h1 id=como_ler_essa_seo ><a href="/Julia-Para-Economistas/pub/Controledefluxo.html#como_ler_essa_seo">Como ler essa seção</a></h1> <p>Esse capítulo segue a seguinte estrutura: eu apresento os comandos secamente no começo de cada seção: o objetivo é que aqueles que já sabem o que <em>if</em>s, <em>for</em>s e <em>while</em>s fazem possam entender a sintaxe do Julia. Ainda assim, eu sugiro uma leitura, ainda que diagonal. Depois, eu discuto o que cada comando faz com detalhes. A última seção apresenta alguns exemplos, e são de interesse geral.</p> <h1 id=if ><a href="/Julia-Para-Economistas/pub/Controledefluxo.html#if">If</a></h1> <p>A sintaxe para o <em>If</em> é:</p> <pre><code class="julia hljs"><span class=hljs-keyword >if</span> condition
   alguma coisa
-else
+<span class=hljs-keyword >else</span>
   outra coisa
-end
-</code></pre>
-<p><em>If</em> s são blocos que permitem que você teste uma condição e execute um comando condicional àquele condição ser atendida. Caso contrário &#40;<em>else</em>&#41; outro comando pode ser executado. Um exemplo simples é testar se um número é positivo:</p>
-<pre><code class="language-julia">if numero > 0
-    println("Positivo")
-  else
-    println("Negativo")
-  end
-</code></pre>
-<p>Veja que se você não definir antes a variável <code>numero</code>, o Julia vai dar um erro porque a variável não está definida. Por sinal, isso também introduz a função <code>println</code>, que &quot;imprime&quot; &#40;escreve&#41; coisas direto no console, pulando uma linha.</p>
-<p>Podemos estabelecer <code>numero &#61; 3</code> e a rotina acima deve retornar um positivo.</p>
-<p>Obviamente, neste exato momento, como \(0 = 0\), o comando vai testar como falso e vai retornar que zero é negativo&#33; Nós temos duas soluções possíveis:</p>
-<ol>
-<li><p>Trocar o \(>\) por &gt;&#61;. Agora testamos se 0 é maior ou igual que zero; se sim, ele retorna &quot;positivo&quot;. Caso contrário, negativo.</p>
-</li>
-<li><p>Nós podemos querer que, quando o número for zero, ele retorne &quot;zero&quot;</p>
-</li>
-</ol>
-<p>No segundo caso nós teríamos que adicionar mais um teste. Para adicionar um else seguido de um novo teste lógico, nós usamos o <code>elseif</code>, tudo junto. Modificando o exemplo, nós teríamos:</p>
-<pre><code class="language-julia">if numero > 0
-    println("Positivo")
-  elseif numero == 0
-    println("Zero")
-  else
-    println("Negativo")
-  end
-</code></pre>
-<p>Nós poderíamos amarrar isso em uma função para permitir o teste ser realziado para qualquer número repetidas vezes. Faremos isso mais para frente.</p>
-<h1 id="for"><a href="/pub/Controledefluxo.html#for">For</a></h1>
-<p>A sintaxe para o for é:</p>
-<pre><code class="language-julia">for i in 1:numero
+<span class=hljs-keyword >end</span></code></pre> <p><em>If</em> s são blocos que permitem que você teste uma condição e execute um comando condicional àquele condição ser atendida. Caso contrário &#40;<em>else</em>&#41; outro comando pode ser executado. Um exemplo simples é testar se um número é positivo:</p> <pre><code class="julia hljs"><span class=hljs-keyword >if</span> numero &gt; <span class=hljs-number >0</span>
+    println(<span class=hljs-string >"Positivo"</span>)
+  <span class=hljs-keyword >else</span>
+    println(<span class=hljs-string >"Negativo"</span>)
+  <span class=hljs-keyword >end</span></code></pre> <p>Veja que se você não definir antes a variável <code>numero</code>, o Julia vai dar um erro porque a variável não está definida. Por sinal, isso também introduz a função <code>println</code>, que &quot;imprime&quot; &#40;escreve&#41; coisas direto no console, pulando uma linha.</p> <p>Podemos estabelecer <code>numero &#61; 3</code> e a rotina acima deve retornar um positivo.</p> <p>Obviamente, neste exato momento, como <span class=katex ><span class=katex-mathml ><math><semantics><mrow><mn>0</mn><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">0 = 0</annotation></semantics></math></span><span class=katex-html  aria-hidden=true ><span class=base ><span class=strut  style="height:0.64444em;vertical-align:0em;"></span><span class=mord >0</span><span class=mspace  style="margin-right:0.2777777777777778em;"></span><span class=mrel >=</span><span class=mspace  style="margin-right:0.2777777777777778em;"></span></span><span class=base ><span class=strut  style="height:0.64444em;vertical-align:0em;"></span><span class=mord >0</span></span></span></span>, o comando vai testar como falso e vai retornar que zero é negativo&#33; Nós temos duas soluções possíveis:</p> <ol> <li><p>Trocar o <span class=katex ><span class=katex-mathml ><math><semantics><mrow><mo>&gt;</mo></mrow><annotation encoding="application/x-tex">&gt;</annotation></semantics></math></span><span class=katex-html  aria-hidden=true ><span class=base ><span class=strut  style="height:0.5782em;vertical-align:-0.0391em;"></span><span class=mrel >&gt;</span></span></span></span> por &gt;&#61;. Agora testamos se 0 é maior ou igual que zero; se sim, ele retorna &quot;positivo&quot;. Caso contrário, negativo.</p> <li><p>Nós podemos querer que, quando o número for zero, ele retorne &quot;zero&quot;</p> </ol> <p>No segundo caso nós teríamos que adicionar mais um teste. Para adicionar um else seguido de um novo teste lógico, nós usamos o <code>elseif</code>, tudo junto. Modificando o exemplo, nós teríamos:</p> <pre><code class="julia hljs"><span class=hljs-keyword >if</span> numero &gt; <span class=hljs-number >0</span>
+    println(<span class=hljs-string >"Positivo"</span>)
+  <span class=hljs-keyword >elseif</span> numero == <span class=hljs-number >0</span>
+    println(<span class=hljs-string >"Zero"</span>)
+  <span class=hljs-keyword >else</span>
+    println(<span class=hljs-string >"Negativo"</span>)
+  <span class=hljs-keyword >end</span></code></pre> <p>Nós poderíamos amarrar isso em uma função para permitir o teste ser realziado para qualquer número repetidas vezes. Faremos isso mais para frente.</p> <h1 id=for ><a href="/Julia-Para-Economistas/pub/Controledefluxo.html#for">For</a></h1> <p>A sintaxe para o for é:</p> <pre><code class="julia hljs"><span class=hljs-keyword >for</span> i <span class=hljs-keyword >in</span> <span class=hljs-number >1</span>:numero
   operações
-end
-</code></pre>
-<p>Ou:</p>
-<pre><code class="language-julia">for i in vetor
+<span class=hljs-keyword >end</span></code></pre> <p>Ou:</p> <pre><code class="julia hljs"><span class=hljs-keyword >for</span> i <span class=hljs-keyword >in</span> vetor
   operações
-end
-</code></pre>
-<p>O <code>for</code>permite repetir algum conjunto de operações um número de vezes - por isso ele é conhecido como um <em>loop</em>. Um exemplo bobo e simples é tirar a raiz quadrada de todos os número de um vetor de 1 a 10:</p>
-<pre><code class="language-julia">bb = zeros(10)
-  for i in 1:10
+<span class=hljs-keyword >end</span></code></pre> <p>O <code>for</code>permite repetir algum conjunto de operações um número de vezes - por isso ele é conhecido como um <em>loop</em>. Um exemplo bobo e simples é tirar a raiz quadrada de todos os número de um vetor de 1 a 10:</p> <pre><code class="julia hljs">bb = zeros(<span class=hljs-number >10</span>)
+  <span class=hljs-keyword >for</span> i <span class=hljs-keyword >in</span> <span class=hljs-number >1</span>:<span class=hljs-number >10</span>
     bb[i] = sqrt(i)
-  end
-</code></pre>
-<p>A cada etapa i, o Julia tira a raiz de i <code>sqrt&#40;i&#41;</code> e associado o valor a posição i do vetor <code>bb</code>. Veja que uma solução muito mais simples para o mesmo problema seria fazer <code>bb &#61; sqrt.&#40;1:10&#41;</code>, usando a discussão anterior de vetorizar funções e gerar sequências.</p>
-<p>Nosso exemplo acima é extremamente simples para ser ilustrativo: o <em>for</em> é realmente útil, especialmente em simulações.</p>
-<h1 id="while"><a href="/pub/Controledefluxo.html#while">While</a></h1>
-<p>&#40;O While exige o uso da <em>keyword</em> global, então leia a seção mesmo que <em>en passant</em>&#41;</p>
-<p>O <em>While</em> é, como o <em>for</em>, um <em>loop</em>. A diferença é que enquanto o for repete a mesma operação \(n\) vezes, o while repete uma operação até uma certa condição passar a ser falsa. Poderíamos repetir o mesmo exemplo acima usando o while:</p>
-<pre><code class="language-julia">i = 1
+  <span class=hljs-keyword >end</span></code></pre> <p>A cada etapa i, o Julia tira a raiz de i <code>sqrt&#40;i&#41;</code> e associado o valor a posição i do vetor <code>bb</code>. Veja que uma solução muito mais simples para o mesmo problema seria fazer <code>bb &#61; sqrt.&#40;1:10&#41;</code>, usando a discussão anterior de vetorizar funções e gerar sequências.</p> <p>Nosso exemplo acima é extremamente simples para ser ilustrativo: o <em>for</em> é realmente útil, especialmente em simulações.</p> <h1 id=while ><a href="/Julia-Para-Economistas/pub/Controledefluxo.html#while">While</a></h1> <p>&#40;O While exige o uso da <em>keyword</em> global, então leia a seção mesmo que <em>en passant</em>&#41;</p> <p>O <em>While</em> é, como o <em>for</em>, um <em>loop</em>. A diferença é que enquanto o for repete a mesma operação <span class=katex ><span class=katex-mathml ><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class=katex-html  aria-hidden=true ><span class=base ><span class=strut  style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">n</span></span></span></span> vezes, o while repete uma operação até uma certa condição passar a ser falsa. Poderíamos repetir o mesmo exemplo acima usando o while:</p> <pre><code class="julia hljs">i = <span class=hljs-number >1</span>
 
-bb = zeros(10)
+bb = zeros(<span class=hljs-number >10</span>)
 
-while i <= 10
+<span class=hljs-keyword >while</span> i &lt;= <span class=hljs-number >10</span>
   bb[i] = sqrt(i)
-  global i = i + 1
-end
-</code></pre> Veja que isso involve várias linhas de código a mais que o for. A utilidade do <em>while</em> vai ficar clara mais abaixo. Vamos focar primeiro na estrutura do problema.</p>
-<p>Primeiro, temos que declarar o valor da variável que indexa o <em>loop</em> antes do <em>while</em>. Na declaração do <em>while</em>, colocamos a condição que deve ser atentida para o programa se repetir - nesse caso, i deve ser menor ou igual a 10.</p>
-<p>No final do loop, precisamos acrescentar &#43; 1 na variável i, coisa que o for faz &quot;automaticamente&quot; sem a gente ver. Esquecer esse passo é uma ótima maneira de fazer um programa que nunca para de rodar &#40;teste rodar o while sem essa linha&#41;. Veja que antes do i eu usei um <code>global</code>. Isso se deve a maneira como o Julia interpreta as coisas: variáveis dentro de um loop são &quot;locais&quot; &#40;pertencem ao loop&#41; exceto se denotadas como <code>global</code> OU se foram previamente declaradas. Por exemplo, fazer:</p>
-<pre><code class="language-julia">for i in 1:10
+  <span class=hljs-keyword >global</span> i = i + <span class=hljs-number >1</span>
+<span class=hljs-keyword >end</span></code></pre> Veja que isso involve várias linhas de código a mais que o for. A utilidade do <em>while</em> vai ficar clara mais abaixo. Vamos focar primeiro na estrutura do problema.</p> <p>Primeiro, temos que declarar o valor da variável que indexa o <em>loop</em> antes do <em>while</em>. Na declaração do <em>while</em>, colocamos a condição que deve ser atentida para o programa se repetir - nesse caso, i deve ser menor ou igual a 10.</p> <p>No final do loop, precisamos acrescentar &#43; 1 na variável i, coisa que o for faz &quot;automaticamente&quot; sem a gente ver. Esquecer esse passo é uma ótima maneira de fazer um programa que nunca para de rodar &#40;teste rodar o while sem essa linha&#41;. Veja que antes do i eu usei um <code>global</code>. Isso se deve a maneira como o Julia interpreta as coisas: variáveis dentro de um loop são &quot;locais&quot; &#40;pertencem ao loop&#41; exceto se denotadas como <code>global</code> OU se foram previamente declaradas. Por exemplo, fazer:</p> <pre><code class="julia hljs"><span class=hljs-keyword >for</span> i <span class=hljs-keyword >in</span> <span class=hljs-number >1</span>:<span class=hljs-number >10</span>
    a = i
- end
+ <span class=hljs-keyword >end</span>
 
- a
-</code></pre> Deve retornar um erro dizendo que a variável a não existe. Entretanto,</p>
-<pre><code class="language-julia">for i in 1:10
-   global a = i
- end
+ a</code></pre> Deve retornar um erro dizendo que a variável a não existe. Entretanto,</p> <pre><code class="julia hljs"><span class=hljs-keyword >for</span> i <span class=hljs-keyword >in</span> <span class=hljs-number >1</span>:<span class=hljs-number >10</span>
+   <span class=hljs-keyword >global</span> a = i
+ <span class=hljs-keyword >end</span>
 
- a
-</code></pre> Deve retornar 10. Algumas linguagens, como o R, não fazem essa diferenciação, o que pode ser positivo &#40;reduz a quantidade de coisas que entram no código&#41; ou negativo &#40;um loop dentro de outro loop dentro de um terceiro loop muda uma variável que você deu o mesmo nome duas vezes&#41;<a href="#note1" id="note1ref"><sup>1</sup></a>. O que acontece quando nós definimos variáveis dentro de loops que por sua vez são passados para loops dentro deste loop? A próxima seção trata disso.</p>
-<p>Não parece óbivo porque usar o <code>while</code> quando isso requer pelo menos duas linhas de código a mais &#40;além das altas chances de você esquecer a etapa da soma 1&#41;. A justificativa é muito simples: em muitos algoritmos queremos repetir a operação até uma certa condição ser satisfeita. Por exemplo, poderíamos buscar o equilíbrio de um mercado da seguinte maneira: chute um preço inicial e compute a demanda e a oferta. Se a oferta for maior que a demanda, reduza o preço em x. Caso contrário, aumente em x. Faça isso até a diferença entre oferta e demanda ser pequena. Este passo final é facilmente implementável em um loop: <code>while diff &gt; 0.000000001</code> faria o truque.</p>
-<h1 id="loops_dentro_de_loops_e_variveis_globais"><a href="/pub/Controledefluxo.html#loops_dentro_de_loops_e_variveis_globais">Loops dentro de Loops e variáveis globais*</a></h1>
-<p>Uma pergunta honesta é como o Julia lida com loops que tem outros loops dentro - especialmente se for um while dentro de outro. Nós temos que declarar os dois índices como globais?</p>
-<p>Não. O loop de dentro não precisa ser declarado como uma variável global. O seguinte exemplo funciona:</p>
-<pre><code class="language-julia">j = 1
+ a</code></pre> Deve retornar 10. Algumas linguagens, como o R, não fazem essa diferenciação, o que pode ser positivo &#40;reduz a quantidade de coisas que entram no código&#41; ou negativo &#40;um loop dentro de outro loop dentro de um terceiro loop muda uma variável que você deu o mesmo nome duas vezes&#41;<a href="#note1" id=note1ref ><sup>1</sup></a>. O que acontece quando nós definimos variáveis dentro de loops que por sua vez são passados para loops dentro deste loop? A próxima seção trata disso.</p> <p>Não parece óbivo porque usar o <code>while</code> quando isso requer pelo menos duas linhas de código a mais &#40;além das altas chances de você esquecer a etapa da soma 1&#41;. A justificativa é muito simples: em muitos algoritmos queremos repetir a operação até uma certa condição ser satisfeita. Por exemplo, poderíamos buscar o equilíbrio de um mercado da seguinte maneira: chute um preço inicial e compute a demanda e a oferta. Se a oferta for maior que a demanda, reduza o preço em x. Caso contrário, aumente em x. Faça isso até a diferença entre oferta e demanda ser pequena. Este passo final é facilmente implementável em um loop: <code>while diff &gt; 0.000000001</code> faria o truque.</p> <h1 id=loops_dentro_de_loops_e_variveis_globais ><a href="/Julia-Para-Economistas/pub/Controledefluxo.html#loops_dentro_de_loops_e_variveis_globais">Loops dentro de Loops e variáveis globais*</a></h1> <p>Uma pergunta honesta é como o Julia lida com loops que tem outros loops dentro - especialmente se for um while dentro de outro. Nós temos que declarar os dois índices como globais?</p> <p>Não. O loop de dentro não precisa ser declarado como uma variável global. O seguinte exemplo funciona:</p> <pre><code class="julia hljs">j = <span class=hljs-number >1</span>
 
-while j <= 100
-  i = 1
-  while i <= 100
+<span class=hljs-keyword >while</span> j &lt;= <span class=hljs-number >100</span>
+  i = <span class=hljs-number >1</span>
+  <span class=hljs-keyword >while</span> i &lt;= <span class=hljs-number >100</span>
     operações
-    i = i + 1
-  end
-  global j = j + 1
-end
-</code></pre>
-<p>Veja que, na linha <code>i&#61; i&#43;1</code>, se tivessemos usado <code>global</code>, o Julia nos devolveria um erro acusando que <code>i</code> não é uma variável global. De fato, ela está definida dentro do <code>while</code>, e por isso não é global.</p>
-
-<a id="note1" href="#note1ref"><sup>1</sup></a>O R tem uma maneira própria de lidar com esse tipo de coisa, via ambientes. Isso impede que dois objetos com o mesmo nome dentro de dois pacotes diferentes entrem em colisão.
-</p>
-
-<div class="page-foot">
-  <div class="copyright">
-    &copy; Daniel Coutinho. Last modified: October 02, 2019. Website built with <a href="https://github.com/tlienart/JuDoc.jl">JuDoc.jl</a>.
-  </div>
-</div>
-
-</div>
-<!-- CONTENT ENDS HERE -->
-      </div> <!-- end of id=main -->
-  </div> <!-- end of id=layout -->
-  <script src="/libs/pure/ui.min.js"></script>
-  
-      <script src="/libs/katex/katex.min.js"></script>
-<script src="/libs/katex/auto-render.min.js"></script>
-<script>renderMathInElement(document.body)</script>
-
-  
-  
-      <script src="/libs/highlight/highlight.pack.js"></script>
-<script>hljs.initHighlightingOnLoad();hljs.configure({tabReplace: '    '});</script>
-
-  
-</body>
-</html>
+    i = i + <span class=hljs-number >1</span>
+  <span class=hljs-keyword >end</span>
+  <span class=hljs-keyword >global</span> j = j + <span class=hljs-number >1</span>
+<span class=hljs-keyword >end</span></code></pre> <p>Veja que, na linha <code>i&#61; i&#43;1</code>, se tivessemos usado <code>global</code>, o Julia nos devolveria um erro acusando que <code>i</code> não é uma variável global. De fato, ela está definida dentro do <code>while</code>, e por isso não é global.</p> <a id=note1  href="#note1ref"><sup>1</sup></a>O R tem uma maneira própria de lidar com esse tipo de coisa, via ambientes. Isso impede que dois objetos com o mesmo nome dentro de dois pacotes diferentes entrem em colisão. </p> <div class=page-foot > <div class=copyright > &copy; Daniel Coutinho. Last modified: September 07, 2019. Website built with <a href="https://github.com/tlienart/JuDoc.jl">JuDoc.jl</a>. </div> </div> </div> </div> </div> <script src="/Julia-Para-Economistas/libs/pure/ui.min.js"></script>
