@@ -10,7 +10,9 @@ Uma vez instalado, você pode usar o Julia direto do console, mas essa opção �
 
 2. Os _notebooks_ do Jupyter, que são usados também para outras linguagens, em particular o Python.
 
-3. Outras opções são o Visual Studio, Sublime Text. Eu nunca usei essas opções e não sei quais são as limitações dela.
+3. Outras opções são o Visual Studio e o Sublime Text. Eu nunca usei eles.
+
+4. Você também pode usar ambientes ainda mais estranhos como emacs ou vim. Eu não recomendaria isso se é o seu primeiro contato com programação. 
 
 O resto dessa seção vai focar em instalar o Atom e o Julia e o Jupyter.
 
@@ -59,7 +61,7 @@ As vezes o Atom pode ter problemas para achar o caminho correto para o Julia. Ne
 
 # Instalando pacotes
 
-Como na maioria das linguagens de programação atuais, o ecosistema de pacotes escritos por outras pessoas ajudam com várias tarefas que nós vamos nos deparar - por exemplo, algoritmos de otimização, encontrar o zero de uma função e de interpolação. O [Julia Observer](https://juliaobserver.com/) é o catálogo de pacotes: quando você quiser saber se existe um "pacote que faz x", você deve procurar lá.
+Como na maioria das linguagens de programação atuais, o ecosistema de pacotes escritos por outras pessoas ajudam com várias tarefas que nós vamos nos deparar - por exemplo, algoritmos de otimização, encontrar o zero de uma função e de interpolação. O [Julia Packages](https://juliapackages.com/) é o catálogo de pacotes: quando você quiser saber se existe um "pacote que faz x", você deve procurar lá.
 
 Para instalar os pacotes, faça o seguinte **no terminal ou no REPL**:
 
@@ -77,4 +79,5 @@ add Optim
 backspace #(isso não vai gerar nada além da mudança de package> para julia>)
 using Optim #esse último estágio pode ser feito fora do terminal, em um script
 ```
+
 Tendo instalado o Julia, um IDE e sabendo instalar pacotes, podemos seguir adiante.

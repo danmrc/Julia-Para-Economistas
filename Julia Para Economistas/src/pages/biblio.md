@@ -9,4 +9,4 @@ Essa página é dedicada apenas a bibliografia do manual. Ela é dividida em dua
 # Métodos númericos
 
 * Um dos meus livros favoritos, o _Numerical Methods in Economics_, do Kenneth L. Judd, de 1998
-* Outro livro muito bom que discute várias coisas numéricas é o _EconomicDynamics in Discrete Time_, de Jianjun Miao, de 2014.
+* Outro livro muito bom que discute várias coisas numéricas é o _Economic Dynamics in Discrete Time_, de Jianjun Miao, de 2014.

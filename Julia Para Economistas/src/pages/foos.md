@@ -125,7 +125,7 @@ Um comportamento curioso é que se você pede para a função retornar $n$ coisa
 
 function foo2(args)
   um monte de coisa
-  return resultado1, resultado2,resultado3
+  return resultado1, resultado2, resultado3
 end
 
 res = foo2(args)
@@ -255,3 +255,118 @@ optimize(x->f(x,2),-4,4)
 ```
 
 Lembre-se que o -4 e 4 depois da função é o intervalo que queremos que ele busque pelo ótimo. Veja que podemos alterar y e ver que o ótimo muda para ficar igual a y - exatamente como deveria ser.   
+
+# _Multiple Dispatch_
+
+Uma característica das funções do Julia é a possibilidade de usar _multiple dispatch_. A ideia é bem simples: você pode definir o que a função faz dependendo do input. 
+
+Apesar disso soar esquisito, outras linguagens tem ideias parecidas: em R, você pode usar a função `coef` para uma variedade de objetos: para cada objeto, a função `coef` busca os coeficientes associados ao modelo. 
+
+Em R isso não é tão comum - apesar de muitos pacotes usarem isso, não é uma característica muito ressaltada da linguagem. No caso de Julia isso é bastante comum, e basicamente pode ser implementado diretamente na definição da função. Por exemplo, vamos definir uma função que pega dois números e soma eles:
+
+```julia
+
+function soma(a,b)
+	return a + b
+end
+
+```
+
+Por default, ele vai ser definido para os tipos Any. Faz sentido: sem especificar qual tipos valem, o Julia assume o caso mais geral. Vamos criar uma instância que só funciona para floats:
+
+```julia
+
+function soma(a::Float64,b::Float64)
+	return a + b
+end
+
+```
+
+Veja que essa função é totalmente boba, então eu vou dar uns exemplos com mais substância:
+
+* Suponha que a gente quer definir a nossa multiplicação, então vamos fazer o óbvio:
+
+```julia
+
+function minha_mult(a,b)
+	a*b
+end
+
+```
+
+Agora suponha que nós queremos definir a multiplicação entre dois vetores. Aqui existem algumas possibilidades: o resultado pode ser um escalar (então a nossa multiplicação seria um produto interno); o resultado pode ser uma matriz (pense no caso de um vetor aleatório e na matriz de covariância); o resultado pode ser um vetor (multiplicamos cada entrada do vetor pela entrada correspondente do outro vetor). Suponha que nós queremos a última situação. Então, nós podemos fazer:
+
+```julia
+
+function minha_mult(a::Array{Float64,1},b::Array{Float64,1})
+	a.*b
+end
+
+```
+
+Eu estou sendo excessivamente restritivo: apenas Arrays do tipo `Float64` vão usar essa versão da função. Veja que o 1 depois do `Float64` diz que o Array só tem uma dimensão. 
+
+* Um exemplo mais substancial é quando nós definimos uma estrutura, como na parte de estruturas de dados. Por exemplo, nós podemos querer definir uma função que calcula a resposta a impulso a partir das matrizes obtidas de um VAR. Por exemplo:
+
+```julia
+
+function irf(A,B,shock,t)
+    res = zeros(t+1,dim(A,2))
+	for j = 1:(t+1)
+		res[j,:] = A^j*B*shock
+	end
+	return res
+end
+
+```
+
+Veja que `t` é a quantidade de períodos que nós usamos para calcular a resposta a impulso e `shock` é o tamanho do impulso (e em qual variável). 
+
+Veja que se nós tivessemos uma estrutura chamada `var_result`, que salvasse as matrizes `A` e `B` dentro, nós poderíamos definir a seguinte função:
+
+```julia
+
+function irf(model::var_result,shock,t)
+	return irf(model.A,model.B,shock,t)
+end
+
+```
+
+Veja que essa função _chama ela mesmo_ só que em outra "encarnação"! Eu implicitamente disse que a estrutura `var_result` tem  campos `A` e `B`.
+
+# Map
+
+Em alguns casos, nós podemos usar, no lugar do `for`, o comando `map`. O `map` aplica uma função a todos os elementos de um array ou vetor ou sequência e tem a seguinte sintaxe `map(funcao,array)`. 
+
+
+Só para ter um exemplo super bobo, vamos pegar a sequência de números de 1 a 10 e somar 1 usando o `map`:
+
+```julia
+
+map(x->x+1,1:10)
+
+``` 
+
+Nós poderíamos fazer a mesma coisa com um `for`:
+
+```julia
+
+res = zeros(10)
+
+for i = 1:10
+	res[i] = i + 1
+end
+
+
+```
+
+Por que usar um e não o outro?
+
+1. Gosto
+2. O map é muito mais conciso: em uma linha eu fiz o que eu precisei de 4 linhas em um for
+3. O map generaliza mais fácil: se quisermos somar 30 números só temos que mudar um lugar e não 2 (ok, nós poderíamos criar uma variável que diz quem é o máximo, mas isso piora o ponto anterior)
+4. O mais importante: o `map` força você aplicar uma função. Uma vez que você debuggou a função, isso ajuda a deixar o código mais fácil de manter e de generalizar e mais previsível. 
+
+Particularmente, para algumas coisas eu ainda acho melhor usar o `for`. 
+
+Veja que em algumas linguagens, pode haver uma diferença de velocidade entre o `for` e o `map`. Isso não parece ser verdade no Julia. 

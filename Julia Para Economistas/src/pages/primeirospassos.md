@@ -252,3 +252,28 @@ Se fizermos `fieldnames(typeof(op))` ou digitar no console `op.` e pressionar ta
 Uma coisa frustrante nas primeiras vezes que se usa o Julia é a sensação que ele é mais lento que linguagens como R ou Python. O primeiro exemplo desta página - somar dois números - pode não sair instantaneamente, apesar de ser uma conta trivial. Como o Julia é mais rápido se nem um 2+2 ele é rápido?
 
 Parte da resposta se deve a maneira como o Julia procede, que é diferente da maneira como o Python procede. Isso faz com que códigos pequenos (por exemplo, 2+2), seja relativamente lento, mas códigos grandes sejam mais rápido.
+
+Uma maneira de ilustrar isso é o seguinte código:
+
+```julia
+
+tempos = zeros(100)
+
+function foo(a,b)
+
+    return a+b
+
+end
+
+for i = 1:100
+    tempos[i] = @elapsed foo(2,2)
+
+end
+
+```
+
+Isso cria uma função que soma os dois números e depois manda fazer `2+2` 100 vezes. O `@elapsed` faz com que o tempo seja medido e seja retornado - se você quiser medir o tempo mas que o resultado da chamada da função seja retornado, use o `@time` (o tempo será impresso no repl). Vamos ver o gráfico:
+
+![](/src/imagens/tempos.png)
+
+A primeira chamada da função demora muito mais do que todas as outras! Isso se deve a como o Julia funciona e requer mais do que esse manual pretende ensinar.

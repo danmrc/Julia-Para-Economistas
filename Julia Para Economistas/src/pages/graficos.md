@@ -13,7 +13,7 @@ using Plots
 f(x) = x^2
 ```
 
-Parafazer o plot em um conjunto de valores de x específicos podemos gerar eles usando os comandos que geram sequências e passar para o comando plot e para a função:
+Para fazer o plot em um conjunto de valores de x específicos podemos gerar eles usando os comandos que geram sequências e passar para o comando plot e para a função:
 
 ```julia
 
@@ -84,10 +84,12 @@ Veja que as vezes o resultado de um histograma podem cobrir o outro completament
 
 histogram(vals1)
 histogram!(vals2,alpha=0.7)
+
 ```
 ![](/src/imagens/grafico_ex4.png)
 
 Veja que também podemos usar labels para mudar a legenda nos histogramas.
+
 
 # Salvando o resultado
 

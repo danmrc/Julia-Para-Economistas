@@ -85,6 +85,30 @@ A cada etapa i, o Julia tira a raiz de i `sqrt(i)` e associado o valor a posiç�
 
 Nosso exemplo acima é extremamente simples para ser ilustrativo: o _for_ é realmente útil, especialmente em simulações.
 
+E se você precisar iterar em duas variáveis? Suponha que você quer visitar todas as entradas de uma matriz `mat`. Nós poderíamos nos sentir tentados a fazer:
+
+```julia
+
+for i = 1:10
+	for j = 1:10
+		mat[i,j]
+	end
+end
+
+```
+
+Felizmente o Julia permite a seguinte, sintaxe, com o mesmo efeito:
+
+```julia
+
+for i = 1:10,j = 1:10
+	mat[i,j]
+end
+
+```
+
+Que é bem mais legível. 
+
 # While
 
 (O While exige o uso da _keyword_ global, então leia a seção mesmo que _en passant_)
@@ -150,6 +174,7 @@ end
 ```
 
 Veja que, na linha `i= i+1`, se tivessemos usado `global`, o Julia nos devolveria um erro acusando que `i` não é uma variável global. De fato, ela está definida dentro do `while`, e por isso não é global.
+
 
 ~~~
 <a id="note1" href="#note1ref"><sup>1</sup></a>O R tem uma maneira própria de lidar com esse tipo de coisa, via ambientes. Isso impede que dois objetos com o mesmo nome dentro de dois pacotes diferentes entrem em colisão.
