@@ -1,0 +1,18 @@
+<div id="layout">
+  <div id="menu">
+    <ul>
+      <li><a href="/"><b>Julia para Economistas</b></a></li>
+      <li><a href="/pages/Instalando">Instalando</a></li>
+      <li><a href="/pages/primeirospassos">Primeiros Passos</a></li>
+      <li><a href="/pages/graficos">Gráficos</a></li>
+      <li><a href="/pages/mat">Matemática I</a></li>
+      <li><a href="/pages/matII">Matemática II</a></li>
+      <li><a href="/pages/Controledefluxo">Controle de Fluxo</a></li>
+      <li><a href="/pages/foos">Funções</a></li>
+      <li><a href="/pages/progdyn">Ex 1: Programação Dinâmica</a></li>
+      <li><a href="/pages/mqo">Ex 2: MQO</a></li>
+      <li><a href="/pages/misc">Miscelânia</a></li>
+      <li><a href="/pages/biblio">Bibliografia</a></li>
+    </ul>
+  </div>
+  <div id="main">

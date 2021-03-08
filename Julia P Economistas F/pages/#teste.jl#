@@ -1,0 +1,12 @@
+tempos = zeros(100)
+
+function foo(a,b)
+
+    return a+b
+
+end
+
+for i = 1:100
+    tempos[i] = @elapsed foo(2,2)
+
+end
