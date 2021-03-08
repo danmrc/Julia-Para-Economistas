@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+   <!-- Un-minified script so that can play a bit -->
+<link rel="stylesheet" href="/libs/katex/katex.min.css">
+     
+   <!-- Syntax highlighting via Prism, note: restricted langs -->
+<link rel="stylesheet" href="/libs/highlight/github.min.css">
+   
+  <link rel="stylesheet" href="/css/judoc.css">
+  <link rel="stylesheet" href="/css/pure.css">
+  <link rel="stylesheet" href="/css/side-menu.css">
+  <!-- style adjustments -->
+  <style>
+    .jd-content{padding-left:10%;}
+    @media (min-width: 940px) {
+      .jd-content {width: 640px; margin-left: 0px; padding-left: 80px;}
+      .header {width: 700px;}
+    }
+  </style>
+  <link rel="icon" href="/assets/infra/favicon.png">
+   <title>Estruturas de dados</title>  
+</head>
+<body>
+  <div id="layout">
+    <!-- Menu toggle / hamburger icon -->
+    <a href="#menu" id="menuLink" class="menu-link"><span></span></a>
+    <div id="menu">
+      <div class="pure-menu">
+        <a class="pure-menu-heading" href="#">Jl para Econ</a>
+        <ul class="pure-menu-list">
+          <li class="pure-menu-item "><a href="/" class="pure-menu-link">Home</a></li>
+          <li class="pure-menu-item "><a href="/pub/Instalando.html" class="pure-menu-link">Instalando</a></li>
+          <li class="pure-menu-item "><a href="/pub/primeirospassos.html" class="pure-menu-link">Primeiros Passos</a></li>
+	  <li class="pure-menu-item "><a href="/pub/data_struts.html" class="pure-menu-link">Estruturas de dados</a></li>
+          <li class="pure-menu-item "><a href="/pub/graficos.html" class="pure-menu-link">Gráficos</a></li>
+          <li class="pure-menu-item "><a href="/pub/mat.html" class="pure-menu-link">Matemática I</a></li>
+          <li class="pure-menu-item "><a href="/pub/matII.html" class="pure-menu-link">Matemática II</a></li>
+          <li class="pure-menu-item "><a href="/pub/Controledefluxo.html" class="pure-menu-link">Controle de Fluxo</a></li>
+          <li class="pure-menu-item "><a href="/pub/foos.html" class="pure-menu-link">Funções</a></li>
+          <li class="pure-menu-item "><a href="/pub/progdyn.html" class="pure-menu-link">Ex: Prog Dinâmica</a></li>
+          <li class="pure-menu-item "><a href="/pub/markdown.html" class="pure-menu-link">Markdown</a></li>
+          <li class="pure-menu-item "><a href="/pub/misc.html" class="pure-menu-link">Miscelânea</a></li>
+          <li class="pure-menu-item "><a href="/pub/biblio.html" class="pure-menu-link">Bibliografia</a></li>
+        </ul>
+      </div>
+    </div>
+    <div id="main"> <!-- Closed in foot -->
+      <div class="header">
+        <h1>Estruturas de dados</h1>
+        <h2>Julia Para Economistas</h2>
+      </div>
+
+<!-- Content appended here -->
+
+<div class="jd-content">
+<p>Nós já discutimos algumas estruturas de dados, como o <em>Array</em>. Nessa seção eu também apresento o <code>structure</code>.</p>
+<h1 id="arrays"><a href="/pub/data_struts.html#arrays">Arrays</a></h1>
+<p><em>Arrays</em> são basicamente matrizes. Nós podemos gerar uma matriz \(4 \times 4\) de zeros fazendo:</p>
+<pre><code class="language-julia">mat = zeros(4,4)</code></pre>
+<p><em>Arrays</em> são mais gerais que matrizes porque eles podem ter mais de duas dimensões. Nós poderíamos ter um array \(4 \times 4 \times 4\), e isso é trivialmente simples de fazer:</p>
+<pre><code class="language-julia">array1 = zeros(4,4,4)</code></pre>
+<p>Pode não ser óbvio <em>porque</em> você quer objetos desse tipo. Um exemplo é algum modelo em que você discretiza o espaço de estados e ele tem mais de duas dimensões &#40;ou você quer salvar as diferentes interações para checar a convergência&#41;. </p>
+<p>Se eu quisesse acessar um elemento do <code>mat</code>, bastaria fazer <code>mat&#91;2,3&#93;</code>. Para acessar a terceira linha inteira, faríamos <code>mat&#91;3,:&#93;</code>. </p>
+<p>Nós também podemos usar esta mesma maneira para alterar elementos dos <em>arrays</em>. Suponha que eu quero que o elemento do <code>array1</code> na posição \([1,1,1]\) seja 1:</p>
+<pre><code class="language-julia">array1[1,1,1] = 1</code></pre>
+<p>Uma coisa um pouco mais safada é alterar <em>todos</em> os elementos da primeira linha para 1:</p>
+<pre><code class="language-julia">array1[:,1,1] .= 1</code></pre>
+<p>&#40;Note o ponto antes do igual&#41;</p>
+<h2 id="arrays_de_arrays"><a href="/pub/data_struts.html#arrays_de_arrays">Arrays de Arrays</a></h2>
+<p>Apesar de nós normalmente pensarmos nas entradas de uma matriz como números, o Julia permite coisas absolutamente bizarras, como Arrays de Arrays:</p>
+<pre><code class="language-julia">aa = [[1 2 3], [4 5 6]]</code></pre>
+<p>Usar <code>aa&#91;1&#93;</code> retorna um array&#33; Apesar de isso parecer meio bizarro, pode ser útil e ocorre com frequência quando usamos <code>map</code> &#40;que vai ser apresentado na seção de funções&#41;. Por exemplo, o seguinte código vai gerar um array com 10 elementos e cada elemento é um array de 100 elementos:</p>
+<pre><code class="language-julia">map(x->x*randn(100,1:10)</code></pre>
+<h2 id="arrays_esparsos"><a href="/pub/data_struts.html#arrays_esparsos">Arrays esparsos</a></h2>
+<p>Alguns problemas usam arrays com muitos zeros. Três situações dessas: </p>
+<ul>
+<li><p>Soluções de algumas equações diferenciais parciais &#40;que atualmente aparecem em macro, por exemplo&#41;</p>
+</li>
+<li><p>Matrizes de adjacência, que listam quem é vizinho de quem: se o sujeito da linha 10 é vizinho da linha 42, então a entrada &#40;10,42&#41; é igual a 1</p>
+</li>
+<li><p>Quando calculamos jacobiano de um modelo e alguns parâmetros dependem apenas de poucos parâmetros estruturais</p>
+</li>
+</ul>
+<p>Nesse caso nós gostaríamos de trabalhar com matrizes que só salvam as entradas que são diferentes de zero. Faça o seguinte exercício mental: pense numa matriz 100 por 100 que só tem a diagonal principal. Agora temos duas representações: a primeira envolve escrever a matriz &#40;provavelmente num pedaço de cartolina&#33;&#41; ou simplesmente: &quot;uma matriz diagonal com tais números&quot;. Mesmo se você precisar listar 100 números em ordem é muito mais curto que a nossa matriz gigante. </p>
+<p>Faz sentido que isso também funcione para computadores, e isso é feito com matrizes esparsas. Para isso precisamos carregar a a biblioteca <code>SparseArrays</code>. </p>
+<h1 id="structures"><a href="/pub/data_struts.html#structures">Structures</a></h1>
+<p><em>Arrays</em> impõe uma estrutura tabular aos dados - que é até mais versátil que pode parecer a primeira vista. Porém, nós às vezes queremos que trabalhar com matrizes de diferentes tamanhos. Nós poderíamos deixar todas as matrizes soltas por ai, mas amarrar todas elas no mesmo objeto permite que o código fique mais fácil de usar por outras pessoas - e frequentemente as outras pessoas somos nós mesmos alguns meses depois&#33; Outra vantagem é que nós podemos passar um objeto para a função e deixar a função operar a partir do objeto. </p>
+<p>Estruturas vem em dois sabores: <code>struct</code>ou <code>mutable struct</code>. Vamos primeiro focar na sintaxe e depois eu explico a diferença: uma estrutura tem campos, então vamos criar uma estrutura chamada <code>teste</code>, com campos <code>a</code> e <code>b</code>:</p>
+<pre><code class="language-julia">struct teste
+	a
+	b
+end</code></pre>
+<p>Isso <em>não cria</em> um objeto chamado teste. Isso diz a linguagem que um objeto que for uma estrutura do tipo teste deve ter campos a e b. Agora eu posso criar um objeto que é uma estrutura do tipo teste, e que vai ter <code>a</code> igual à 1 e <code>b</code> igual à 2:</p>
+<pre><code class="language-julia">tt = teste(1,2)</code></pre>
+<p>Nós podemos acessar os valores da estrutura  usando <code>objeto.campo</code>: por exemplo, <code>tt.a</code> retorna 1 e <code>tt.b</code> retorna 2. </p>
+<p>Cumprindo a minha promessa, vamos falar da diferença entre <code>struct</code> e <code>mutable struct</code>: uma vez que você criar um objeto que é uma <code>struct</code> nenhum dos campos podem ser mudados. Por exemplo:</p>
+<pre><code class="language-julia">struct minha_estrut
+	a
+	b
+end
+
+aa = minha_estrut(1,2)</code></pre>
+<p>Agora se tentarmos fazer <code>aa.a&#61; 2</code> o Julia acusa um erro. Em compensação, se minha estrutura fosse criada com um <code>mutable struct</code>, nós poderíamos mudar o valor dela. </p>
+<h2 id="por_que_estruturas_imutveis"><a href="/pub/data_struts.html#por_que_estruturas_imutveis">Por que estruturas imutáveis?</a></h2>
+<p>&#40;Você pode pular esse parágrafo e seguir para o próximo sem se perder&#41;</p>
+<p>Veja que estruturas mutáveis tem um sério problema: elas podem ser alteradas em qualquer momento do código &#40;duh&#41;. Isso pode ser ruim: suponha que duas funções acessam a estrutura <code>minha_estrut</code>: a função <code>foo</code> altera o campo a para 2; a função <code>bar</code>checa se os dois campos são iguais. Rodar <code>foo</code> e depois <code>bar</code> gera um resultado, mas rodar <code>bar</code> e depois <code>foo</code> gera outro. Isso pode parecer um exemplo inventado, mas quando começamos a falar de paralelização, isso se torna um problema de verdade&#33;</p>
+
+<div class="page-foot">
+  <div class="copyright">
+    &copy; Daniel Coutinho. Last modified: March 07, 2021. Website built with <a href="https://github.com/tlienart/JuDoc.jl">JuDoc.jl</a>.
+  </div>
+</div>
+
+</div>
+<!-- CONTENT ENDS HERE -->
+      </div> <!-- end of id=main -->
+  </div> <!-- end of id=layout -->
+  <script src="/libs/pure/ui.min.js"></script>
+  
+      <script src="/libs/katex/katex.min.js"></script>
+<script src="/libs/katex/auto-render.min.js"></script>
+<script>renderMathInElement(document.body)</script>
+
+  
+  
+      <script src="/libs/highlight/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();hljs.configure({tabReplace: '    '});</script>
+
+  
+</body>
+</html>
